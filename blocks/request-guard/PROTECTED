@@ -1,0 +1,6 @@
+PROTECTED (AEvo)
+
+  port.ts   — the Guard contract (create(opts) -> middleware). May add options; may not weaken.
+  gates.ts  — may ADD a gate / RAISE a threshold / ADD a requirement; may not remove or lower.
+
+Enforced structurally by gates.assertNoLoosening. adapters/*, demo.ts, insights.md are free.

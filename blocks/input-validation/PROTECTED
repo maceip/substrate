@@ -1,0 +1,6 @@
+PROTECTED (AEvo)
+
+  port.ts   — the Schema + Result contract. May add a rule kind; may not weaken Result.
+  gates.ts  — may ADD a gate / RAISE a threshold / ADD a requirement; may not remove or lower.
+
+Enforced structurally by gates.assertNoLoosening. adapters/*, demo.ts, insights.md are free.

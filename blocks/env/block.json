@@ -1,0 +1,20 @@
+{
+  "block": "env",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "process-env", "capabilities": [] },
+    { "grade": "elementary", "adapter": "dotenv-file", "capabilities": ["example-file"] },
+    { "grade": "graduated", "adapter": "manager", "capabilities": ["example-file", "manager-sourced", "rotation"] }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "secrets>0", "activates": ["example-file"] },
+    { "id": "gate:elementary->graduated", "trigger": "prod && secrets>0", "activates": ["manager-sourced", "rotation"] }
+  ],
+  "consumers": [
+    "typed config object (no raw process.env reads in app code)",
+    "secret handle (DATABASE_URL, API keys) consumed by other blocks"
+  ]
+}

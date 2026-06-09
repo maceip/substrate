@@ -1,0 +1,7 @@
+PROTECTED (AEvo)
+
+  port.ts   — the Router contract (route/use/handle/listen). May add; may not drop handle()
+              (the in-process dispatch path other blocks compose against).
+  gates.ts  — may ADD a gate / RAISE a threshold / ADD a requirement; may not remove or lower.
+
+Enforced structurally by gates.assertNoLoosening. adapters/*, demo.ts, insights.md are free.

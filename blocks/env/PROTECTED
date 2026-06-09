@@ -1,0 +1,7 @@
+PROTECTED (AEvo)
+
+  port.ts   — the validate() contract + the fail-loud guarantee. May add checks; may not let
+              a missing required var boot the app.
+  gates.ts  — may ADD a gate / RAISE a threshold / ADD a requirement; may not remove or lower.
+
+Enforced structurally by gates.assertNoLoosening. adapters/*, demo.ts, insights.md are free.

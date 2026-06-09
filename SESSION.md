@@ -259,18 +259,42 @@ block/
 
 ## Next Steps (in order)
 
-1. Run the port-catalog mining brief against the 100 trending repos AND my last-8-months
-   repos (local agent only — needs filesystem access). Output: debiased port catalog with
-   cross-tab (mine vs OSS), maturity delta (graduation-only set), consumer-block map per port.
+1. ~~Run the port-catalog mining brief.~~ DONE → `outputs/port-catalog-v0.{md,json}`
+   (20 ports, cross-tab mine vs OSS, consumer-block map) + `outputs/BLOCK-CATALOG-100.md`
+   (38 blocks, frequency-ranked) + `outputs/CROSSCHECK-sample-blocks.md`.
 
-2. From the catalog: settle what a block physically looks like. One canonical structure,
-   language-agnostic enough that a Rust block and a Python block both fit it.
+2. ~~Settle what a block physically looks like.~~ DONE → `blocks/persistence/` is the first
+   RUNNABLE block and the canonical layout. `blocks/README.md` is the settled vocabulary.
+   Runs on Node 24 with zero build step: `node blocks/persistence/demo.ts`.
 
-3. Build the nursery template with core ports scaffolded. Each as port + adapter. App built
-   only against ports. Graduation hooks present but empty.
+   **The word-argument is resolved (see blocks/README.md "The five words"):** BLOCK = the
+   capability/folder; PORT = the one interface app code imports (the seam, port.ts); GRADE =
+   which adapter is behind it; GATE = the executable threshold that forces a grade-up and
+   activates requirements; CONSUMER = code built on the port's output. The collision was that
+   "port" meant both the interface seam AND the milestone ("when you hit a port"). Now: the
+   seam is a PORT, the milestone is a GATE.
 
-4. Wire the four-paper structure into the first real block. Prove FoT by having a lesson
-   from project one show up in project two without manual copying.
+3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far:
+   `persistence`, `env`, `logging`, `transport` (all runnable + tested, `npm test` green).
+   Shared spine extracted to `blocks/_kernel/grade.ts` (Grade ladder + assertNoLoosening).
+   Remaining backlog from port-catalog-v0: input-validation, schema-migrations, async-jobs,
+   request-guard, cache, authz, CI/release, etc.
+
+4. Wire the four-paper structure into the blocks.
+   - MOSS (executable, not prose): DONE — every gate is a predicate that runs.
+   - AEvo (PROTECTED + tighten-not-loosen): DONE — `_kernel/assertNoLoosening`, PROTECTED files.
+   - Meta-Agent (blocks compose by boundary contracts): DONE — `blocks/nursery-app/` composes
+     env+logging+persistence+transport into a real notes service; `nursery-app/project.ts`
+     runs ONE ProjectSignals through every block's gate at once (the project-grade dashboard).
+     `npm test` includes the composition test (POST → transport → persistence → logging).
+   - FoT (lesson crosses a repo boundary unaided): STILL TODO. insights.md is seeded in each
+     block but has not yet been PROVEN — needs a SECOND project that pulls a block and inherits
+     a lesson without hand-copying. No meaning until ≥2 projects. THE next real milestone.
+
+5. Graduation mechanism — now PARTLY defined (was fully open). `gates.ts` answers "what
+   triggers a grade-up" (executable thresholds over observed signals) and "what activates"
+   (requirements per gate). STILL OPEN: who authors the graduated impl when a gate fires, and
+   whether the system auto-swaps the adapter or just reports the under-grade (today it reports).
 
 ---
 
