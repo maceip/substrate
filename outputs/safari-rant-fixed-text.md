@@ -1,0 +1,7 @@
+Apple, what the fuck. The Safari WWDC 26 content is the worst I've seen. It's disrespectful — like, you think we either won't notice or don't care?
+
+So here's what happened: Safari could have been, with Siri, out front showcasing best-in-class consumer AI experiences. You know — what we expect after we wait two years. What did the Safari WebKit team do instead? From what I can tell, they shipped zero AI features. They have a beta code sample, though! I ran to download it, and — guess what it does? Nada! No big deal, no big deal — but then, during the Platforms State of the Union, you announce the Safari flagship AI feature: "Describe an Extension." Who the hell asked for that? It was so obviously done last-minute, and hasty at that. The mock must have been so bad they wouldn't let you show it on camera!
+
+You then brag about how hard your team worked on stability. Cool. Cool. Still no mention of Apple Intelligence integration. No mention of any of the emerging AI web standards. Ouch. You then stick the landing by calling out other browsers with AI, saying that they "track my every move." Wow, bro.
+
+So let's get this straight — you have a full year, you ship "group tabs with AI" and voice-to-extension, with zero Apple Intelligence integration. You don't even signal to your constituents — knowing they care about web platform tech, knowing that there are multiple standards, some brought up at your internal conference earlier this year — but now you make fun of other browsers, and then show us no demos. Yikes. I'm embarrassed to be a Safari developer.

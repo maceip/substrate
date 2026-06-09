@@ -1,0 +1,6 @@
+# The ~100 cached GitHub project trees — regenerable, do not version
+.cache/
+
+# OS cruft
+.DS_Store
+**/.DS_Store

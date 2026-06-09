@@ -1,0 +1,5923 @@
+{
+  "archive": "files.zip",
+  "archive_files": [
+    {
+      "path": "trending_100.md",
+      "size": 15137
+    },
+    {
+      "path": "trending_100.json",
+      "size": 23786
+    },
+    {
+      "path": "PROJECT-EXPORT.md",
+      "size": 15678
+    },
+    {
+      "path": "github_trending_today.json",
+      "size": 27792
+    },
+    {
+      "path": "NURSERY-BLOCKS-nextjs.md",
+      "size": 9742
+    },
+    {
+      "path": "github_trending_today.md",
+      "size": 16386
+    },
+    {
+      "path": "blocks-synthesis.md",
+      "size": 12949
+    },
+    {
+      "path": "THE-THING-state-of-play.md",
+      "size": 10445
+    },
+    {
+      "path": "blocks-starter-kit.zip",
+      "size": 17906
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/README.md",
+      "size": 3875
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/CODEOWNERS",
+      "size": 198
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/USAGE.md",
+      "size": 787
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/insights.md",
+      "size": 324
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/manifest.md",
+      "size": 379
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/realizations/typescript.md",
+      "size": 78
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/realizations/python.md",
+      "size": 108
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/realizations/rust.md",
+      "size": 66
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/guard/rules/example_rule.py",
+      "size": 491
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/guard/.protected",
+      "size": 819
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/guard/MODE",
+      "size": 9
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/evolution.md",
+      "size": 766
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/_template/interface.md",
+      "size": 441
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/insights.md",
+      "size": 406
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/manifest.md",
+      "size": 694
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/realizations/typescript.md",
+      "size": 288
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/realizations/python.md",
+      "size": 537
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/realizations/rust.md",
+      "size": 321
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/rules/no_adhoc_logging.py",
+      "size": 1603
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/rules/logs_go_to_stdout.py",
+      "size": 1489
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/.protected",
+      "size": 749
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/MODE",
+      "size": 9
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/evolution.md",
+      "size": 444
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/blocks/structured-logging/interface.md",
+      "size": 589
+    },
+    {
+      "path": "blocks-starter-kit.zip::blocks/bin/blocks",
+      "size": 4488
+    }
+  ],
+  "counts": {
+    "archive_files_including_nested": 34,
+    "internal_file_refs": 35,
+    "internal_path_refs": 28,
+    "json_repo_rows": 200,
+    "nested_starter_kit_files": 25,
+    "non_github_urls": 5,
+    "overlap_repos": 9,
+    "top_level_archive_files": 9,
+    "unique_repos": 191
+  },
+  "generated_at_utc": "2026-06-08T22:45:16.468854+00:00",
+  "internal_file_refs": [
+    {
+      "ref": "/outputs/NURSERY-BLOCKS-nextjs.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "/outputs/THE-THING-state-of-play.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "/outputs/blocks-synthesis.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "AppConfig.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "I18nNavigation.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "NURSERY-BLOCKS-nextjs.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md",
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "Schema.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "THE-THING-state-of-play.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "auth/adapters/clerk.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "auth/index.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "authjs.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "blocks-synthesis.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md",
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "check.py",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "clerk.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "evolution.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "graduated.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "index.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "insights.md",
+      "source_files": [
+        "PROJECT-EXPORT.md",
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "instrumentation.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "interface.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "manifest.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "nursery.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "proxy.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "python.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "rust.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "src/app/api/counter/route.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/app/global-error.tsx",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Arcjet.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/DB.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Env.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/I18nRouting.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Logger.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/models/Schema.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/validations/CounterValidation.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "typescript.md",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    }
+  ],
+  "internal_path_refs": [
+    {
+      "ref": "auth/adapters/clerk.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "auth/http-server",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md",
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "auth/index.ts",
+      "source_files": [
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "auth/store/names",
+      "source_files": [
+        "THE-THING-state-of-play.md"
+      ]
+    },
+    {
+      "ref": "bin/blocks",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/USAGE.md"
+      ]
+    },
+    {
+      "ref": "bin/env",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/blocks/_template/guard/rules/example_rule.py",
+        "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/rules/logs_go_to_stdout.py",
+        "blocks-starter-kit.zip::blocks/blocks/structured-logging/guard/rules/no_adhoc_logging.py"
+      ]
+    },
+    {
+      "ref": "blocks/_template",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/USAGE.md"
+      ]
+    },
+    {
+      "ref": "blocks/_template/",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "blocks/bin/blocks",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/USAGE.md"
+      ]
+    },
+    {
+      "ref": "blocks/py/",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md",
+        "PROJECT-EXPORT.md"
+      ]
+    },
+    {
+      "ref": "blocks/structured-logging/",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md"
+      ]
+    },
+    {
+      "ref": "guard/.protected",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/README.md",
+        "blocks-starter-kit.zip::blocks/blocks/_template/evolution.md",
+        "blocks-starter-kit.zip::blocks/blocks/structured-logging/evolution.md"
+      ]
+    },
+    {
+      "ref": "guard/MODE",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/blocks/_template/manifest.md",
+        "blocks-starter-kit.zip::blocks/blocks/structured-logging/manifest.md"
+      ]
+    },
+    {
+      "ref": "guard/rules/",
+      "source_files": [
+        "blocks-starter-kit.zip::blocks/USAGE.md",
+        "blocks-starter-kit.zip::blocks/blocks/_template/evolution.md",
+        "blocks-starter-kit.zip::blocks/blocks/structured-logging/evolution.md"
+      ]
+    },
+    {
+      "ref": "guard/test",
+      "source_files": [
+        "THE-THING-state-of-play.md"
+      ]
+    },
+    {
+      "ref": "outputs/NURSERY-BLOCKS-nextjs.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "outputs/THE-THING-state-of-play.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "outputs/blocks-synthesis.md",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "outputs/github_trending_today",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/app/api/counter/route.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/app/global-error.tsx",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Arcjet.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/DB.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Env.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/I18nRouting.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/libs/Logger.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/models/Schema.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    },
+    {
+      "ref": "src/validations/CounterValidation.ts",
+      "source_files": [
+        "NURSERY-BLOCKS-nextjs.md"
+      ]
+    }
+  ],
+  "non_github_urls": [
+    {
+      "source_files": [
+        "github_trending_today.json",
+        "github_trending_today.md"
+      ],
+      "url": "http://issues.apache.org"
+    },
+    {
+      "source_files": [
+        "github_trending_today.json"
+      ],
+      "url": "https://cloud.qdrant.io/"
+    },
+    {
+      "source_files": [
+        "trending_100.json",
+        "trending_100.md"
+      ],
+      "url": "https://git.ffmpeg.org/ffmpeg.git"
+    },
+    {
+      "source_files": [
+        "github_trending_today.json"
+      ],
+      "url": "https://gitgitgadget.github.io/"
+    },
+    {
+      "source_files": [
+        "trending_100.json",
+        "trending_100.md"
+      ],
+      "url": "https://matomo.org/jobs"
+    }
+  ],
+  "overlap_repos": [
+    "denoland/deno",
+    "elastic/elasticsearch",
+    "filamentphp/filament",
+    "ggml-org/llama.cpp",
+    "jellyfin/jellyfin",
+    "microsoft/PowerToys",
+    "opencv/opencv",
+    "sveltejs/svelte",
+    "webpack/webpack"
+  ],
+  "repo_sources": {
+    "github_trending_today.json": {
+      "count": 100,
+      "languages": {
+        "C": 10,
+        "C#": 10,
+        "C++": 10,
+        "Go": 10,
+        "Java": 10,
+        "JavaScript": 10,
+        "PHP": 10,
+        "Python": 10,
+        "Rust": 10,
+        "TypeScript": 10
+      },
+      "repos": [
+        {
+          "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+          "full_name": "mvanhorn/last30days-skill",
+          "language": "Python",
+          "rank_in_source": 1,
+          "source_file": "github_trending_today.json",
+          "stars_today": "3,558",
+          "url": "https://github.com/mvanhorn/last30days-skill"
+        },
+        {
+          "description": "A vector index built on TurboQuant, written in Rust with Python bindings",
+          "full_name": "RyanCodrai/turbovec",
+          "language": "Python",
+          "rank_in_source": 2,
+          "source_file": "github_trending_today.json",
+          "stars_today": "1,730",
+          "url": "https://github.com/RyanCodrai/turbovec"
+        },
+        {
+          "description": "Agent Skills for Google products and technologies",
+          "full_name": "google/skills",
+          "language": "Python",
+          "rank_in_source": 3,
+          "source_file": "github_trending_today.json",
+          "stars_today": "481",
+          "url": "https://github.com/google/skills"
+        },
+        {
+          "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu \u2014 one CLI, zero API fees.",
+          "full_name": "Panniantong/Agent-Reach",
+          "language": "Python",
+          "rank_in_source": 4,
+          "source_file": "github_trending_today.json",
+          "stars_today": "796",
+          "url": "https://github.com/Panniantong/Agent-Reach"
+        },
+        {
+          "description": "Find the local LLM that actually runs and performs best on your hardware. Ranked by real, recency-aware benchmarks, not parameter count. One command, run it instantly.",
+          "full_name": "Andyyyy64/whichllm",
+          "language": "Python",
+          "rank_in_source": 5,
+          "source_file": "github_trending_today.json",
+          "stars_today": "103",
+          "url": "https://github.com/Andyyyy64/whichllm"
+        },
+        {
+          "description": "The best-benchmarked open-source AI memory system. And it's free.",
+          "full_name": "MemPalace/mempalace",
+          "language": "Python",
+          "rank_in_source": 6,
+          "source_file": "github_trending_today.json",
+          "stars_today": "237",
+          "url": "https://github.com/MemPalace/mempalace"
+        },
+        {
+          "description": "We write your reusable computer vision tools. \ud83d\udc9c",
+          "full_name": "roboflow/supervision",
+          "language": "Python",
+          "rank_in_source": 7,
+          "source_file": "github_trending_today.json",
+          "stars_today": "1,140",
+          "url": "https://github.com/roboflow/supervision"
+        },
+        {
+          "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+          "full_name": "luongnv89/claude-howto",
+          "language": "Python",
+          "rank_in_source": 8,
+          "source_file": "github_trending_today.json",
+          "stars_today": "393",
+          "url": "https://github.com/luongnv89/claude-howto"
+        },
+        {
+          "description": "Free LLM API keys for GPT-5.5, Claude, DeepSeek, Gemini, Grok \u2014 copy, paste, use. Updated 3-5x daily. No credit card needed.",
+          "full_name": "alistaitsacle/free-llm-api-keys",
+          "language": "Python",
+          "rank_in_source": 9,
+          "source_file": "github_trending_today.json",
+          "stars_today": "143",
+          "url": "https://github.com/alistaitsacle/free-llm-api-keys"
+        },
+        {
+          "description": "Magenta RealTime 2: An Open-Weights Live Music Model",
+          "full_name": "magenta/magenta-realtime",
+          "language": "Python",
+          "rank_in_source": 10,
+          "source_file": "github_trending_today.json",
+          "stars_today": "86",
+          "url": "https://github.com/magenta/magenta-realtime"
+        },
+        {
+          "description": "AI-powered job search system built on Claude Code. 14 skill modes, Go dashboard, PDF generation, batch processing.",
+          "full_name": "santifer/career-ops",
+          "language": "JavaScript",
+          "rank_in_source": 11,
+          "source_file": "github_trending_today.json",
+          "stars_today": "477",
+          "url": "https://github.com/santifer/career-ops"
+        },
+        {
+          "description": "OpenAI Plugins",
+          "full_name": "openai/plugins",
+          "language": "JavaScript",
+          "rank_in_source": 12,
+          "source_file": "github_trending_today.json",
+          "stars_today": "296",
+          "url": "https://github.com/openai/plugins"
+        },
+        {
+          "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+          "full_name": "coreyhaines31/marketingskills",
+          "language": "JavaScript",
+          "rank_in_source": 13,
+          "source_file": "github_trending_today.json",
+          "stars_today": "183",
+          "url": "https://github.com/coreyhaines31/marketingskills"
+        },
+        {
+          "description": "web development for the rest of us",
+          "full_name": "sveltejs/svelte",
+          "language": "JavaScript",
+          "rank_in_source": 14,
+          "source_file": "github_trending_today.json",
+          "stars_today": "44",
+          "url": "https://github.com/sveltejs/svelte"
+        },
+        {
+          "description": "The most comprehensive database of Chinese poetry \ud83e\uddf6\u6700\u5168\u4e2d\u534e\u53e4\u8bd7\u8bcd\u6570\u636e\u5e93, \u5510\u5b8b\u4e24\u671d\u8fd1\u4e00\u4e07\u56db\u5343\u53e4\u8bd7\u4eba, \u63a5\u8fd15.5\u4e07\u9996\u5510\u8bd7\u52a026\u4e07\u5b8b\u8bd7. \u4e24\u5b8b\u65f6\u671f1564\u4f4d\u8bcd\u4eba\uff0c21050\u9996\u8bcd\u3002",
+          "full_name": "chinese-poetry/chinese-poetry",
+          "language": "JavaScript",
+          "rank_in_source": 15,
+          "source_file": "github_trending_today.json",
+          "stars_today": "32",
+          "url": "https://github.com/chinese-poetry/chinese-poetry"
+        },
+        {
+          "description": "AI-assisted TradingView chart analysis \u2014 connect Claude Code to your TradingView Desktop for personal workflow automation",
+          "full_name": "tradesdontlie/tradingview-mcp",
+          "language": "JavaScript",
+          "rank_in_source": 16,
+          "source_file": "github_trending_today.json",
+          "stars_today": "31",
+          "url": "https://github.com/tradesdontlie/tradingview-mcp"
+        },
+        {
+          "description": "\u4e00\u4e2a\u57fa\u4e8e JavaScript \u7684\u7f51\u76d8\u6587\u4ef6\u4e0b\u8f7d\u5730\u5740\u83b7\u53d6\u5de5\u5177\u3002\u57fa\u4e8e\u3010\u7f51\u76d8\u76f4\u94fe\u4e0b\u8f7d\u52a9\u624b\u3011\u4fee\u6539 \uff0c\u652f\u6301 \u767e\u5ea6\u7f51\u76d8 / \u963f\u91cc\u4e91\u76d8 / \u4e2d\u56fd\u79fb\u52a8\u4e91\u76d8 / \u5929\u7ffc\u4e91\u76d8 / \u8fc5\u96f7\u4e91\u76d8 / \u5938\u514b\u7f51\u76d8 / UC\u7f51\u76d8 / 123\u4e91\u76d8 \u516b\u5927\u7f51\u76d8",
+          "full_name": "hmjz100/LinkSwift",
+          "language": "JavaScript",
+          "rank_in_source": 17,
+          "source_file": "github_trending_today.json",
+          "stars_today": "53",
+          "url": "https://github.com/hmjz100/LinkSwift"
+        },
+        {
+          "description": "Fast and low overhead web framework, for Node.js",
+          "full_name": "fastify/fastify",
+          "language": "JavaScript",
+          "rank_in_source": 18,
+          "source_file": "github_trending_today.json",
+          "stars_today": "23",
+          "url": "https://github.com/fastify/fastify"
+        },
+        {
+          "description": "A bundler for javascript and friends. Packs many modules into a few bundled assets. Code Splitting allows for loading parts of the application on demand. Through \"loaders\", modules can be CommonJs, AMD, ES6 modules, CSS, Images, JSON, Coffeescript, LESS, ... and your custom stuff.",
+          "full_name": "webpack/webpack",
+          "language": "JavaScript",
+          "rank_in_source": 19,
+          "source_file": "github_trending_today.json",
+          "stars_today": "18",
+          "url": "https://github.com/webpack/webpack"
+        },
+        {
+          "description": "\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 API-\u043f\u0440\u043e\u043a\u0441\u0438 \u0434\u043b\u044f Qwen AI \u0441 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0430 \u0434\u0438\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0441\u0435\u0441\u0441\u0438\u044f\u043c\u0438 \u0447\u0435\u0440\u0435\u0437 REST API",
+          "full_name": "y13sint/FreeQwenApi",
+          "language": "JavaScript",
+          "rank_in_source": 20,
+          "source_file": "github_trending_today.json",
+          "stars_today": "13",
+          "url": "https://github.com/y13sint/FreeQwenApi"
+        },
+        {
+          "description": "Desktop app to manage markdown knowledge bases",
+          "full_name": "refactoringhq/tolaria",
+          "language": "TypeScript",
+          "rank_in_source": 21,
+          "source_file": "github_trending_today.json",
+          "stars_today": "649",
+          "url": "https://github.com/refactoringhq/tolaria"
+        },
+        {
+          "description": "Agentic AI Infrastructure for magnifying HUMAN capabilities.",
+          "full_name": "danielmiessler/Personal_AI_Infrastructure",
+          "language": "TypeScript",
+          "rank_in_source": 22,
+          "source_file": "github_trending_today.json",
+          "stars_today": "121",
+          "url": "https://github.com/danielmiessler/Personal_AI_Infrastructure"
+        },
+        {
+          "description": "The Frontend Stack for Agents & Generative UI. React, Angular, Mobile, Slack, and more. Makers of the AG-UI Protocol",
+          "full_name": "CopilotKit/CopilotKit",
+          "language": "TypeScript",
+          "rank_in_source": 23,
+          "source_file": "github_trending_today.json",
+          "stars_today": "398",
+          "url": "https://github.com/CopilotKit/CopilotKit"
+        },
+        {
+          "description": "An Open Source implementation of Notebook LM with more flexibility and features",
+          "full_name": "lfnovo/open-notebook",
+          "language": "TypeScript",
+          "rank_in_source": 24,
+          "source_file": "github_trending_today.json",
+          "stars_today": "894",
+          "url": "https://github.com/lfnovo/open-notebook"
+        },
+        {
+          "description": "Skills for Design Engineers",
+          "full_name": "ibelick/ui-skills",
+          "language": "TypeScript",
+          "rank_in_source": 25,
+          "source_file": "github_trending_today.json",
+          "stars_today": "258",
+          "url": "https://github.com/ibelick/ui-skills"
+        },
+        {
+          "description": "OpenTelemetry observability platform",
+          "full_name": "Makisuo/maple",
+          "language": "TypeScript",
+          "rank_in_source": 26,
+          "source_file": "github_trending_today.json",
+          "stars_today": "159",
+          "url": "https://github.com/Makisuo/maple"
+        },
+        {
+          "description": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User Auth, Presets, open-source for self-hosting. Active",
+          "full_name": "danny-avila/LibreChat",
+          "language": "TypeScript",
+          "rank_in_source": 27,
+          "source_file": "github_trending_today.json",
+          "stars_today": "139",
+          "url": "https://github.com/danny-avila/LibreChat"
+        },
+        {
+          "description": "Write HTML. Render video. Built for agents.",
+          "full_name": "heygen-com/hyperframes",
+          "language": "TypeScript",
+          "rank_in_source": 28,
+          "source_file": "github_trending_today.json",
+          "stars_today": "415",
+          "url": "https://github.com/heygen-com/hyperframes"
+        },
+        {
+          "description": "Project N.O.M.A.D, is a self-contained, offline survival computer packed with critical tools, knowledge, and AI to keep you informed and empowered\u2014anytime, anywhere.",
+          "full_name": "Crosstalk-Solutions/project-nomad",
+          "language": "TypeScript",
+          "rank_in_source": 29,
+          "source_file": "github_trending_today.json",
+          "stars_today": "536",
+          "url": "https://github.com/Crosstalk-Solutions/project-nomad"
+        },
+        {
+          "description": "Next generation frontend tooling. It's fast!",
+          "full_name": "vitejs/vite",
+          "language": "TypeScript",
+          "rank_in_source": 30,
+          "source_file": "github_trending_today.json",
+          "stars_today": "32",
+          "url": "https://github.com/vitejs/vite"
+        },
+        {
+          "description": "Jenkins automation server",
+          "full_name": "jenkinsci/jenkins",
+          "language": "Java",
+          "rank_in_source": 31,
+          "source_file": "github_trending_today.json",
+          "stars_today": "19",
+          "url": "https://github.com/jenkinsci/jenkins"
+        },
+        {
+          "description": "\ud83d\udd0e Open source distributed and RESTful search engine.",
+          "full_name": "opensearch-project/OpenSearch",
+          "language": "Java",
+          "rank_in_source": 32,
+          "source_file": "github_trending_today.json",
+          "stars_today": "28",
+          "url": "https://github.com/opensearch-project/OpenSearch"
+        },
+        {
+          "description": "Termux - a terminal emulator application for Android OS extendible by variety of packages.",
+          "full_name": "termux/termux-app",
+          "language": "Java",
+          "rank_in_source": 33,
+          "source_file": "github_trending_today.json",
+          "stars_today": "40",
+          "url": "https://github.com/termux/termux-app"
+        },
+        {
+          "description": "Free and Open Source, Distributed, RESTful Search Engine",
+          "full_name": "elastic/elasticsearch",
+          "language": "Java",
+          "rank_in_source": 34,
+          "source_file": "github_trending_today.json",
+          "stars_today": "26",
+          "url": "https://github.com/elastic/elasticsearch"
+        },
+        {
+          "description": "The automation tower defense RTS",
+          "full_name": "Anuken/Mindustry",
+          "language": "Java",
+          "rank_in_source": 35,
+          "source_file": "github_trending_today.json",
+          "stars_today": "20",
+          "url": "https://github.com/Anuken/Mindustry"
+        },
+        {
+          "description": "",
+          "full_name": "woheller69/FreeDroidWarn",
+          "language": "Java",
+          "rank_in_source": 36,
+          "source_file": "github_trending_today.json",
+          "stars_today": "20",
+          "url": "https://github.com/woheller69/FreeDroidWarn"
+        },
+        {
+          "description": "A browser automation framework and ecosystem.",
+          "full_name": "SeleniumHQ/selenium",
+          "language": "Java",
+          "rank_in_source": 37,
+          "source_file": "github_trending_today.json",
+          "stars_today": "10",
+          "url": "https://github.com/SeleniumHQ/selenium"
+        },
+        {
+          "description": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)",
+          "full_name": "OpenAPITools/openapi-generator",
+          "language": "Java",
+          "rank_in_source": 38,
+          "source_file": "github_trending_today.json",
+          "stars_today": "8",
+          "url": "https://github.com/OpenAPITools/openapi-generator"
+        },
+        {
+          "description": "google maps for block game",
+          "full_name": "cabaletta/baritone",
+          "language": "Java",
+          "rank_in_source": 39,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/cabaletta/baritone"
+        },
+        {
+          "description": "This repository consists of the code samples, assignments, and notes for the Java data structures & algorithms + interview preparation bootcamp of WeMakeDevs.",
+          "full_name": "kunal-kushwaha/DSA-Bootcamp-Java",
+          "language": "Java",
+          "rank_in_source": 40,
+          "source_file": "github_trending_today.json",
+          "stars_today": "17",
+          "url": "https://github.com/kunal-kushwaha/DSA-Bootcamp-Java"
+        },
+        {
+          "description": "The Serenity Operating System \ud83d\udc1e",
+          "full_name": "SerenityOS/serenity",
+          "language": "C++",
+          "rank_in_source": 41,
+          "source_file": "github_trending_today.json",
+          "stars_today": "22",
+          "url": "https://github.com/SerenityOS/serenity"
+        },
+        {
+          "description": "Open Source Computer Vision Library",
+          "full_name": "opencv/opencv",
+          "language": "C++",
+          "rank_in_source": 42,
+          "source_file": "github_trending_today.json",
+          "stars_today": "447",
+          "url": "https://github.com/opencv/opencv"
+        },
+        {
+          "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment.",
+          "full_name": "Fincept-Corporation/FinceptTerminal",
+          "language": "C++",
+          "rank_in_source": 43,
+          "source_file": "github_trending_today.json",
+          "stars_today": "196",
+          "url": "https://github.com/Fincept-Corporation/FinceptTerminal"
+        },
+        {
+          "description": "LLM inference in C/C++",
+          "full_name": "ggml-org/llama.cpp",
+          "language": "C++",
+          "rank_in_source": 44,
+          "source_file": "github_trending_today.json",
+          "stars_today": "492",
+          "url": "https://github.com/ggml-org/llama.cpp"
+        },
+        {
+          "description": "Kodi is an award-winning free and open source home theater/media center software and entertainment hub for digital media. With its beautiful interface and powerful skinning engine, it's available for Android, BSD, Linux, macOS, iOS, tvOS and Windows.",
+          "full_name": "xbmc/xbmc",
+          "language": "C++",
+          "rank_in_source": 45,
+          "source_file": "github_trending_today.json",
+          "stars_today": "19",
+          "url": "https://github.com/xbmc/xbmc"
+        },
+        {
+          "description": "Mod loader, scripting platform, and VR support for all RE Engine games",
+          "full_name": "praydog/REFramework",
+          "language": "C++",
+          "rank_in_source": 46,
+          "source_file": "github_trending_today.json",
+          "stars_today": "7",
+          "url": "https://github.com/praydog/REFramework"
+        },
+        {
+          "description": "\u300a\u660e\u65e5\u65b9\u821f\u300b\u5c0f\u52a9\u624b\uff0c\u5168\u65e5\u5e38\u4e00\u952e\u957f\u8349\uff01| A one-click tool for the daily tasks of Arknights, supporting all clients.",
+          "full_name": "MaaAssistantArknights/MaaAssistantArknights",
+          "language": "C++",
+          "rank_in_source": 47,
+          "source_file": "github_trending_today.json",
+          "stars_today": "23",
+          "url": "https://github.com/MaaAssistantArknights/MaaAssistantArknights"
+        },
+        {
+          "description": "An MCP-based chatbot | \u4e00\u4e2a\u57fa\u4e8eMCP\u7684\u804a\u5929\u673a\u5668\u4eba",
+          "full_name": "78/xiaozhi-esp32",
+          "language": "C++",
+          "rank_in_source": 48,
+          "source_file": "github_trending_today.json",
+          "stars_today": "51",
+          "url": "https://github.com/78/xiaozhi-esp32"
+        },
+        {
+          "description": "OpenSCAD - The Programmers Solid 3D CAD Modeller",
+          "full_name": "openscad/openscad",
+          "language": "C++",
+          "rank_in_source": 49,
+          "source_file": "github_trending_today.json",
+          "stars_today": "6",
+          "url": "https://github.com/openscad/openscad"
+        },
+        {
+          "description": "Super Repository for Coding Interview Preperation",
+          "full_name": "MAZHARMIK/Interview_DS_Algo",
+          "language": "C++",
+          "rank_in_source": 50,
+          "source_file": "github_trending_today.json",
+          "stars_today": "44",
+          "url": "https://github.com/MAZHARMIK/Interview_DS_Algo"
+        },
+        {
+          "description": "The Free Software Media System - Server Backend & API",
+          "full_name": "jellyfin/jellyfin",
+          "language": "C#",
+          "rank_in_source": 51,
+          "source_file": "github_trending_today.json",
+          "stars_today": "43",
+          "url": "https://github.com/jellyfin/jellyfin"
+        },
+        {
+          "description": "The finest Windows Optimizer",
+          "full_name": "hellzerg/optimizer",
+          "language": "C#",
+          "rank_in_source": 52,
+          "source_file": "github_trending_today.json",
+          "stars_today": "4",
+          "url": "https://github.com/hellzerg/optimizer"
+        },
+        {
+          "description": "Video game library manager with support for wide range of 3rd party libraries and game emulation support, providing one unified interface for your games.",
+          "full_name": "JosefNemec/Playnite",
+          "language": "C#",
+          "rank_in_source": 53,
+          "source_file": "github_trending_today.json",
+          "stars_today": "20",
+          "url": "https://github.com/JosefNemec/Playnite"
+        },
+        {
+          "description": "Movie organizer/manager for usenet and torrent users.",
+          "full_name": "Radarr/Radarr",
+          "language": "C#",
+          "rank_in_source": 54,
+          "source_file": "github_trending_today.json",
+          "stars_today": "7",
+          "url": "https://github.com/Radarr/Radarr"
+        },
+        {
+          "description": "The Microsoft Build Engine (MSBuild) is the build platform for .NET and Visual Studio.",
+          "full_name": "dotnet/msbuild",
+          "language": "C#",
+          "rank_in_source": 55,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/dotnet/msbuild"
+        },
+        {
+          "description": "Advanced UX and interoperability extension for Wand (WeMod) app",
+          "full_name": "k1tbyte/Wand-Enhancer",
+          "language": "C#",
+          "rank_in_source": 56,
+          "source_file": "github_trending_today.json",
+          "stars_today": "15",
+          "url": "https://github.com/k1tbyte/Wand-Enhancer"
+        },
+        {
+          "description": "\ud83d\udee0\u300cWatt Toolkit\u300d\u662f\u4e00\u4e2a\u5f00\u6e90\u8de8\u5e73\u53f0\u7684\u591a\u529f\u80fd Steam \u5de5\u5177\u7bb1\u3002",
+          "full_name": "BeyondDimension/SteamTools",
+          "language": "C#",
+          "rank_in_source": 57,
+          "source_file": "github_trending_today.json",
+          "stars_today": "25",
+          "url": "https://github.com/BeyondDimension/SteamTools"
+        },
+        {
+          "description": "An accessibility tool to assist in gameplay and compensate for human imperfections.",
+          "full_name": "PunishXIV/Splatoon",
+          "language": "C#",
+          "rank_in_source": 58,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/PunishXIV/Splatoon"
+        },
+        {
+          "description": "Microsoft PowerToys is a collection of utilities that supercharge productivity and customization on Windows",
+          "full_name": "microsoft/PowerToys",
+          "language": "C#",
+          "rank_in_source": 59,
+          "source_file": "github_trending_today.json",
+          "stars_today": "55",
+          "url": "https://github.com/microsoft/PowerToys"
+        },
+        {
+          "description": "the subtitle editor :)",
+          "full_name": "SubtitleEdit/subtitleedit",
+          "language": "C#",
+          "rank_in_source": 60,
+          "source_file": "github_trending_today.json",
+          "stars_today": "9",
+          "url": "https://github.com/SubtitleEdit/subtitleedit"
+        },
+        {
+          "description": "Every API has a secret identity. This finds it, absorbs every feature from every competing tool, then builds the GOAT CLI \u2014 designed for AI agents first, with SQLite sync, offline search, and compound insight commands.",
+          "full_name": "mvanhorn/cli-printing-press",
+          "language": "Go",
+          "rank_in_source": 61,
+          "source_file": "github_trending_today.json",
+          "stars_today": "89",
+          "url": "https://github.com/mvanhorn/cli-printing-press"
+        },
+        {
+          "description": "Sub2API is an open-source relay platform that unifies Claude, OpenAI, Gemini, and Antigravity subscriptions into a single endpoint. It supports account sharing and cost-sharing, with seamless native tool compatibility.",
+          "full_name": "Wei-Shaw/sub2api",
+          "language": "Go",
+          "rank_in_source": 62,
+          "source_file": "github_trending_today.json",
+          "stars_today": "440",
+          "url": "https://github.com/Wei-Shaw/sub2api"
+        },
+        {
+          "description": "D2 is a modern diagram scripting language that turns text to diagrams.",
+          "full_name": "terrastruct/d2",
+          "language": "Go",
+          "rank_in_source": 63,
+          "source_file": "github_trending_today.json",
+          "stars_today": "56",
+          "url": "https://github.com/terrastruct/d2"
+        },
+        {
+          "description": "Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more",
+          "full_name": "aquasecurity/trivy",
+          "language": "Go",
+          "rank_in_source": 64,
+          "source_file": "github_trending_today.json",
+          "stars_today": "78",
+          "url": "https://github.com/aquasecurity/trivy"
+        },
+        {
+          "description": "VPN client in a thin Docker container for multiple VPN providers, written in Go, and using OpenVPN or Wireguard, DNS over TLS, with a few proxy servers built-in.",
+          "full_name": "passteque/gluetun",
+          "language": "Go",
+          "rank_in_source": 65,
+          "source_file": "github_trending_today.json",
+          "stars_today": "12",
+          "url": "https://github.com/passteque/gluetun"
+        },
+        {
+          "description": "Terminal session manager for AI coding agents. One TUI for Claude, Gemini, OpenCode, Codex, and more.",
+          "full_name": "asheshgoplani/agent-deck",
+          "language": "Go",
+          "rank_in_source": 66,
+          "source_file": "github_trending_today.json",
+          "stars_today": "15",
+          "url": "https://github.com/asheshgoplani/agent-deck"
+        },
+        {
+          "description": "Official library of CLIs generated by the CLI Printing Press. Endorsed, tested, and community-contributed.",
+          "full_name": "mvanhorn/printing-press-library",
+          "language": "Go",
+          "rank_in_source": 67,
+          "source_file": "github_trending_today.json",
+          "stars_today": "17",
+          "url": "https://github.com/mvanhorn/printing-press-library"
+        },
+        {
+          "description": "Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere.",
+          "full_name": "danielmiessler/Fabric",
+          "language": "Go",
+          "rank_in_source": 68,
+          "source_file": "github_trending_today.json",
+          "stars_today": "45",
+          "url": "https://github.com/danielmiessler/Fabric"
+        },
+        {
+          "description": "\"rsync for cloud storage\" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic, Wasabi, Google Cloud Storage, Azure Blob, Azure Files, Yandex Files",
+          "full_name": "rclone/rclone",
+          "language": "Go",
+          "rank_in_source": 69,
+          "source_file": "github_trending_today.json",
+          "stars_today": "64",
+          "url": "https://github.com/rclone/rclone"
+        },
+        {
+          "description": "Go implementation of the Ethereum protocol",
+          "full_name": "ethereum/go-ethereum",
+          "language": "Go",
+          "rank_in_source": 70,
+          "source_file": "github_trending_today.json",
+          "stars_today": "20",
+          "url": "https://github.com/ethereum/go-ethereum"
+        },
+        {
+          "description": "The best tweak for YouTube Music iOS.",
+          "full_name": "dayanch96/YTMusicUltimate",
+          "language": "C",
+          "rank_in_source": 71,
+          "source_file": "github_trending_today.json",
+          "stars_today": "6",
+          "url": "https://github.com/dayanch96/YTMusicUltimate"
+        },
+        {
+          "description": "Esphome based smart home control panel",
+          "full_name": "jtenniswood/espcontrol",
+          "language": "C",
+          "rank_in_source": 72,
+          "source_file": "github_trending_today.json",
+          "stars_today": "17",
+          "url": "https://github.com/jtenniswood/espcontrol"
+        },
+        {
+          "description": "Simple DirectMedia Layer",
+          "full_name": "libsdl-org/SDL",
+          "language": "C",
+          "rank_in_source": 73,
+          "source_file": "github_trending_today.json",
+          "stars_today": "14",
+          "url": "https://github.com/libsdl-org/SDL"
+        },
+        {
+          "description": "The official NGINX Open Source repository.",
+          "full_name": "nginx/nginx",
+          "language": "C",
+          "rank_in_source": 74,
+          "source_file": "github_trending_today.json",
+          "stars_today": "25",
+          "url": "https://github.com/nginx/nginx"
+        },
+        {
+          "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
+          "full_name": "meshcore-dev/MeshCore",
+          "language": "C",
+          "rank_in_source": 75,
+          "source_file": "github_trending_today.json",
+          "stars_today": "7",
+          "url": "https://github.com/meshcore-dev/MeshCore"
+        },
+        {
+          "description": "Mirror of Apache HTTP Server. Issues: http://issues.apache.org",
+          "full_name": "apache/httpd",
+          "language": "C",
+          "rank_in_source": 76,
+          "source_file": "github_trending_today.json",
+          "stars_today": "14",
+          "url": "https://github.com/apache/httpd"
+        },
+        {
+          "description": "Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.",
+          "full_name": "git/git",
+          "language": "C",
+          "rank_in_source": 77,
+          "source_file": "github_trending_today.json",
+          "stars_today": "22",
+          "url": "https://github.com/git/git"
+        },
+        {
+          "description": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph \u2014 average repo in milliseconds. 159 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
+          "full_name": "DeusData/codebase-memory-mcp",
+          "language": "C",
+          "rank_in_source": 78,
+          "source_file": "github_trending_today.json",
+          "stars_today": "28",
+          "url": "https://github.com/DeusData/codebase-memory-mcp"
+        },
+        {
+          "description": "OpenCore bootloader",
+          "full_name": "acidanthera/OpenCorePkg",
+          "language": "C",
+          "rank_in_source": 79,
+          "source_file": "github_trending_today.json",
+          "stars_today": "11",
+          "url": "https://github.com/acidanthera/OpenCorePkg"
+        },
+        {
+          "description": "Open Source Flight Controller Firmware",
+          "full_name": "betaflight/betaflight",
+          "language": "C",
+          "rank_in_source": 80,
+          "source_file": "github_trending_today.json",
+          "stars_today": "4",
+          "url": "https://github.com/betaflight/betaflight"
+        },
+        {
+          "description": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM",
+          "full_name": "aaif-goose/goose",
+          "language": "Rust",
+          "rank_in_source": 81,
+          "source_file": "github_trending_today.json",
+          "stars_today": "699",
+          "url": "https://github.com/aaif-goose/goose"
+        },
+        {
+          "description": "Hyperlight is a lightweight Virtual Machine Manager (VMM) designed to be embedded within applications. It enables safe execution of untrusted code within micro virtual machines with very low latency and minimal overhead.",
+          "full_name": "hyperlight-dev/hyperlight",
+          "language": "Rust",
+          "rank_in_source": 82,
+          "source_file": "github_trending_today.json",
+          "stars_today": "24",
+          "url": "https://github.com/hyperlight-dev/hyperlight"
+        },
+        {
+          "description": "PostgreSQL in-database durable execution",
+          "full_name": "microsoft/pg_durable",
+          "language": "Rust",
+          "rank_in_source": 83,
+          "source_file": "github_trending_today.json",
+          "stars_today": "356",
+          "url": "https://github.com/microsoft/pg_durable"
+        },
+        {
+          "description": "Policy-driven, layered isolation and containment",
+          "full_name": "microsoft/mxc",
+          "language": "Rust",
+          "rank_in_source": 84,
+          "source_file": "github_trending_today.json",
+          "stars_today": "65",
+          "url": "https://github.com/microsoft/mxc"
+        },
+        {
+          "description": "Comfortably monitor your Internet traffic \ud83d\udd75\ufe0f\u200d\u2642\ufe0f",
+          "full_name": "GyulyVGC/sniffnet",
+          "language": "Rust",
+          "rank_in_source": 85,
+          "source_file": "github_trending_today.json",
+          "stars_today": "640",
+          "url": "https://github.com/GyulyVGC/sniffnet"
+        },
+        {
+          "description": "A modern runtime for JavaScript and TypeScript.",
+          "full_name": "denoland/deno",
+          "language": "Rust",
+          "rank_in_source": 86,
+          "source_file": "github_trending_today.json",
+          "stars_today": "34",
+          "url": "https://github.com/denoland/deno"
+        },
+        {
+          "description": "Simple Yet Powerful Anti-Detect Browser \ud83c\udf69",
+          "full_name": "zhom/donutbrowser",
+          "language": "Rust",
+          "rank_in_source": 87,
+          "source_file": "github_trending_today.json",
+          "stars_today": "21",
+          "url": "https://github.com/zhom/donutbrowser"
+        },
+        {
+          "description": "Slint is an open-source declarative GUI toolkit to build native user interfaces for Rust, C++, JavaScript, or Python apps.",
+          "full_name": "slint-ui/slint",
+          "language": "Rust",
+          "rank_in_source": 88,
+          "source_file": "github_trending_today.json",
+          "stars_today": "12",
+          "url": "https://github.com/slint-ui/slint"
+        },
+        {
+          "description": "Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/",
+          "full_name": "qdrant/qdrant",
+          "language": "Rust",
+          "rank_in_source": 89,
+          "source_file": "github_trending_today.json",
+          "stars_today": "37",
+          "url": "https://github.com/qdrant/qdrant"
+        },
+        {
+          "description": "\u26a1A CLI tool for code structural search, lint and rewriting. Written in Rust",
+          "full_name": "ast-grep/ast-grep",
+          "language": "Rust",
+          "rank_in_source": 90,
+          "source_file": "github_trending_today.json",
+          "stars_today": "28",
+          "url": "https://github.com/ast-grep/ast-grep"
+        },
+        {
+          "description": "\u26a1 Dynamically generated, customizable SVG that gives the appearance of typing and deleting text for use on your profile page, repositories, or website.",
+          "full_name": "DenverCoder1/readme-typing-svg",
+          "language": "PHP",
+          "rank_in_source": 91,
+          "source_file": "github_trending_today.json",
+          "stars_today": "8",
+          "url": "https://github.com/DenverCoder1/readme-typing-svg"
+        },
+        {
+          "description": "A powerful open-source UI framework for Laravel \u2022 Build and ship apps & admin panels fast with Livewire",
+          "full_name": "filamentphp/filament",
+          "language": "PHP",
+          "rank_in_source": 92,
+          "source_file": "github_trending_today.json",
+          "stars_today": "14",
+          "url": "https://github.com/filamentphp/filament"
+        },
+        {
+          "description": "PHP library for the Stripe API.",
+          "full_name": "stripe/stripe-php",
+          "language": "PHP",
+          "rank_in_source": 93,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/stripe/stripe-php"
+        },
+        {
+          "description": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static sites, databases, full-stack applications and 280+ one-click services on your own servers.",
+          "full_name": "coollabsio/coolify",
+          "language": "PHP",
+          "rank_in_source": 94,
+          "source_file": "github_trending_today.json",
+          "stars_today": "57",
+          "url": "https://github.com/coollabsio/coolify"
+        },
+        {
+          "description": "High-performance panel based on V2board secondary development supporting new protocols and new features",
+          "full_name": "cedar2025/Xboard",
+          "language": "PHP",
+          "rank_in_source": 95,
+          "source_file": "github_trending_today.json",
+          "stars_today": "4",
+          "url": "https://github.com/cedar2025/Xboard"
+        },
+        {
+          "description": "Security, performance, marketing, and design tools \u2014 Jetpack is made by WordPress experts to make WP sites safer and faster, and help you grow your traffic.",
+          "full_name": "Automattic/jetpack",
+          "language": "PHP",
+          "rank_in_source": 96,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/Automattic/jetpack"
+        },
+        {
+          "description": "Home of the Joomla! Content Management System",
+          "full_name": "joomla/joomla-cms",
+          "language": "PHP",
+          "rank_in_source": 97,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/joomla/joomla-cms"
+        },
+        {
+          "description": "\u300a\u4e00\u4eba\u4f01\u4e1a\u65b9\u6cd5\u8bba\u300b\u7b2c\u4e8c\u7248\uff0c\u4e5f\u9002\u5408\u505a\u5176\u4ed6\u526f\u4e1a\uff08\u6bd4\u5982\u81ea\u5a92\u4f53\u3001\u7535\u5546\u3001\u6570\u5b57\u5546\u54c1\uff09\u7684\u975e\u6280\u672f\u4eba\u7fa4\u3002",
+          "full_name": "easychen/opc-methodology",
+          "language": "PHP",
+          "rank_in_source": 98,
+          "source_file": "github_trending_today.json",
+          "stars_today": "10",
+          "url": "https://github.com/easychen/opc-methodology"
+        },
+        {
+          "description": "openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. Thanks to the modular design of the framework it can be enhanced via plugins. openmediavault is primarily designed to be used in home environments or small home offices.",
+          "full_name": "openmediavault/openmediavault",
+          "language": "PHP",
+          "rank_in_source": 99,
+          "source_file": "github_trending_today.json",
+          "stars_today": "5",
+          "url": "https://github.com/openmediavault/openmediavault"
+        },
+        {
+          "description": "\u4e2a\u4eba\u53d1\u5361\u6e90\u7801\uff0c\u53d1\u5361\u7cfb\u7edf\uff0c\u4e8c\u6b21\u5143\u53d1\u5361\u7cfb\u7edf\uff0c\u4e8c\u6b21\u5143\u53d1\u5361\u6e90\u7801\uff0c\u53d1\u5361\u7a0b\u5e8f\uff0c\u52a8\u6f2b\u53d1\u5361\uff0cPHP\u53d1\u5361\u6e90\u7801\uff0c\u5f02\u6b21\u5143\u53d1\u5361",
+          "full_name": "lizhipay/acg-faka",
+          "language": "PHP",
+          "rank_in_source": 100,
+          "source_file": "github_trending_today.json",
+          "stars_today": "0",
+          "url": "https://github.com/lizhipay/acg-faka"
+        }
+      ]
+    },
+    "trending_100.json": {
+      "count": 100,
+      "languages": {
+        "C": 10,
+        "C#": 10,
+        "C++": 10,
+        "Go": 10,
+        "Java": 10,
+        "JavaScript": 10,
+        "PHP": 10,
+        "Python": 10,
+        "Rust": 10,
+        "TypeScript": 10
+      },
+      "repos": [
+        {
+          "description": "A collective list of free APIs",
+          "full_name": "public-apis/public-apis",
+          "language": "Python",
+          "rank_in_source": 1,
+          "source_file": "trending_100.json",
+          "stars": 440257,
+          "url": "https://github.com/public-apis/public-apis"
+        },
+        {
+          "description": ":books: Freely available programming books",
+          "full_name": "EbookFoundation/free-programming-books",
+          "language": "Python",
+          "rank_in_source": 2,
+          "source_file": "trending_100.json",
+          "stars": 389891,
+          "url": "https://github.com/EbookFoundation/free-programming-books"
+        },
+        {
+          "description": "The agent that grows with you",
+          "full_name": "NousResearch/hermes-agent",
+          "language": "Python",
+          "rank_in_source": 3,
+          "source_file": "trending_100.json",
+          "stars": 187270,
+          "url": "https://github.com/NousResearch/hermes-agent"
+        },
+        {
+          "description": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.",
+          "full_name": "Significant-Gravitas/AutoGPT",
+          "language": "Python",
+          "rank_in_source": 4,
+          "source_file": "trending_100.json",
+          "stars": 184848,
+          "url": "https://github.com/Significant-Gravitas/AutoGPT"
+        },
+        {
+          "description": "\ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
+          "full_name": "huggingface/transformers",
+          "language": "Python",
+          "rank_in_source": 5,
+          "source_file": "trending_100.json",
+          "stars": 161416,
+          "url": "https://github.com/huggingface/transformers"
+        },
+        {
+          "description": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows.",
+          "full_name": "langflow-ai/langflow",
+          "language": "Python",
+          "rank_in_source": 6,
+          "source_file": "trending_100.json",
+          "stars": 149417,
+          "url": "https://github.com/langflow-ai/langflow"
+        },
+        {
+          "description": "Public repository for Agent Skills",
+          "full_name": "anthropics/skills",
+          "language": "Python",
+          "rank_in_source": 7,
+          "source_file": "trending_100.json",
+          "stars": 148019,
+          "url": "https://github.com/anthropics/skills"
+        },
+        {
+          "description": "The agent engineering platform.",
+          "full_name": "langchain-ai/langchain",
+          "language": "Python",
+          "rank_in_source": 8,
+          "source_file": "trending_100.json",
+          "stars": 138827,
+          "url": "https://github.com/langchain-ai/langchain"
+        },
+        {
+          "description": "The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface.",
+          "full_name": "Comfy-Org/ComfyUI",
+          "language": "Python",
+          "rank_in_source": 9,
+          "source_file": "trending_100.json",
+          "stars": 116214,
+          "url": "https://github.com/Comfy-Org/ComfyUI"
+        },
+        {
+          "description": "\ud83d\udcab Toolkit to help you get started with Spec-Driven Development",
+          "full_name": "github/spec-kit",
+          "language": "Python",
+          "rank_in_source": 10,
+          "source_file": "trending_100.json",
+          "stars": 110510,
+          "url": "https://github.com/github/spec-kit"
+        },
+        {
+          "description": "The library for web and native user interfaces.",
+          "full_name": "facebook/react",
+          "language": "JavaScript",
+          "rank_in_source": 11,
+          "source_file": "trending_100.json",
+          "stars": 245668,
+          "url": "https://github.com/facebook/react"
+        },
+        {
+          "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+          "full_name": "affaan-m/ECC",
+          "language": "JavaScript",
+          "rank_in_source": 12,
+          "source_file": "trending_100.json",
+          "stars": 210722,
+          "url": "https://github.com/affaan-m/ECC"
+        },
+        {
+          "description": "Java \u9762\u8bd5 & \u540e\u7aef\u901a\u7528\u9762\u8bd5\u6307\u5357\uff0c\u8986\u76d6\u8ba1\u7b97\u673a\u57fa\u7840\u3001\u6570\u636e\u5e93\u3001\u5206\u5e03\u5f0f\u3001\u9ad8\u5e76\u53d1\u3001\u7cfb\u7edf\u8bbe\u8ba1\u4e0e AI \u5e94\u7528\u5f00\u53d1",
+          "full_name": "Snailclimb/JavaGuide",
+          "language": "JavaScript",
+          "rank_in_source": 13,
+          "source_file": "trending_100.json",
+          "stars": 156221,
+          "url": "https://github.com/Snailclimb/JavaGuide"
+        },
+        {
+          "description": "The React Framework",
+          "full_name": "vercel/next.js",
+          "language": "JavaScript",
+          "rank_in_source": 14,
+          "source_file": "trending_100.json",
+          "stars": 139893,
+          "url": "https://github.com/vercel/next.js"
+        },
+        {
+          "description": "Node.js JavaScript runtime \u2728\ud83d\udc22\ud83d\ude80\u2728",
+          "full_name": "nodejs/node",
+          "language": "JavaScript",
+          "rank_in_source": 15,
+          "source_file": "trending_100.json",
+          "stars": 117703,
+          "url": "https://github.com/nodejs/node"
+        },
+        {
+          "description": "JavaScript 3D Library.",
+          "full_name": "mrdoob/three.js",
+          "language": "JavaScript",
+          "rank_in_source": 16,
+          "source_file": "trending_100.json",
+          "stars": 112897,
+          "url": "https://github.com/mrdoob/three.js"
+        },
+        {
+          "description": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
+          "full_name": "mui/material-ui",
+          "language": "JavaScript",
+          "rank_in_source": 17,
+          "source_file": "trending_100.json",
+          "stars": 98389,
+          "url": "https://github.com/mui/material-ui"
+        },
+        {
+          "description": "A fancy self-hosted monitoring tool",
+          "full_name": "louislam/uptime-kuma",
+          "language": "JavaScript",
+          "rank_in_source": 18,
+          "source_file": "trending_100.json",
+          "stars": 87774,
+          "url": "https://github.com/louislam/uptime-kuma"
+        },
+        {
+          "description": "web development for the rest of us",
+          "full_name": "sveltejs/svelte",
+          "language": "JavaScript",
+          "rank_in_source": 19,
+          "source_file": "trending_100.json",
+          "stars": 87150,
+          "url": "https://github.com/sveltejs/svelte"
+        },
+        {
+          "description": "A bundler for javascript and friends. Packs many modules into a few bundled assets. Code Splitting allows for loading parts of the application on demand. Through \"loaders\", modules can be CommonJs, AMD, ES6 modules, CSS, Images, JSON, Coffeescript, LESS, ... and your custom stuff.",
+          "full_name": "webpack/webpack",
+          "language": "JavaScript",
+          "rank_in_source": 20,
+          "source_file": "trending_100.json",
+          "stars": 65786,
+          "url": "https://github.com/webpack/webpack"
+        },
+        {
+          "description": "freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.",
+          "full_name": "freeCodeCamp/freeCodeCamp",
+          "language": "TypeScript",
+          "rank_in_source": 21,
+          "source_file": "trending_100.json",
+          "stars": 446432,
+          "url": "https://github.com/freeCodeCamp/freeCodeCamp"
+        },
+        {
+          "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. \ud83e\udd9e",
+          "full_name": "openclaw/openclaw",
+          "language": "TypeScript",
+          "rank_in_source": 22,
+          "source_file": "trending_100.json",
+          "stars": 377640,
+          "url": "https://github.com/openclaw/openclaw"
+        },
+        {
+          "description": "Interactive roadmaps, guides and other educational content to help developers grow in their careers.",
+          "full_name": "nilbuild/developer-roadmap",
+          "language": "TypeScript",
+          "rank_in_source": 23,
+          "source_file": "trending_100.json",
+          "stars": 356559,
+          "url": "https://github.com/nilbuild/developer-roadmap"
+        },
+        {
+          "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+          "full_name": "n8n-io/n8n",
+          "language": "TypeScript",
+          "rank_in_source": 24,
+          "source_file": "trending_100.json",
+          "stars": 191617,
+          "url": "https://github.com/n8n-io/n8n"
+        },
+        {
+          "description": "Visual Studio Code",
+          "full_name": "microsoft/vscode",
+          "language": "TypeScript",
+          "rank_in_source": 25,
+          "source_file": "trending_100.json",
+          "stars": 186071,
+          "url": "https://github.com/microsoft/vscode"
+        },
+        {
+          "description": "The open source coding agent.",
+          "full_name": "anomalyco/opencode",
+          "language": "TypeScript",
+          "rank_in_source": 26,
+          "source_file": "trending_100.json",
+          "stars": 171656,
+          "url": "https://github.com/anomalyco/opencode"
+        },
+        {
+          "description": "Production-ready platform for agentic workflow development.",
+          "full_name": "langgenius/dify",
+          "language": "TypeScript",
+          "rank_in_source": 27,
+          "source_file": "trending_100.json",
+          "stars": 144437,
+          "url": "https://github.com/langgenius/dify"
+        },
+        {
+          "description": "The API to search, scrape, and interact with the web at scale. \ud83d\udd25",
+          "full_name": "firecrawl/firecrawl",
+          "language": "TypeScript",
+          "rank_in_source": 28,
+          "source_file": "trending_100.json",
+          "stars": 130270,
+          "url": "https://github.com/firecrawl/firecrawl"
+        },
+        {
+          "description": "Virtual whiteboard for sketching hand-drawn like diagrams",
+          "full_name": "excalidraw/excalidraw",
+          "language": "TypeScript",
+          "rank_in_source": 29,
+          "source_file": "trending_100.json",
+          "stars": 124894,
+          "url": "https://github.com/excalidraw/excalidraw"
+        },
+        {
+          "description": "A modern GUI client based on Tauri, designed to run in Windows, macOS and Linux for tailored proxy experience",
+          "full_name": "clash-verge-rev/clash-verge-rev",
+          "language": "TypeScript",
+          "rank_in_source": 30,
+          "source_file": "trending_100.json",
+          "stars": 124123,
+          "url": "https://github.com/clash-verge-rev/clash-verge-rev"
+        },
+        {
+          "description": "Design patterns implemented in Java",
+          "full_name": "iluwatar/java-design-patterns",
+          "language": "Java",
+          "rank_in_source": 31,
+          "source_file": "trending_100.json",
+          "stars": 94103,
+          "url": "https://github.com/iluwatar/java-design-patterns"
+        },
+        {
+          "description": "Free and Open Source, Distributed, RESTful Search Engine",
+          "full_name": "elastic/elasticsearch",
+          "language": "Java",
+          "rank_in_source": 32,
+          "source_file": "trending_100.json",
+          "stars": 76897,
+          "url": "https://github.com/elastic/elasticsearch"
+        },
+        {
+          "description": "Ghidra is a software reverse engineering (SRE) framework",
+          "full_name": "NationalSecurityAgency/ghidra",
+          "language": "Java",
+          "rank_in_source": 33,
+          "source_file": "trending_100.json",
+          "stars": 69373,
+          "url": "https://github.com/NationalSecurityAgency/ghidra"
+        },
+        {
+          "description": "All Algorithms implemented in Java",
+          "full_name": "TheAlgorithms/Java",
+          "language": "Java",
+          "rank_in_source": 34,
+          "source_file": "trending_100.json",
+          "stars": 65798,
+          "url": "https://github.com/TheAlgorithms/Java"
+        },
+        {
+          "description": "Spring Framework",
+          "full_name": "spring-projects/spring-framework",
+          "language": "Java",
+          "rank_in_source": 35,
+          "source_file": "trending_100.json",
+          "stars": 60012,
+          "url": "https://github.com/spring-projects/spring-framework"
+        },
+        {
+          "description": "Google core libraries for Java",
+          "full_name": "google/guava",
+          "language": "Java",
+          "rank_in_source": 36,
+          "source_file": "trending_100.json",
+          "stars": 51478,
+          "url": "https://github.com/google/guava"
+        },
+        {
+          "description": "Free universal database tool and SQL client",
+          "full_name": "dbeaver/dbeaver",
+          "language": "Java",
+          "rank_in_source": 37,
+          "source_file": "trending_100.json",
+          "stars": 50466,
+          "url": "https://github.com/dbeaver/dbeaver"
+        },
+        {
+          "description": "RxJava \u2013 Reactive Extensions for the JVM \u2013 a library for composing asynchronous and event-based programs using observable sequences for the Java VM.",
+          "full_name": "ReactiveX/RxJava",
+          "language": "Java",
+          "rank_in_source": 38,
+          "source_file": "trending_100.json",
+          "stars": 48235,
+          "url": "https://github.com/ReactiveX/RxJava"
+        },
+        {
+          "description": "The java implementation of Apache Dubbo. An RPC and microservice framework.",
+          "full_name": "apache/dubbo",
+          "language": "Java",
+          "rank_in_source": 39,
+          "source_file": "trending_100.json",
+          "stars": 41520,
+          "url": "https://github.com/apache/dubbo"
+        },
+        {
+          "description": "Halo \u662f\u4e00\u6b3e\u5f3a\u5927\u6613\u7528\u7684\u5f00\u6e90\u5efa\u7ad9\u5de5\u5177\uff0c\u4ece\u4e2a\u4eba\u535a\u5ba2\u3001\u77e5\u8bc6\u5e93\uff0c\u5230\u4f01\u4e1a\u5b98\u7f51\u3001\u5728\u7ebf\u5546\u57ce\uff0cHalo \u90fd\u80fd\u52a9\u60a8\u8f7b\u677e\u5b9e\u73b0\uff0c\u4e00\u7ad9\u5f0f\u6ee1\u8db3\u60a8\u7684\u591a\u6837\u5316\u5efa\u7ad9\u9700\u6c42\u3002",
+          "full_name": "halo-dev/halo",
+          "language": "Java",
+          "rank_in_source": 40,
+          "source_file": "trending_100.json",
+          "stars": 38919,
+          "url": "https://github.com/halo-dev/halo"
+        },
+        {
+          "description": "An Open Source Machine Learning Framework for Everyone",
+          "full_name": "tensorflow/tensorflow",
+          "language": "C++",
+          "rank_in_source": 41,
+          "source_file": "trending_100.json",
+          "stars": 195608,
+          "url": "https://github.com/tensorflow/tensorflow"
+        },
+        {
+          "description": "A framework for building native applications using React",
+          "full_name": "facebook/react-native",
+          "language": "C++",
+          "rank_in_source": 42,
+          "source_file": "trending_100.json",
+          "stars": 125955,
+          "url": "https://github.com/facebook/react-native"
+        },
+        {
+          "description": ":electron: Build cross-platform desktop apps with JavaScript, HTML, and CSS",
+          "full_name": "electron/electron",
+          "language": "C++",
+          "rank_in_source": 43,
+          "source_file": "trending_100.json",
+          "stars": 121568,
+          "url": "https://github.com/electron/electron"
+        },
+        {
+          "description": "LLM inference in C/C++",
+          "full_name": "ggml-org/llama.cpp",
+          "language": "C++",
+          "rank_in_source": 44,
+          "source_file": "trending_100.json",
+          "stars": 115619,
+          "url": "https://github.com/ggml-org/llama.cpp"
+        },
+        {
+          "description": "Godot Engine \u2013 Multi-platform 2D and 3D game engine",
+          "full_name": "godotengine/godot",
+          "language": "C++",
+          "rank_in_source": 45,
+          "source_file": "trending_100.json",
+          "stars": 112260,
+          "url": "https://github.com/godotengine/godot"
+        },
+        {
+          "description": "Bitcoin Core integration/staging tree",
+          "full_name": "bitcoin/bitcoin",
+          "language": "C++",
+          "rank_in_source": 46,
+          "source_file": "trending_100.json",
+          "stars": 89331,
+          "url": "https://github.com/bitcoin/bitcoin"
+        },
+        {
+          "description": "Open Source Computer Vision Library",
+          "full_name": "opencv/opencv",
+          "language": "C++",
+          "rank_in_source": 47,
+          "source_file": "trending_100.json",
+          "stars": 88352,
+          "url": "https://github.com/opencv/opencv"
+        },
+        {
+          "description": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies",
+          "full_name": "ocornut/imgui",
+          "language": "C++",
+          "rank_in_source": 48,
+          "source_file": "trending_100.json",
+          "stars": 73737,
+          "url": "https://github.com/ocornut/imgui"
+        },
+        {
+          "description": "Protocol Buffers - Google's data interchange format",
+          "full_name": "protocolbuffers/protobuf",
+          "language": "C++",
+          "rank_in_source": 49,
+          "source_file": "trending_100.json",
+          "stars": 71328,
+          "url": "https://github.com/protocolbuffers/protobuf"
+        },
+        {
+          "description": "Truly independent web browser",
+          "full_name": "LadybirdBrowser/ladybird",
+          "language": "C++",
+          "rank_in_source": 50,
+          "source_file": "trending_100.json",
+          "stars": 63961,
+          "url": "https://github.com/LadybirdBrowser/ladybird"
+        },
+        {
+          "description": "Microsoft PowerToys is a collection of utilities that supercharge productivity and customization on Windows",
+          "full_name": "microsoft/PowerToys",
+          "language": "C#",
+          "rank_in_source": 51,
+          "source_file": "trending_100.json",
+          "stars": 133940,
+          "url": "https://github.com/microsoft/PowerToys"
+        },
+        {
+          "description": "A GUI client for Windows, Linux and macOS, support Xray and sing-box and others",
+          "full_name": "2dust/v2rayN",
+          "language": "C#",
+          "rank_in_source": 52,
+          "source_file": "trending_100.json",
+          "stars": 108384,
+          "url": "https://github.com/2dust/v2rayN"
+        },
+        {
+          "description": "The Free Software Media System - Server Backend & API",
+          "full_name": "jellyfin/jellyfin",
+          "language": "C#",
+          "rank_in_source": 53,
+          "source_file": "trending_100.json",
+          "stars": 53048,
+          "url": "https://github.com/jellyfin/jellyfin"
+        },
+        {
+          "description": "A modern file manager that helps users organize their files and folders.",
+          "full_name": "files-community/Files",
+          "language": "C#",
+          "rank_in_source": 54,
+          "source_file": "trending_100.json",
+          "stars": 43827,
+          "url": "https://github.com/files-community/Files"
+        },
+        {
+          "description": "ASP.NET Core is a cross-platform .NET framework for building modern cloud-based web applications on Windows, Mac, or Linux.",
+          "full_name": "dotnet/aspnetcore",
+          "language": "C#",
+          "rank_in_source": 55,
+          "source_file": "trending_100.json",
+          "stars": 38018,
+          "url": "https://github.com/dotnet/aspnetcore"
+        },
+        {
+          "description": "Develop Desktop, Embedded, Mobile and WebAssembly apps with C# and XAML. The future of .NET UI",
+          "full_name": "AvaloniaUI/Avalonia",
+          "language": "C#",
+          "rank_in_source": 56,
+          "source_file": "trending_100.json",
+          "stars": 30940,
+          "url": "https://github.com/AvaloniaUI/Avalonia"
+        },
+        {
+          "description": "Integrate cutting-edge LLM technology quickly and easily into your apps",
+          "full_name": "microsoft/semantic-kernel",
+          "language": "C#",
+          "rank_in_source": 57,
+          "source_file": "trending_100.json",
+          "stars": 28079,
+          "url": "https://github.com/microsoft/semantic-kernel"
+        },
+        {
+          "description": "UniGetUI: The Graphical Interface for your package managers. Could be terribly described as a package manager manager to manage your package managers",
+          "full_name": "Devolutions/UniGetUI",
+          "language": "C#",
+          "rank_in_source": 58,
+          "source_file": "trending_100.json",
+          "stars": 24317,
+          "url": "https://github.com/Devolutions/UniGetUI"
+        },
+        {
+          "description": "Bring macOS \u201cQuick Look\u201d feature to Windows",
+          "full_name": "QL-Win/QuickLook",
+          "language": "C#",
+          "rank_in_source": 59,
+          "source_file": "trending_100.json",
+          "stars": 23694,
+          "url": "https://github.com/QL-Win/QuickLook"
+        },
+        {
+          "description": ".NET MAUI is the .NET Multi-platform App UI, a framework for building native device applications spanning mobile, tablet, and desktop.",
+          "full_name": "dotnet/maui",
+          "language": "C#",
+          "rank_in_source": 60,
+          "source_file": "trending_100.json",
+          "stars": 23264,
+          "url": "https://github.com/dotnet/maui"
+        },
+        {
+          "description": "A curated list of awesome Go frameworks, libraries and software",
+          "full_name": "avelino/awesome-go",
+          "language": "Go",
+          "rank_in_source": 61,
+          "source_file": "trending_100.json",
+          "stars": 174934,
+          "url": "https://github.com/avelino/awesome-go"
+        },
+        {
+          "description": "Get up and running with Kimi-K2.6, GLM-5.1, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+          "full_name": "ollama/ollama",
+          "language": "Go",
+          "rank_in_source": 62,
+          "source_file": "trending_100.json",
+          "stars": 173612,
+          "url": "https://github.com/ollama/ollama"
+        },
+        {
+          "description": "The Go programming language",
+          "full_name": "golang/go",
+          "language": "Go",
+          "rank_in_source": 63,
+          "source_file": "trending_100.json",
+          "stars": 134633,
+          "url": "https://github.com/golang/go"
+        },
+        {
+          "description": "Production-Grade Container Scheduling and Management",
+          "full_name": "kubernetes/kubernetes",
+          "language": "Go",
+          "rank_in_source": 64,
+          "source_file": "trending_100.json",
+          "stars": 122891,
+          "url": "https://github.com/kubernetes/kubernetes"
+        },
+        {
+          "description": "The world\u2019s fastest framework for building websites.",
+          "full_name": "gohugoio/hugo",
+          "language": "Go",
+          "rank_in_source": 65,
+          "source_file": "trending_100.json",
+          "stars": 88465,
+          "url": "https://github.com/gohugoio/hugo"
+        },
+        {
+          "description": "Open Source Continuous File Synchronization",
+          "full_name": "syncthing/syncthing",
+          "language": "Go",
+          "rank_in_source": 66,
+          "source_file": "trending_100.json",
+          "stars": 85143,
+          "url": "https://github.com/syncthing/syncthing"
+        },
+        {
+          "description": ":cherry_blossom: A command-line fuzzy finder",
+          "full_name": "junegunn/fzf",
+          "language": "Go",
+          "rank_in_source": 67,
+          "source_file": "trending_100.json",
+          "stars": 80927,
+          "url": "https://github.com/junegunn/fzf"
+        },
+        {
+          "description": "simple terminal UI for git commands",
+          "full_name": "jesseduffield/lazygit",
+          "language": "Go",
+          "rank_in_source": 68,
+          "source_file": "trending_100.json",
+          "stars": 79117,
+          "url": "https://github.com/jesseduffield/lazygit"
+        },
+        {
+          "description": "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS",
+          "full_name": "caddyserver/caddy",
+          "language": "Go",
+          "rank_in_source": 69,
+          "source_file": "trending_100.json",
+          "stars": 73243,
+          "url": "https://github.com/caddyserver/caddy"
+        },
+        {
+          "description": "The Moby Project - a collaborative project for the container ecosystem to assemble container-based systems",
+          "full_name": "moby/moby",
+          "language": "Go",
+          "rank_in_source": 70,
+          "source_file": "trending_100.json",
+          "stars": 71641,
+          "url": "https://github.com/moby/moby"
+        },
+        {
+          "description": "Linux kernel source tree",
+          "full_name": "torvalds/linux",
+          "language": "C",
+          "rank_in_source": 71,
+          "source_file": "trending_100.json",
+          "stars": 235854,
+          "url": "https://github.com/torvalds/linux"
+        },
+        {
+          "description": "The fastest path to AI-powered full stack observability, even for lean teams.",
+          "full_name": "netdata/netdata",
+          "language": "C",
+          "rank_in_source": 72,
+          "source_file": "trending_100.json",
+          "stars": 79089,
+          "url": "https://github.com/netdata/netdata"
+        },
+        {
+          "description": "For developers, who are building real-time data-driven applications, Redis is the preferred, fastest, and most feature-rich cache, data structure server, and document and vector query engine.",
+          "full_name": "redis/redis",
+          "language": "C",
+          "rank_in_source": 73,
+          "source_file": "trending_100.json",
+          "stars": 74754,
+          "url": "https://github.com/redis/redis"
+        },
+        {
+          "description": "OBS Studio - Free and open source software for live streaming and screen recording",
+          "full_name": "obsproject/obs-studio",
+          "language": "C",
+          "rank_in_source": 74,
+          "source_file": "trending_100.json",
+          "stars": 73015,
+          "url": "https://github.com/obsproject/obs-studio"
+        },
+        {
+          "description": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+          "full_name": "FFmpeg/FFmpeg",
+          "language": "C",
+          "rank_in_source": 75,
+          "source_file": "trending_100.json",
+          "stars": 60895,
+          "url": "https://github.com/FFmpeg/FFmpeg"
+        },
+        {
+          "description": "tmux source code",
+          "full_name": "tmux/tmux",
+          "language": "C",
+          "rank_in_source": 76,
+          "source_file": "trending_100.json",
+          "stars": 46390,
+          "url": "https://github.com/tmux/tmux"
+        },
+        {
+          "description": "A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",
+          "full_name": "curl/curl",
+          "language": "C",
+          "rank_in_source": 77,
+          "source_file": "trending_100.json",
+          "stars": 42084,
+          "url": "https://github.com/curl/curl"
+        },
+        {
+          "description": "The PHP Interpreter",
+          "full_name": "php/php-src",
+          "language": "C",
+          "rank_in_source": 78,
+          "source_file": "trending_100.json",
+          "stars": 40139,
+          "url": "https://github.com/php/php-src"
+        },
+        {
+          "description": "\ud83c\udfa5 Command line media player",
+          "full_name": "mpv-player/mpv",
+          "language": "C",
+          "rank_in_source": 79,
+          "source_file": "trending_100.json",
+          "stars": 35501,
+          "url": "https://github.com/mpv-player/mpv"
+        },
+        {
+          "description": "Command-line JSON processor",
+          "full_name": "jqlang/jq",
+          "language": "C",
+          "rank_in_source": 80,
+          "source_file": "trending_100.json",
+          "stars": 34834,
+          "url": "https://github.com/jqlang/jq"
+        },
+        {
+          "description": "An agent-managed museum exhibit, built in Rust with Gajae-Code / LazyCodex \u2014 developed and maintained with no human intervention.",
+          "full_name": "ultraworkers/claw-code",
+          "language": "Rust",
+          "rank_in_source": 81,
+          "source_file": "trending_100.json",
+          "stars": 193489,
+          "url": "https://github.com/ultraworkers/claw-code"
+        },
+        {
+          "description": "Empowering everyone to build reliable and efficient software.",
+          "full_name": "rust-lang/rust",
+          "language": "Rust",
+          "rank_in_source": 82,
+          "source_file": "trending_100.json",
+          "stars": 113715,
+          "url": "https://github.com/rust-lang/rust"
+        },
+        {
+          "description": "Build smaller, faster, and more secure desktop and mobile applications with a web frontend.",
+          "full_name": "tauri-apps/tauri",
+          "language": "Rust",
+          "rank_in_source": 83,
+          "source_file": "trending_100.json",
+          "stars": 107625,
+          "url": "https://github.com/tauri-apps/tauri"
+        },
+        {
+          "description": "A modern runtime for JavaScript and TypeScript.",
+          "full_name": "denoland/deno",
+          "language": "Rust",
+          "rank_in_source": 84,
+          "source_file": "trending_100.json",
+          "stars": 107012,
+          "url": "https://github.com/denoland/deno"
+        },
+        {
+          "description": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Gemini CLI & Hermes Agent. Only official website: ccswitch.io",
+          "full_name": "farion1231/cc-switch",
+          "language": "Rust",
+          "rank_in_source": 85,
+          "source_file": "trending_100.json",
+          "stars": 95143,
+          "url": "https://github.com/farion1231/cc-switch"
+        },
+        {
+          "description": "Incredibly fast JavaScript runtime, bundler, test runner, and package manager \u2013 all in one",
+          "full_name": "oven-sh/bun",
+          "language": "Rust",
+          "rank_in_source": 86,
+          "source_file": "trending_100.json",
+          "stars": 92940,
+          "url": "https://github.com/oven-sh/bun"
+        },
+        {
+          "description": "Lightweight coding agent that runs in your terminal",
+          "full_name": "openai/codex",
+          "language": "Rust",
+          "rank_in_source": 87,
+          "source_file": "trending_100.json",
+          "stars": 89658,
+          "url": "https://github.com/openai/codex"
+        },
+        {
+          "description": "An extremely fast Python package and project manager, written in Rust.",
+          "full_name": "astral-sh/uv",
+          "language": "Rust",
+          "rank_in_source": 88,
+          "source_file": "trending_100.json",
+          "stars": 86143,
+          "url": "https://github.com/astral-sh/uv"
+        },
+        {
+          "description": "Code at the speed of thought \u2013 Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.",
+          "full_name": "zed-industries/zed",
+          "language": "Rust",
+          "rank_in_source": 89,
+          "source_file": "trending_100.json",
+          "stars": 84795,
+          "url": "https://github.com/zed-industries/zed"
+        },
+        {
+          "description": "The trust-minimized, zero-knowledge bridging protocol, designed for censorship resistance, extremely high security, and usage in decentralized finance.",
+          "full_name": "unionlabs/union",
+          "language": "Rust",
+          "rank_in_source": 90,
+          "source_file": "trending_100.json",
+          "stars": 73982,
+          "url": "https://github.com/unionlabs/union"
+        },
+        {
+          "description": "SecLists is the security tester's companion. It's a collection of multiple types of lists used during security assessments, collected in one place. List types include usernames, passwords, URLs, sensitive data patterns, fuzzing payloads, web shells, and many more.",
+          "full_name": "danielmiessler/SecLists",
+          "language": "PHP",
+          "rank_in_source": 91,
+          "source_file": "trending_100.json",
+          "stars": 71441,
+          "url": "https://github.com/danielmiessler/SecLists"
+        },
+        {
+          "description": "\u2601\ufe0f Nextcloud server, a safe home for all your data",
+          "full_name": "nextcloud/server",
+          "language": "PHP",
+          "rank_in_source": 92,
+          "source_file": "trending_100.json",
+          "stars": 35698,
+          "url": "https://github.com/nextcloud/server"
+        },
+        {
+          "description": "Laravel is a web application framework with expressive, elegant syntax.",
+          "full_name": "laravel/framework",
+          "language": "PHP",
+          "rank_in_source": 93,
+          "source_file": "trending_100.json",
+          "stars": 34755,
+          "url": "https://github.com/laravel/framework"
+        },
+        {
+          "description": "The Symfony PHP framework",
+          "full_name": "symfony/symfony",
+          "language": "PHP",
+          "rank_in_source": 94,
+          "source_file": "trending_100.json",
+          "stars": 31062,
+          "url": "https://github.com/symfony/symfony"
+        },
+        {
+          "description": "A powerful open-source UI framework for Laravel \u2022 Build and ship apps & admin panels fast with Livewire",
+          "full_name": "filamentphp/filament",
+          "language": "PHP",
+          "rank_in_source": 95,
+          "source_file": "trending_100.json",
+          "stars": 31038,
+          "url": "https://github.com/filamentphp/filament"
+        },
+        {
+          "description": "Dependency Manager for PHP",
+          "full_name": "composer/composer",
+          "language": "PHP",
+          "rank_in_source": 96,
+          "source_file": "trending_100.json",
+          "stars": 29449,
+          "url": "https://github.com/composer/composer"
+        },
+        {
+          "description": "Free and open source laravel eCommerce platform",
+          "full_name": "bagisto/bagisto",
+          "language": "PHP",
+          "rank_in_source": 97,
+          "source_file": "trending_100.json",
+          "stars": 27077,
+          "url": "https://github.com/bagisto/bagisto"
+        },
+        {
+          "description": "Firefly III: a personal finances manager",
+          "full_name": "firefly-iii/firefly-iii",
+          "language": "PHP",
+          "rank_in_source": 98,
+          "source_file": "trending_100.json",
+          "stars": 23659,
+          "url": "https://github.com/firefly-iii/firefly-iii"
+        },
+        {
+          "description": "Guzzle, an extensible PHP HTTP client",
+          "full_name": "guzzle/guzzle",
+          "language": "PHP",
+          "rank_in_source": 99,
+          "source_file": "trending_100.json",
+          "stars": 23450,
+          "url": "https://github.com/guzzle/guzzle"
+        },
+        {
+          "description": "Empowering People Ethically \ud83d\ude80 \u2014 Matomo is hiring! Join us \u2192 https://matomo.org/jobs Matomo is the leading open-source alternative to Google Analytics, giving you complete control and built-in privacy. Easily collect, visualise, and analyse data from websites & apps. Star us on GitHub \u2b50\ufe0f  \u2013 Pull Requests welcome!",
+          "full_name": "matomo-org/matomo",
+          "language": "PHP",
+          "rank_in_source": 100,
+          "source_file": "trending_100.json",
+          "stars": 21578,
+          "url": "https://github.com/matomo-org/matomo"
+        }
+      ]
+    }
+  },
+  "unique_repos": [
+    {
+      "description": "A GUI client for Windows, Linux and macOS, support Xray and sing-box and others",
+      "full_name": "2dust/v2rayN",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 52,
+          "stars": 108384
+        }
+      ],
+      "stars": 108384,
+      "stars_today": null,
+      "url": "https://github.com/2dust/v2rayN"
+    },
+    {
+      "description": "An MCP-based chatbot | \u4e00\u4e2a\u57fa\u4e8eMCP\u7684\u804a\u5929\u673a\u5668\u4eba",
+      "full_name": "78/xiaozhi-esp32",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 48,
+          "stars_today": "51"
+        }
+      ],
+      "stars": null,
+      "stars_today": "51",
+      "url": "https://github.com/78/xiaozhi-esp32"
+    },
+    {
+      "description": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM",
+      "full_name": "aaif-goose/goose",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 81,
+          "stars_today": "699"
+        }
+      ],
+      "stars": null,
+      "stars_today": "699",
+      "url": "https://github.com/aaif-goose/goose"
+    },
+    {
+      "description": "OpenCore bootloader",
+      "full_name": "acidanthera/OpenCorePkg",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 79,
+          "stars_today": "11"
+        }
+      ],
+      "stars": null,
+      "stars_today": "11",
+      "url": "https://github.com/acidanthera/OpenCorePkg"
+    },
+    {
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "full_name": "affaan-m/ECC",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 12,
+          "stars": 210722
+        }
+      ],
+      "stars": 210722,
+      "stars_today": null,
+      "url": "https://github.com/affaan-m/ECC"
+    },
+    {
+      "description": "Free LLM API keys for GPT-5.5, Claude, DeepSeek, Gemini, Grok \u2014 copy, paste, use. Updated 3-5x daily. No credit card needed.",
+      "full_name": "alistaitsacle/free-llm-api-keys",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 9,
+          "stars_today": "143"
+        }
+      ],
+      "stars": null,
+      "stars_today": "143",
+      "url": "https://github.com/alistaitsacle/free-llm-api-keys"
+    },
+    {
+      "description": "Find the local LLM that actually runs and performs best on your hardware. Ranked by real, recency-aware benchmarks, not parameter count. One command, run it instantly.",
+      "full_name": "Andyyyy64/whichllm",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 5,
+          "stars_today": "103"
+        }
+      ],
+      "stars": null,
+      "stars_today": "103",
+      "url": "https://github.com/Andyyyy64/whichllm"
+    },
+    {
+      "description": "The open source coding agent.",
+      "full_name": "anomalyco/opencode",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 26,
+          "stars": 171656
+        }
+      ],
+      "stars": 171656,
+      "stars_today": null,
+      "url": "https://github.com/anomalyco/opencode"
+    },
+    {
+      "description": "Public repository for Agent Skills",
+      "full_name": "anthropics/skills",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 7,
+          "stars": 148019
+        }
+      ],
+      "stars": 148019,
+      "stars_today": null,
+      "url": "https://github.com/anthropics/skills"
+    },
+    {
+      "description": "The automation tower defense RTS",
+      "full_name": "Anuken/Mindustry",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 35,
+          "stars_today": "20"
+        }
+      ],
+      "stars": null,
+      "stars_today": "20",
+      "url": "https://github.com/Anuken/Mindustry"
+    },
+    {
+      "description": "The java implementation of Apache Dubbo. An RPC and microservice framework.",
+      "full_name": "apache/dubbo",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 39,
+          "stars": 41520
+        }
+      ],
+      "stars": 41520,
+      "stars_today": null,
+      "url": "https://github.com/apache/dubbo"
+    },
+    {
+      "description": "Mirror of Apache HTTP Server. Issues: http://issues.apache.org",
+      "full_name": "apache/httpd",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 76,
+          "stars_today": "14"
+        }
+      ],
+      "stars": null,
+      "stars_today": "14",
+      "url": "https://github.com/apache/httpd"
+    },
+    {
+      "description": "Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more",
+      "full_name": "aquasecurity/trivy",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 64,
+          "stars_today": "78"
+        }
+      ],
+      "stars": null,
+      "stars_today": "78",
+      "url": "https://github.com/aquasecurity/trivy"
+    },
+    {
+      "description": "Terminal session manager for AI coding agents. One TUI for Claude, Gemini, OpenCode, Codex, and more.",
+      "full_name": "asheshgoplani/agent-deck",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 66,
+          "stars_today": "15"
+        }
+      ],
+      "stars": null,
+      "stars_today": "15",
+      "url": "https://github.com/asheshgoplani/agent-deck"
+    },
+    {
+      "description": "\u26a1A CLI tool for code structural search, lint and rewriting. Written in Rust",
+      "full_name": "ast-grep/ast-grep",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 90,
+          "stars_today": "28"
+        }
+      ],
+      "stars": null,
+      "stars_today": "28",
+      "url": "https://github.com/ast-grep/ast-grep"
+    },
+    {
+      "description": "An extremely fast Python package and project manager, written in Rust.",
+      "full_name": "astral-sh/uv",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 88,
+          "stars": 86143
+        }
+      ],
+      "stars": 86143,
+      "stars_today": null,
+      "url": "https://github.com/astral-sh/uv"
+    },
+    {
+      "description": "Security, performance, marketing, and design tools \u2014 Jetpack is made by WordPress experts to make WP sites safer and faster, and help you grow your traffic.",
+      "full_name": "Automattic/jetpack",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 96,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/Automattic/jetpack"
+    },
+    {
+      "description": "Develop Desktop, Embedded, Mobile and WebAssembly apps with C# and XAML. The future of .NET UI",
+      "full_name": "AvaloniaUI/Avalonia",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 56,
+          "stars": 30940
+        }
+      ],
+      "stars": 30940,
+      "stars_today": null,
+      "url": "https://github.com/AvaloniaUI/Avalonia"
+    },
+    {
+      "description": "A curated list of awesome Go frameworks, libraries and software",
+      "full_name": "avelino/awesome-go",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 61,
+          "stars": 174934
+        }
+      ],
+      "stars": 174934,
+      "stars_today": null,
+      "url": "https://github.com/avelino/awesome-go"
+    },
+    {
+      "description": "Free and open source laravel eCommerce platform",
+      "full_name": "bagisto/bagisto",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 97,
+          "stars": 27077
+        }
+      ],
+      "stars": 27077,
+      "stars_today": null,
+      "url": "https://github.com/bagisto/bagisto"
+    },
+    {
+      "description": "Open Source Flight Controller Firmware",
+      "full_name": "betaflight/betaflight",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 80,
+          "stars_today": "4"
+        }
+      ],
+      "stars": null,
+      "stars_today": "4",
+      "url": "https://github.com/betaflight/betaflight"
+    },
+    {
+      "description": "\ud83d\udee0\u300cWatt Toolkit\u300d\u662f\u4e00\u4e2a\u5f00\u6e90\u8de8\u5e73\u53f0\u7684\u591a\u529f\u80fd Steam \u5de5\u5177\u7bb1\u3002",
+      "full_name": "BeyondDimension/SteamTools",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 57,
+          "stars_today": "25"
+        }
+      ],
+      "stars": null,
+      "stars_today": "25",
+      "url": "https://github.com/BeyondDimension/SteamTools"
+    },
+    {
+      "description": "Bitcoin Core integration/staging tree",
+      "full_name": "bitcoin/bitcoin",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 46,
+          "stars": 89331
+        }
+      ],
+      "stars": 89331,
+      "stars_today": null,
+      "url": "https://github.com/bitcoin/bitcoin"
+    },
+    {
+      "description": "google maps for block game",
+      "full_name": "cabaletta/baritone",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 39,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/cabaletta/baritone"
+    },
+    {
+      "description": "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS",
+      "full_name": "caddyserver/caddy",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 69,
+          "stars": 73243
+        }
+      ],
+      "stars": 73243,
+      "stars_today": null,
+      "url": "https://github.com/caddyserver/caddy"
+    },
+    {
+      "description": "High-performance panel based on V2board secondary development supporting new protocols and new features",
+      "full_name": "cedar2025/Xboard",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 95,
+          "stars_today": "4"
+        }
+      ],
+      "stars": null,
+      "stars_today": "4",
+      "url": "https://github.com/cedar2025/Xboard"
+    },
+    {
+      "description": "The most comprehensive database of Chinese poetry \ud83e\uddf6\u6700\u5168\u4e2d\u534e\u53e4\u8bd7\u8bcd\u6570\u636e\u5e93, \u5510\u5b8b\u4e24\u671d\u8fd1\u4e00\u4e07\u56db\u5343\u53e4\u8bd7\u4eba, \u63a5\u8fd15.5\u4e07\u9996\u5510\u8bd7\u52a026\u4e07\u5b8b\u8bd7. \u4e24\u5b8b\u65f6\u671f1564\u4f4d\u8bcd\u4eba\uff0c21050\u9996\u8bcd\u3002",
+      "full_name": "chinese-poetry/chinese-poetry",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 15,
+          "stars_today": "32"
+        }
+      ],
+      "stars": null,
+      "stars_today": "32",
+      "url": "https://github.com/chinese-poetry/chinese-poetry"
+    },
+    {
+      "description": "A modern GUI client based on Tauri, designed to run in Windows, macOS and Linux for tailored proxy experience",
+      "full_name": "clash-verge-rev/clash-verge-rev",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 30,
+          "stars": 124123
+        }
+      ],
+      "stars": 124123,
+      "stars_today": null,
+      "url": "https://github.com/clash-verge-rev/clash-verge-rev"
+    },
+    {
+      "description": "The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface.",
+      "full_name": "Comfy-Org/ComfyUI",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 9,
+          "stars": 116214
+        }
+      ],
+      "stars": 116214,
+      "stars_today": null,
+      "url": "https://github.com/Comfy-Org/ComfyUI"
+    },
+    {
+      "description": "Dependency Manager for PHP",
+      "full_name": "composer/composer",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 96,
+          "stars": 29449
+        }
+      ],
+      "stars": 29449,
+      "stars_today": null,
+      "url": "https://github.com/composer/composer"
+    },
+    {
+      "description": "An open-source, self-hostable PaaS alternative to Vercel, Heroku & Netlify that lets you easily deploy static sites, databases, full-stack applications and 280+ one-click services on your own servers.",
+      "full_name": "coollabsio/coolify",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 94,
+          "stars_today": "57"
+        }
+      ],
+      "stars": null,
+      "stars_today": "57",
+      "url": "https://github.com/coollabsio/coolify"
+    },
+    {
+      "description": "The Frontend Stack for Agents & Generative UI. React, Angular, Mobile, Slack, and more. Makers of the AG-UI Protocol",
+      "full_name": "CopilotKit/CopilotKit",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 23,
+          "stars_today": "398"
+        }
+      ],
+      "stars": null,
+      "stars_today": "398",
+      "url": "https://github.com/CopilotKit/CopilotKit"
+    },
+    {
+      "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+      "full_name": "coreyhaines31/marketingskills",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 13,
+          "stars_today": "183"
+        }
+      ],
+      "stars": null,
+      "stars_today": "183",
+      "url": "https://github.com/coreyhaines31/marketingskills"
+    },
+    {
+      "description": "Project N.O.M.A.D, is a self-contained, offline survival computer packed with critical tools, knowledge, and AI to keep you informed and empowered\u2014anytime, anywhere.",
+      "full_name": "Crosstalk-Solutions/project-nomad",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 29,
+          "stars_today": "536"
+        }
+      ],
+      "stars": null,
+      "stars_today": "536",
+      "url": "https://github.com/Crosstalk-Solutions/project-nomad"
+    },
+    {
+      "description": "A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",
+      "full_name": "curl/curl",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 77,
+          "stars": 42084
+        }
+      ],
+      "stars": 42084,
+      "stars_today": null,
+      "url": "https://github.com/curl/curl"
+    },
+    {
+      "description": "Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere.",
+      "full_name": "danielmiessler/Fabric",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 68,
+          "stars_today": "45"
+        }
+      ],
+      "stars": null,
+      "stars_today": "45",
+      "url": "https://github.com/danielmiessler/Fabric"
+    },
+    {
+      "description": "Agentic AI Infrastructure for magnifying HUMAN capabilities.",
+      "full_name": "danielmiessler/Personal_AI_Infrastructure",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 22,
+          "stars_today": "121"
+        }
+      ],
+      "stars": null,
+      "stars_today": "121",
+      "url": "https://github.com/danielmiessler/Personal_AI_Infrastructure"
+    },
+    {
+      "description": "SecLists is the security tester's companion. It's a collection of multiple types of lists used during security assessments, collected in one place. List types include usernames, passwords, URLs, sensitive data patterns, fuzzing payloads, web shells, and many more.",
+      "full_name": "danielmiessler/SecLists",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 91,
+          "stars": 71441
+        }
+      ],
+      "stars": 71441,
+      "stars_today": null,
+      "url": "https://github.com/danielmiessler/SecLists"
+    },
+    {
+      "description": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User Auth, Presets, open-source for self-hosting. Active",
+      "full_name": "danny-avila/LibreChat",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 27,
+          "stars_today": "139"
+        }
+      ],
+      "stars": null,
+      "stars_today": "139",
+      "url": "https://github.com/danny-avila/LibreChat"
+    },
+    {
+      "description": "The best tweak for YouTube Music iOS.",
+      "full_name": "dayanch96/YTMusicUltimate",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 71,
+          "stars_today": "6"
+        }
+      ],
+      "stars": null,
+      "stars_today": "6",
+      "url": "https://github.com/dayanch96/YTMusicUltimate"
+    },
+    {
+      "description": "Free universal database tool and SQL client",
+      "full_name": "dbeaver/dbeaver",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 37,
+          "stars": 50466
+        }
+      ],
+      "stars": 50466,
+      "stars_today": null,
+      "url": "https://github.com/dbeaver/dbeaver"
+    },
+    {
+      "description": "A modern runtime for JavaScript and TypeScript.",
+      "full_name": "denoland/deno",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 86,
+          "stars_today": "34"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 84,
+          "stars": 107012
+        }
+      ],
+      "stars": 107012,
+      "stars_today": "34",
+      "url": "https://github.com/denoland/deno"
+    },
+    {
+      "description": "\u26a1 Dynamically generated, customizable SVG that gives the appearance of typing and deleting text for use on your profile page, repositories, or website.",
+      "full_name": "DenverCoder1/readme-typing-svg",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 91,
+          "stars_today": "8"
+        }
+      ],
+      "stars": null,
+      "stars_today": "8",
+      "url": "https://github.com/DenverCoder1/readme-typing-svg"
+    },
+    {
+      "description": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph \u2014 average repo in milliseconds. 159 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
+      "full_name": "DeusData/codebase-memory-mcp",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 78,
+          "stars_today": "28"
+        }
+      ],
+      "stars": null,
+      "stars_today": "28",
+      "url": "https://github.com/DeusData/codebase-memory-mcp"
+    },
+    {
+      "description": "UniGetUI: The Graphical Interface for your package managers. Could be terribly described as a package manager manager to manage your package managers",
+      "full_name": "Devolutions/UniGetUI",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 58,
+          "stars": 24317
+        }
+      ],
+      "stars": 24317,
+      "stars_today": null,
+      "url": "https://github.com/Devolutions/UniGetUI"
+    },
+    {
+      "description": "ASP.NET Core is a cross-platform .NET framework for building modern cloud-based web applications on Windows, Mac, or Linux.",
+      "full_name": "dotnet/aspnetcore",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 55,
+          "stars": 38018
+        }
+      ],
+      "stars": 38018,
+      "stars_today": null,
+      "url": "https://github.com/dotnet/aspnetcore"
+    },
+    {
+      "description": ".NET MAUI is the .NET Multi-platform App UI, a framework for building native device applications spanning mobile, tablet, and desktop.",
+      "full_name": "dotnet/maui",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 60,
+          "stars": 23264
+        }
+      ],
+      "stars": 23264,
+      "stars_today": null,
+      "url": "https://github.com/dotnet/maui"
+    },
+    {
+      "description": "The Microsoft Build Engine (MSBuild) is the build platform for .NET and Visual Studio.",
+      "full_name": "dotnet/msbuild",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 55,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/dotnet/msbuild"
+    },
+    {
+      "description": "\u300a\u4e00\u4eba\u4f01\u4e1a\u65b9\u6cd5\u8bba\u300b\u7b2c\u4e8c\u7248\uff0c\u4e5f\u9002\u5408\u505a\u5176\u4ed6\u526f\u4e1a\uff08\u6bd4\u5982\u81ea\u5a92\u4f53\u3001\u7535\u5546\u3001\u6570\u5b57\u5546\u54c1\uff09\u7684\u975e\u6280\u672f\u4eba\u7fa4\u3002",
+      "full_name": "easychen/opc-methodology",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 98,
+          "stars_today": "10"
+        }
+      ],
+      "stars": null,
+      "stars_today": "10",
+      "url": "https://github.com/easychen/opc-methodology"
+    },
+    {
+      "description": ":books: Freely available programming books",
+      "full_name": "EbookFoundation/free-programming-books",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 2,
+          "stars": 389891
+        }
+      ],
+      "stars": 389891,
+      "stars_today": null,
+      "url": "https://github.com/EbookFoundation/free-programming-books"
+    },
+    {
+      "description": "Free and Open Source, Distributed, RESTful Search Engine",
+      "full_name": "elastic/elasticsearch",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 34,
+          "stars_today": "26"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 32,
+          "stars": 76897
+        }
+      ],
+      "stars": 76897,
+      "stars_today": "26",
+      "url": "https://github.com/elastic/elasticsearch"
+    },
+    {
+      "description": ":electron: Build cross-platform desktop apps with JavaScript, HTML, and CSS",
+      "full_name": "electron/electron",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 43,
+          "stars": 121568
+        }
+      ],
+      "stars": 121568,
+      "stars_today": null,
+      "url": "https://github.com/electron/electron"
+    },
+    {
+      "description": "Go implementation of the Ethereum protocol",
+      "full_name": "ethereum/go-ethereum",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 70,
+          "stars_today": "20"
+        }
+      ],
+      "stars": null,
+      "stars_today": "20",
+      "url": "https://github.com/ethereum/go-ethereum"
+    },
+    {
+      "description": "Virtual whiteboard for sketching hand-drawn like diagrams",
+      "full_name": "excalidraw/excalidraw",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 29,
+          "stars": 124894
+        }
+      ],
+      "stars": 124894,
+      "stars_today": null,
+      "url": "https://github.com/excalidraw/excalidraw"
+    },
+    {
+      "description": "The library for web and native user interfaces.",
+      "full_name": "facebook/react",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 11,
+          "stars": 245668
+        }
+      ],
+      "stars": 245668,
+      "stars_today": null,
+      "url": "https://github.com/facebook/react"
+    },
+    {
+      "description": "A framework for building native applications using React",
+      "full_name": "facebook/react-native",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 42,
+          "stars": 125955
+        }
+      ],
+      "stars": 125955,
+      "stars_today": null,
+      "url": "https://github.com/facebook/react-native"
+    },
+    {
+      "description": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Gemini CLI & Hermes Agent. Only official website: ccswitch.io",
+      "full_name": "farion1231/cc-switch",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 85,
+          "stars": 95143
+        }
+      ],
+      "stars": 95143,
+      "stars_today": null,
+      "url": "https://github.com/farion1231/cc-switch"
+    },
+    {
+      "description": "Fast and low overhead web framework, for Node.js",
+      "full_name": "fastify/fastify",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 18,
+          "stars_today": "23"
+        }
+      ],
+      "stars": null,
+      "stars_today": "23",
+      "url": "https://github.com/fastify/fastify"
+    },
+    {
+      "description": "Mirror of https://git.ffmpeg.org/ffmpeg.git",
+      "full_name": "FFmpeg/FFmpeg",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 75,
+          "stars": 60895
+        }
+      ],
+      "stars": 60895,
+      "stars_today": null,
+      "url": "https://github.com/FFmpeg/FFmpeg"
+    },
+    {
+      "description": "A powerful open-source UI framework for Laravel \u2022 Build and ship apps & admin panels fast with Livewire",
+      "full_name": "filamentphp/filament",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 92,
+          "stars_today": "14"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 95,
+          "stars": 31038
+        }
+      ],
+      "stars": 31038,
+      "stars_today": "14",
+      "url": "https://github.com/filamentphp/filament"
+    },
+    {
+      "description": "A modern file manager that helps users organize their files and folders.",
+      "full_name": "files-community/Files",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 54,
+          "stars": 43827
+        }
+      ],
+      "stars": 43827,
+      "stars_today": null,
+      "url": "https://github.com/files-community/Files"
+    },
+    {
+      "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment.",
+      "full_name": "Fincept-Corporation/FinceptTerminal",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 43,
+          "stars_today": "196"
+        }
+      ],
+      "stars": null,
+      "stars_today": "196",
+      "url": "https://github.com/Fincept-Corporation/FinceptTerminal"
+    },
+    {
+      "description": "The API to search, scrape, and interact with the web at scale. \ud83d\udd25",
+      "full_name": "firecrawl/firecrawl",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 28,
+          "stars": 130270
+        }
+      ],
+      "stars": 130270,
+      "stars_today": null,
+      "url": "https://github.com/firecrawl/firecrawl"
+    },
+    {
+      "description": "Firefly III: a personal finances manager",
+      "full_name": "firefly-iii/firefly-iii",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 98,
+          "stars": 23659
+        }
+      ],
+      "stars": 23659,
+      "stars_today": null,
+      "url": "https://github.com/firefly-iii/firefly-iii"
+    },
+    {
+      "description": "freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.",
+      "full_name": "freeCodeCamp/freeCodeCamp",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 21,
+          "stars": 446432
+        }
+      ],
+      "stars": 446432,
+      "stars_today": null,
+      "url": "https://github.com/freeCodeCamp/freeCodeCamp"
+    },
+    {
+      "description": "LLM inference in C/C++",
+      "full_name": "ggml-org/llama.cpp",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 44,
+          "stars_today": "492"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 44,
+          "stars": 115619
+        }
+      ],
+      "stars": 115619,
+      "stars_today": "492",
+      "url": "https://github.com/ggml-org/llama.cpp"
+    },
+    {
+      "description": "Git Source Code Mirror - This is a publish-only repository but pull requests can be turned into patches to the mailing list via GitGitGadget (https://gitgitgadget.github.io/). Please follow Documentation/SubmittingPatches procedure for any of your improvements.",
+      "full_name": "git/git",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 77,
+          "stars_today": "22"
+        }
+      ],
+      "stars": null,
+      "stars_today": "22",
+      "url": "https://github.com/git/git"
+    },
+    {
+      "description": "\ud83d\udcab Toolkit to help you get started with Spec-Driven Development",
+      "full_name": "github/spec-kit",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 10,
+          "stars": 110510
+        }
+      ],
+      "stars": 110510,
+      "stars_today": null,
+      "url": "https://github.com/github/spec-kit"
+    },
+    {
+      "description": "Godot Engine \u2013 Multi-platform 2D and 3D game engine",
+      "full_name": "godotengine/godot",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 45,
+          "stars": 112260
+        }
+      ],
+      "stars": 112260,
+      "stars_today": null,
+      "url": "https://github.com/godotengine/godot"
+    },
+    {
+      "description": "The world\u2019s fastest framework for building websites.",
+      "full_name": "gohugoio/hugo",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 65,
+          "stars": 88465
+        }
+      ],
+      "stars": 88465,
+      "stars_today": null,
+      "url": "https://github.com/gohugoio/hugo"
+    },
+    {
+      "description": "The Go programming language",
+      "full_name": "golang/go",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 63,
+          "stars": 134633
+        }
+      ],
+      "stars": 134633,
+      "stars_today": null,
+      "url": "https://github.com/golang/go"
+    },
+    {
+      "description": "Google core libraries for Java",
+      "full_name": "google/guava",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 36,
+          "stars": 51478
+        }
+      ],
+      "stars": 51478,
+      "stars_today": null,
+      "url": "https://github.com/google/guava"
+    },
+    {
+      "description": "Agent Skills for Google products and technologies",
+      "full_name": "google/skills",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 3,
+          "stars_today": "481"
+        }
+      ],
+      "stars": null,
+      "stars_today": "481",
+      "url": "https://github.com/google/skills"
+    },
+    {
+      "description": "Guzzle, an extensible PHP HTTP client",
+      "full_name": "guzzle/guzzle",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 99,
+          "stars": 23450
+        }
+      ],
+      "stars": 23450,
+      "stars_today": null,
+      "url": "https://github.com/guzzle/guzzle"
+    },
+    {
+      "description": "Comfortably monitor your Internet traffic \ud83d\udd75\ufe0f\u200d\u2642\ufe0f",
+      "full_name": "GyulyVGC/sniffnet",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 85,
+          "stars_today": "640"
+        }
+      ],
+      "stars": null,
+      "stars_today": "640",
+      "url": "https://github.com/GyulyVGC/sniffnet"
+    },
+    {
+      "description": "Halo \u662f\u4e00\u6b3e\u5f3a\u5927\u6613\u7528\u7684\u5f00\u6e90\u5efa\u7ad9\u5de5\u5177\uff0c\u4ece\u4e2a\u4eba\u535a\u5ba2\u3001\u77e5\u8bc6\u5e93\uff0c\u5230\u4f01\u4e1a\u5b98\u7f51\u3001\u5728\u7ebf\u5546\u57ce\uff0cHalo \u90fd\u80fd\u52a9\u60a8\u8f7b\u677e\u5b9e\u73b0\uff0c\u4e00\u7ad9\u5f0f\u6ee1\u8db3\u60a8\u7684\u591a\u6837\u5316\u5efa\u7ad9\u9700\u6c42\u3002",
+      "full_name": "halo-dev/halo",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 40,
+          "stars": 38919
+        }
+      ],
+      "stars": 38919,
+      "stars_today": null,
+      "url": "https://github.com/halo-dev/halo"
+    },
+    {
+      "description": "The finest Windows Optimizer",
+      "full_name": "hellzerg/optimizer",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 52,
+          "stars_today": "4"
+        }
+      ],
+      "stars": null,
+      "stars_today": "4",
+      "url": "https://github.com/hellzerg/optimizer"
+    },
+    {
+      "description": "Write HTML. Render video. Built for agents.",
+      "full_name": "heygen-com/hyperframes",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 28,
+          "stars_today": "415"
+        }
+      ],
+      "stars": null,
+      "stars_today": "415",
+      "url": "https://github.com/heygen-com/hyperframes"
+    },
+    {
+      "description": "\u4e00\u4e2a\u57fa\u4e8e JavaScript \u7684\u7f51\u76d8\u6587\u4ef6\u4e0b\u8f7d\u5730\u5740\u83b7\u53d6\u5de5\u5177\u3002\u57fa\u4e8e\u3010\u7f51\u76d8\u76f4\u94fe\u4e0b\u8f7d\u52a9\u624b\u3011\u4fee\u6539 \uff0c\u652f\u6301 \u767e\u5ea6\u7f51\u76d8 / \u963f\u91cc\u4e91\u76d8 / \u4e2d\u56fd\u79fb\u52a8\u4e91\u76d8 / \u5929\u7ffc\u4e91\u76d8 / \u8fc5\u96f7\u4e91\u76d8 / \u5938\u514b\u7f51\u76d8 / UC\u7f51\u76d8 / 123\u4e91\u76d8 \u516b\u5927\u7f51\u76d8",
+      "full_name": "hmjz100/LinkSwift",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 17,
+          "stars_today": "53"
+        }
+      ],
+      "stars": null,
+      "stars_today": "53",
+      "url": "https://github.com/hmjz100/LinkSwift"
+    },
+    {
+      "description": "\ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
+      "full_name": "huggingface/transformers",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 5,
+          "stars": 161416
+        }
+      ],
+      "stars": 161416,
+      "stars_today": null,
+      "url": "https://github.com/huggingface/transformers"
+    },
+    {
+      "description": "Hyperlight is a lightweight Virtual Machine Manager (VMM) designed to be embedded within applications. It enables safe execution of untrusted code within micro virtual machines with very low latency and minimal overhead.",
+      "full_name": "hyperlight-dev/hyperlight",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 82,
+          "stars_today": "24"
+        }
+      ],
+      "stars": null,
+      "stars_today": "24",
+      "url": "https://github.com/hyperlight-dev/hyperlight"
+    },
+    {
+      "description": "Skills for Design Engineers",
+      "full_name": "ibelick/ui-skills",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 25,
+          "stars_today": "258"
+        }
+      ],
+      "stars": null,
+      "stars_today": "258",
+      "url": "https://github.com/ibelick/ui-skills"
+    },
+    {
+      "description": "Design patterns implemented in Java",
+      "full_name": "iluwatar/java-design-patterns",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 31,
+          "stars": 94103
+        }
+      ],
+      "stars": 94103,
+      "stars_today": null,
+      "url": "https://github.com/iluwatar/java-design-patterns"
+    },
+    {
+      "description": "The Free Software Media System - Server Backend & API",
+      "full_name": "jellyfin/jellyfin",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 51,
+          "stars_today": "43"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 53,
+          "stars": 53048
+        }
+      ],
+      "stars": 53048,
+      "stars_today": "43",
+      "url": "https://github.com/jellyfin/jellyfin"
+    },
+    {
+      "description": "Jenkins automation server",
+      "full_name": "jenkinsci/jenkins",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 31,
+          "stars_today": "19"
+        }
+      ],
+      "stars": null,
+      "stars_today": "19",
+      "url": "https://github.com/jenkinsci/jenkins"
+    },
+    {
+      "description": "simple terminal UI for git commands",
+      "full_name": "jesseduffield/lazygit",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 68,
+          "stars": 79117
+        }
+      ],
+      "stars": 79117,
+      "stars_today": null,
+      "url": "https://github.com/jesseduffield/lazygit"
+    },
+    {
+      "description": "Home of the Joomla! Content Management System",
+      "full_name": "joomla/joomla-cms",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 97,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/joomla/joomla-cms"
+    },
+    {
+      "description": "Video game library manager with support for wide range of 3rd party libraries and game emulation support, providing one unified interface for your games.",
+      "full_name": "JosefNemec/Playnite",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 53,
+          "stars_today": "20"
+        }
+      ],
+      "stars": null,
+      "stars_today": "20",
+      "url": "https://github.com/JosefNemec/Playnite"
+    },
+    {
+      "description": "Command-line JSON processor",
+      "full_name": "jqlang/jq",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 80,
+          "stars": 34834
+        }
+      ],
+      "stars": 34834,
+      "stars_today": null,
+      "url": "https://github.com/jqlang/jq"
+    },
+    {
+      "description": "Esphome based smart home control panel",
+      "full_name": "jtenniswood/espcontrol",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 72,
+          "stars_today": "17"
+        }
+      ],
+      "stars": null,
+      "stars_today": "17",
+      "url": "https://github.com/jtenniswood/espcontrol"
+    },
+    {
+      "description": ":cherry_blossom: A command-line fuzzy finder",
+      "full_name": "junegunn/fzf",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 67,
+          "stars": 80927
+        }
+      ],
+      "stars": 80927,
+      "stars_today": null,
+      "url": "https://github.com/junegunn/fzf"
+    },
+    {
+      "description": "Advanced UX and interoperability extension for Wand (WeMod) app",
+      "full_name": "k1tbyte/Wand-Enhancer",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 56,
+          "stars_today": "15"
+        }
+      ],
+      "stars": null,
+      "stars_today": "15",
+      "url": "https://github.com/k1tbyte/Wand-Enhancer"
+    },
+    {
+      "description": "Production-Grade Container Scheduling and Management",
+      "full_name": "kubernetes/kubernetes",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 64,
+          "stars": 122891
+        }
+      ],
+      "stars": 122891,
+      "stars_today": null,
+      "url": "https://github.com/kubernetes/kubernetes"
+    },
+    {
+      "description": "This repository consists of the code samples, assignments, and notes for the Java data structures & algorithms + interview preparation bootcamp of WeMakeDevs.",
+      "full_name": "kunal-kushwaha/DSA-Bootcamp-Java",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 40,
+          "stars_today": "17"
+        }
+      ],
+      "stars": null,
+      "stars_today": "17",
+      "url": "https://github.com/kunal-kushwaha/DSA-Bootcamp-Java"
+    },
+    {
+      "description": "Truly independent web browser",
+      "full_name": "LadybirdBrowser/ladybird",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 50,
+          "stars": 63961
+        }
+      ],
+      "stars": 63961,
+      "stars_today": null,
+      "url": "https://github.com/LadybirdBrowser/ladybird"
+    },
+    {
+      "description": "The agent engineering platform.",
+      "full_name": "langchain-ai/langchain",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 8,
+          "stars": 138827
+        }
+      ],
+      "stars": 138827,
+      "stars_today": null,
+      "url": "https://github.com/langchain-ai/langchain"
+    },
+    {
+      "description": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows.",
+      "full_name": "langflow-ai/langflow",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 6,
+          "stars": 149417
+        }
+      ],
+      "stars": 149417,
+      "stars_today": null,
+      "url": "https://github.com/langflow-ai/langflow"
+    },
+    {
+      "description": "Production-ready platform for agentic workflow development.",
+      "full_name": "langgenius/dify",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 27,
+          "stars": 144437
+        }
+      ],
+      "stars": 144437,
+      "stars_today": null,
+      "url": "https://github.com/langgenius/dify"
+    },
+    {
+      "description": "Laravel is a web application framework with expressive, elegant syntax.",
+      "full_name": "laravel/framework",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 93,
+          "stars": 34755
+        }
+      ],
+      "stars": 34755,
+      "stars_today": null,
+      "url": "https://github.com/laravel/framework"
+    },
+    {
+      "description": "An Open Source implementation of Notebook LM with more flexibility and features",
+      "full_name": "lfnovo/open-notebook",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 24,
+          "stars_today": "894"
+        }
+      ],
+      "stars": null,
+      "stars_today": "894",
+      "url": "https://github.com/lfnovo/open-notebook"
+    },
+    {
+      "description": "Simple DirectMedia Layer",
+      "full_name": "libsdl-org/SDL",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 73,
+          "stars_today": "14"
+        }
+      ],
+      "stars": null,
+      "stars_today": "14",
+      "url": "https://github.com/libsdl-org/SDL"
+    },
+    {
+      "description": "\u4e2a\u4eba\u53d1\u5361\u6e90\u7801\uff0c\u53d1\u5361\u7cfb\u7edf\uff0c\u4e8c\u6b21\u5143\u53d1\u5361\u7cfb\u7edf\uff0c\u4e8c\u6b21\u5143\u53d1\u5361\u6e90\u7801\uff0c\u53d1\u5361\u7a0b\u5e8f\uff0c\u52a8\u6f2b\u53d1\u5361\uff0cPHP\u53d1\u5361\u6e90\u7801\uff0c\u5f02\u6b21\u5143\u53d1\u5361",
+      "full_name": "lizhipay/acg-faka",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 100,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/lizhipay/acg-faka"
+    },
+    {
+      "description": "A fancy self-hosted monitoring tool",
+      "full_name": "louislam/uptime-kuma",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 18,
+          "stars": 87774
+        }
+      ],
+      "stars": 87774,
+      "stars_today": null,
+      "url": "https://github.com/louislam/uptime-kuma"
+    },
+    {
+      "description": "A visual, example-driven guide to Claude Code \u2014 from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+      "full_name": "luongnv89/claude-howto",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 8,
+          "stars_today": "393"
+        }
+      ],
+      "stars": null,
+      "stars_today": "393",
+      "url": "https://github.com/luongnv89/claude-howto"
+    },
+    {
+      "description": "\u300a\u660e\u65e5\u65b9\u821f\u300b\u5c0f\u52a9\u624b\uff0c\u5168\u65e5\u5e38\u4e00\u952e\u957f\u8349\uff01| A one-click tool for the daily tasks of Arknights, supporting all clients.",
+      "full_name": "MaaAssistantArknights/MaaAssistantArknights",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 47,
+          "stars_today": "23"
+        }
+      ],
+      "stars": null,
+      "stars_today": "23",
+      "url": "https://github.com/MaaAssistantArknights/MaaAssistantArknights"
+    },
+    {
+      "description": "Magenta RealTime 2: An Open-Weights Live Music Model",
+      "full_name": "magenta/magenta-realtime",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 10,
+          "stars_today": "86"
+        }
+      ],
+      "stars": null,
+      "stars_today": "86",
+      "url": "https://github.com/magenta/magenta-realtime"
+    },
+    {
+      "description": "OpenTelemetry observability platform",
+      "full_name": "Makisuo/maple",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 26,
+          "stars_today": "159"
+        }
+      ],
+      "stars": null,
+      "stars_today": "159",
+      "url": "https://github.com/Makisuo/maple"
+    },
+    {
+      "description": "Empowering People Ethically \ud83d\ude80 \u2014 Matomo is hiring! Join us \u2192 https://matomo.org/jobs Matomo is the leading open-source alternative to Google Analytics, giving you complete control and built-in privacy. Easily collect, visualise, and analyse data from websites & apps. Star us on GitHub \u2b50\ufe0f  \u2013 Pull Requests welcome!",
+      "full_name": "matomo-org/matomo",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 100,
+          "stars": 21578
+        }
+      ],
+      "stars": 21578,
+      "stars_today": null,
+      "url": "https://github.com/matomo-org/matomo"
+    },
+    {
+      "description": "Super Repository for Coding Interview Preperation",
+      "full_name": "MAZHARMIK/Interview_DS_Algo",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 50,
+          "stars_today": "44"
+        }
+      ],
+      "stars": null,
+      "stars_today": "44",
+      "url": "https://github.com/MAZHARMIK/Interview_DS_Algo"
+    },
+    {
+      "description": "The best-benchmarked open-source AI memory system. And it's free.",
+      "full_name": "MemPalace/mempalace",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 6,
+          "stars_today": "237"
+        }
+      ],
+      "stars": null,
+      "stars_today": "237",
+      "url": "https://github.com/MemPalace/mempalace"
+    },
+    {
+      "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
+      "full_name": "meshcore-dev/MeshCore",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 75,
+          "stars_today": "7"
+        }
+      ],
+      "stars": null,
+      "stars_today": "7",
+      "url": "https://github.com/meshcore-dev/MeshCore"
+    },
+    {
+      "description": "Policy-driven, layered isolation and containment",
+      "full_name": "microsoft/mxc",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 84,
+          "stars_today": "65"
+        }
+      ],
+      "stars": null,
+      "stars_today": "65",
+      "url": "https://github.com/microsoft/mxc"
+    },
+    {
+      "description": "PostgreSQL in-database durable execution",
+      "full_name": "microsoft/pg_durable",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 83,
+          "stars_today": "356"
+        }
+      ],
+      "stars": null,
+      "stars_today": "356",
+      "url": "https://github.com/microsoft/pg_durable"
+    },
+    {
+      "description": "Microsoft PowerToys is a collection of utilities that supercharge productivity and customization on Windows",
+      "full_name": "microsoft/PowerToys",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 59,
+          "stars_today": "55"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 51,
+          "stars": 133940
+        }
+      ],
+      "stars": 133940,
+      "stars_today": "55",
+      "url": "https://github.com/microsoft/PowerToys"
+    },
+    {
+      "description": "Integrate cutting-edge LLM technology quickly and easily into your apps",
+      "full_name": "microsoft/semantic-kernel",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 57,
+          "stars": 28079
+        }
+      ],
+      "stars": 28079,
+      "stars_today": null,
+      "url": "https://github.com/microsoft/semantic-kernel"
+    },
+    {
+      "description": "Visual Studio Code",
+      "full_name": "microsoft/vscode",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 25,
+          "stars": 186071
+        }
+      ],
+      "stars": 186071,
+      "stars_today": null,
+      "url": "https://github.com/microsoft/vscode"
+    },
+    {
+      "description": "The Moby Project - a collaborative project for the container ecosystem to assemble container-based systems",
+      "full_name": "moby/moby",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 70,
+          "stars": 71641
+        }
+      ],
+      "stars": 71641,
+      "stars_today": null,
+      "url": "https://github.com/moby/moby"
+    },
+    {
+      "description": "\ud83c\udfa5 Command line media player",
+      "full_name": "mpv-player/mpv",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 79,
+          "stars": 35501
+        }
+      ],
+      "stars": 35501,
+      "stars_today": null,
+      "url": "https://github.com/mpv-player/mpv"
+    },
+    {
+      "description": "JavaScript 3D Library.",
+      "full_name": "mrdoob/three.js",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 16,
+          "stars": 112897
+        }
+      ],
+      "stars": 112897,
+      "stars_today": null,
+      "url": "https://github.com/mrdoob/three.js"
+    },
+    {
+      "description": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
+      "full_name": "mui/material-ui",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 17,
+          "stars": 98389
+        }
+      ],
+      "stars": 98389,
+      "stars_today": null,
+      "url": "https://github.com/mui/material-ui"
+    },
+    {
+      "description": "Every API has a secret identity. This finds it, absorbs every feature from every competing tool, then builds the GOAT CLI \u2014 designed for AI agents first, with SQLite sync, offline search, and compound insight commands.",
+      "full_name": "mvanhorn/cli-printing-press",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 61,
+          "stars_today": "89"
+        }
+      ],
+      "stars": null,
+      "stars_today": "89",
+      "url": "https://github.com/mvanhorn/cli-printing-press"
+    },
+    {
+      "description": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+      "full_name": "mvanhorn/last30days-skill",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 1,
+          "stars_today": "3,558"
+        }
+      ],
+      "stars": null,
+      "stars_today": "3,558",
+      "url": "https://github.com/mvanhorn/last30days-skill"
+    },
+    {
+      "description": "Official library of CLIs generated by the CLI Printing Press. Endorsed, tested, and community-contributed.",
+      "full_name": "mvanhorn/printing-press-library",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 67,
+          "stars_today": "17"
+        }
+      ],
+      "stars": null,
+      "stars_today": "17",
+      "url": "https://github.com/mvanhorn/printing-press-library"
+    },
+    {
+      "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+      "full_name": "n8n-io/n8n",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 24,
+          "stars": 191617
+        }
+      ],
+      "stars": 191617,
+      "stars_today": null,
+      "url": "https://github.com/n8n-io/n8n"
+    },
+    {
+      "description": "Ghidra is a software reverse engineering (SRE) framework",
+      "full_name": "NationalSecurityAgency/ghidra",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 33,
+          "stars": 69373
+        }
+      ],
+      "stars": 69373,
+      "stars_today": null,
+      "url": "https://github.com/NationalSecurityAgency/ghidra"
+    },
+    {
+      "description": "The fastest path to AI-powered full stack observability, even for lean teams.",
+      "full_name": "netdata/netdata",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 72,
+          "stars": 79089
+        }
+      ],
+      "stars": 79089,
+      "stars_today": null,
+      "url": "https://github.com/netdata/netdata"
+    },
+    {
+      "description": "\u2601\ufe0f Nextcloud server, a safe home for all your data",
+      "full_name": "nextcloud/server",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 92,
+          "stars": 35698
+        }
+      ],
+      "stars": 35698,
+      "stars_today": null,
+      "url": "https://github.com/nextcloud/server"
+    },
+    {
+      "description": "The official NGINX Open Source repository.",
+      "full_name": "nginx/nginx",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C",
+          "rank": 74,
+          "stars_today": "25"
+        }
+      ],
+      "stars": null,
+      "stars_today": "25",
+      "url": "https://github.com/nginx/nginx"
+    },
+    {
+      "description": "Interactive roadmaps, guides and other educational content to help developers grow in their careers.",
+      "full_name": "nilbuild/developer-roadmap",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 23,
+          "stars": 356559
+        }
+      ],
+      "stars": 356559,
+      "stars_today": null,
+      "url": "https://github.com/nilbuild/developer-roadmap"
+    },
+    {
+      "description": "Node.js JavaScript runtime \u2728\ud83d\udc22\ud83d\ude80\u2728",
+      "full_name": "nodejs/node",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 15,
+          "stars": 117703
+        }
+      ],
+      "stars": 117703,
+      "stars_today": null,
+      "url": "https://github.com/nodejs/node"
+    },
+    {
+      "description": "The agent that grows with you",
+      "full_name": "NousResearch/hermes-agent",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 3,
+          "stars": 187270
+        }
+      ],
+      "stars": 187270,
+      "stars_today": null,
+      "url": "https://github.com/NousResearch/hermes-agent"
+    },
+    {
+      "description": "OBS Studio - Free and open source software for live streaming and screen recording",
+      "full_name": "obsproject/obs-studio",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 74,
+          "stars": 73015
+        }
+      ],
+      "stars": 73015,
+      "stars_today": null,
+      "url": "https://github.com/obsproject/obs-studio"
+    },
+    {
+      "description": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies",
+      "full_name": "ocornut/imgui",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 48,
+          "stars": 73737
+        }
+      ],
+      "stars": 73737,
+      "stars_today": null,
+      "url": "https://github.com/ocornut/imgui"
+    },
+    {
+      "description": "Get up and running with Kimi-K2.6, GLM-5.1, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+      "full_name": "ollama/ollama",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 62,
+          "stars": 173612
+        }
+      ],
+      "stars": 173612,
+      "stars_today": null,
+      "url": "https://github.com/ollama/ollama"
+    },
+    {
+      "description": "Lightweight coding agent that runs in your terminal",
+      "full_name": "openai/codex",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 87,
+          "stars": 89658
+        }
+      ],
+      "stars": 89658,
+      "stars_today": null,
+      "url": "https://github.com/openai/codex"
+    },
+    {
+      "description": "OpenAI Plugins",
+      "full_name": "openai/plugins",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 12,
+          "stars_today": "296"
+        }
+      ],
+      "stars": null,
+      "stars_today": "296",
+      "url": "https://github.com/openai/plugins"
+    },
+    {
+      "description": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)",
+      "full_name": "OpenAPITools/openapi-generator",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 38,
+          "stars_today": "8"
+        }
+      ],
+      "stars": null,
+      "stars_today": "8",
+      "url": "https://github.com/OpenAPITools/openapi-generator"
+    },
+    {
+      "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. \ud83e\udd9e",
+      "full_name": "openclaw/openclaw",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "TypeScript",
+          "rank": 22,
+          "stars": 377640
+        }
+      ],
+      "stars": 377640,
+      "stars_today": null,
+      "url": "https://github.com/openclaw/openclaw"
+    },
+    {
+      "description": "Open Source Computer Vision Library",
+      "full_name": "opencv/opencv",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 42,
+          "stars_today": "447"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 47,
+          "stars": 88352
+        }
+      ],
+      "stars": 88352,
+      "stars_today": "447",
+      "url": "https://github.com/opencv/opencv"
+    },
+    {
+      "description": "openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. Thanks to the modular design of the framework it can be enhanced via plugins. openmediavault is primarily designed to be used in home environments or small home offices.",
+      "full_name": "openmediavault/openmediavault",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 99,
+          "stars_today": "5"
+        }
+      ],
+      "stars": null,
+      "stars_today": "5",
+      "url": "https://github.com/openmediavault/openmediavault"
+    },
+    {
+      "description": "OpenSCAD - The Programmers Solid 3D CAD Modeller",
+      "full_name": "openscad/openscad",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 49,
+          "stars_today": "6"
+        }
+      ],
+      "stars": null,
+      "stars_today": "6",
+      "url": "https://github.com/openscad/openscad"
+    },
+    {
+      "description": "\ud83d\udd0e Open source distributed and RESTful search engine.",
+      "full_name": "opensearch-project/OpenSearch",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 32,
+          "stars_today": "28"
+        }
+      ],
+      "stars": null,
+      "stars_today": "28",
+      "url": "https://github.com/opensearch-project/OpenSearch"
+    },
+    {
+      "description": "Incredibly fast JavaScript runtime, bundler, test runner, and package manager \u2013 all in one",
+      "full_name": "oven-sh/bun",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 86,
+          "stars": 92940
+        }
+      ],
+      "stars": 92940,
+      "stars_today": null,
+      "url": "https://github.com/oven-sh/bun"
+    },
+    {
+      "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu \u2014 one CLI, zero API fees.",
+      "full_name": "Panniantong/Agent-Reach",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 4,
+          "stars_today": "796"
+        }
+      ],
+      "stars": null,
+      "stars_today": "796",
+      "url": "https://github.com/Panniantong/Agent-Reach"
+    },
+    {
+      "description": "VPN client in a thin Docker container for multiple VPN providers, written in Go, and using OpenVPN or Wireguard, DNS over TLS, with a few proxy servers built-in.",
+      "full_name": "passteque/gluetun",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 65,
+          "stars_today": "12"
+        }
+      ],
+      "stars": null,
+      "stars_today": "12",
+      "url": "https://github.com/passteque/gluetun"
+    },
+    {
+      "description": "The PHP Interpreter",
+      "full_name": "php/php-src",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 78,
+          "stars": 40139
+        }
+      ],
+      "stars": 40139,
+      "stars_today": null,
+      "url": "https://github.com/php/php-src"
+    },
+    {
+      "description": "Mod loader, scripting platform, and VR support for all RE Engine games",
+      "full_name": "praydog/REFramework",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 46,
+          "stars_today": "7"
+        }
+      ],
+      "stars": null,
+      "stars_today": "7",
+      "url": "https://github.com/praydog/REFramework"
+    },
+    {
+      "description": "Protocol Buffers - Google's data interchange format",
+      "full_name": "protocolbuffers/protobuf",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 49,
+          "stars": 71328
+        }
+      ],
+      "stars": 71328,
+      "stars_today": null,
+      "url": "https://github.com/protocolbuffers/protobuf"
+    },
+    {
+      "description": "A collective list of free APIs",
+      "full_name": "public-apis/public-apis",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 1,
+          "stars": 440257
+        }
+      ],
+      "stars": 440257,
+      "stars_today": null,
+      "url": "https://github.com/public-apis/public-apis"
+    },
+    {
+      "description": "An accessibility tool to assist in gameplay and compensate for human imperfections.",
+      "full_name": "PunishXIV/Splatoon",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 58,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/PunishXIV/Splatoon"
+    },
+    {
+      "description": "Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/",
+      "full_name": "qdrant/qdrant",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 89,
+          "stars_today": "37"
+        }
+      ],
+      "stars": null,
+      "stars_today": "37",
+      "url": "https://github.com/qdrant/qdrant"
+    },
+    {
+      "description": "Bring macOS \u201cQuick Look\u201d feature to Windows",
+      "full_name": "QL-Win/QuickLook",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C#",
+          "rank": 59,
+          "stars": 23694
+        }
+      ],
+      "stars": 23694,
+      "stars_today": null,
+      "url": "https://github.com/QL-Win/QuickLook"
+    },
+    {
+      "description": "Movie organizer/manager for usenet and torrent users.",
+      "full_name": "Radarr/Radarr",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 54,
+          "stars_today": "7"
+        }
+      ],
+      "stars": null,
+      "stars_today": "7",
+      "url": "https://github.com/Radarr/Radarr"
+    },
+    {
+      "description": "\"rsync for cloud storage\" - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic, Wasabi, Google Cloud Storage, Azure Blob, Azure Files, Yandex Files",
+      "full_name": "rclone/rclone",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 69,
+          "stars_today": "64"
+        }
+      ],
+      "stars": null,
+      "stars_today": "64",
+      "url": "https://github.com/rclone/rclone"
+    },
+    {
+      "description": "RxJava \u2013 Reactive Extensions for the JVM \u2013 a library for composing asynchronous and event-based programs using observable sequences for the Java VM.",
+      "full_name": "ReactiveX/RxJava",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 38,
+          "stars": 48235
+        }
+      ],
+      "stars": 48235,
+      "stars_today": null,
+      "url": "https://github.com/ReactiveX/RxJava"
+    },
+    {
+      "description": "For developers, who are building real-time data-driven applications, Redis is the preferred, fastest, and most feature-rich cache, data structure server, and document and vector query engine.",
+      "full_name": "redis/redis",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 73,
+          "stars": 74754
+        }
+      ],
+      "stars": 74754,
+      "stars_today": null,
+      "url": "https://github.com/redis/redis"
+    },
+    {
+      "description": "Desktop app to manage markdown knowledge bases",
+      "full_name": "refactoringhq/tolaria",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 21,
+          "stars_today": "649"
+        }
+      ],
+      "stars": null,
+      "stars_today": "649",
+      "url": "https://github.com/refactoringhq/tolaria"
+    },
+    {
+      "description": "We write your reusable computer vision tools. \ud83d\udc9c",
+      "full_name": "roboflow/supervision",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 7,
+          "stars_today": "1,140"
+        }
+      ],
+      "stars": null,
+      "stars_today": "1,140",
+      "url": "https://github.com/roboflow/supervision"
+    },
+    {
+      "description": "Empowering everyone to build reliable and efficient software.",
+      "full_name": "rust-lang/rust",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 82,
+          "stars": 113715
+        }
+      ],
+      "stars": 113715,
+      "stars_today": null,
+      "url": "https://github.com/rust-lang/rust"
+    },
+    {
+      "description": "A vector index built on TurboQuant, written in Rust with Python bindings",
+      "full_name": "RyanCodrai/turbovec",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Python",
+          "rank": 2,
+          "stars_today": "1,730"
+        }
+      ],
+      "stars": null,
+      "stars_today": "1,730",
+      "url": "https://github.com/RyanCodrai/turbovec"
+    },
+    {
+      "description": "AI-powered job search system built on Claude Code. 14 skill modes, Go dashboard, PDF generation, batch processing.",
+      "full_name": "santifer/career-ops",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 11,
+          "stars_today": "477"
+        }
+      ],
+      "stars": null,
+      "stars_today": "477",
+      "url": "https://github.com/santifer/career-ops"
+    },
+    {
+      "description": "A browser automation framework and ecosystem.",
+      "full_name": "SeleniumHQ/selenium",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 37,
+          "stars_today": "10"
+        }
+      ],
+      "stars": null,
+      "stars_today": "10",
+      "url": "https://github.com/SeleniumHQ/selenium"
+    },
+    {
+      "description": "The Serenity Operating System \ud83d\udc1e",
+      "full_name": "SerenityOS/serenity",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 41,
+          "stars_today": "22"
+        }
+      ],
+      "stars": null,
+      "stars_today": "22",
+      "url": "https://github.com/SerenityOS/serenity"
+    },
+    {
+      "description": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.",
+      "full_name": "Significant-Gravitas/AutoGPT",
+      "languages": [
+        "Python"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Python",
+          "rank": 4,
+          "stars": 184848
+        }
+      ],
+      "stars": 184848,
+      "stars_today": null,
+      "url": "https://github.com/Significant-Gravitas/AutoGPT"
+    },
+    {
+      "description": "Slint is an open-source declarative GUI toolkit to build native user interfaces for Rust, C++, JavaScript, or Python apps.",
+      "full_name": "slint-ui/slint",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 88,
+          "stars_today": "12"
+        }
+      ],
+      "stars": null,
+      "stars_today": "12",
+      "url": "https://github.com/slint-ui/slint"
+    },
+    {
+      "description": "Java \u9762\u8bd5 & \u540e\u7aef\u901a\u7528\u9762\u8bd5\u6307\u5357\uff0c\u8986\u76d6\u8ba1\u7b97\u673a\u57fa\u7840\u3001\u6570\u636e\u5e93\u3001\u5206\u5e03\u5f0f\u3001\u9ad8\u5e76\u53d1\u3001\u7cfb\u7edf\u8bbe\u8ba1\u4e0e AI \u5e94\u7528\u5f00\u53d1",
+      "full_name": "Snailclimb/JavaGuide",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 13,
+          "stars": 156221
+        }
+      ],
+      "stars": 156221,
+      "stars_today": null,
+      "url": "https://github.com/Snailclimb/JavaGuide"
+    },
+    {
+      "description": "Spring Framework",
+      "full_name": "spring-projects/spring-framework",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 35,
+          "stars": 60012
+        }
+      ],
+      "stars": 60012,
+      "stars_today": null,
+      "url": "https://github.com/spring-projects/spring-framework"
+    },
+    {
+      "description": "PHP library for the Stripe API.",
+      "full_name": "stripe/stripe-php",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "PHP",
+          "rank": 93,
+          "stars_today": "0"
+        }
+      ],
+      "stars": null,
+      "stars_today": "0",
+      "url": "https://github.com/stripe/stripe-php"
+    },
+    {
+      "description": "the subtitle editor :)",
+      "full_name": "SubtitleEdit/subtitleedit",
+      "languages": [
+        "C#"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C#",
+          "rank": 60,
+          "stars_today": "9"
+        }
+      ],
+      "stars": null,
+      "stars_today": "9",
+      "url": "https://github.com/SubtitleEdit/subtitleedit"
+    },
+    {
+      "description": "web development for the rest of us",
+      "full_name": "sveltejs/svelte",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 14,
+          "stars_today": "44"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 19,
+          "stars": 87150
+        }
+      ],
+      "stars": 87150,
+      "stars_today": "44",
+      "url": "https://github.com/sveltejs/svelte"
+    },
+    {
+      "description": "The Symfony PHP framework",
+      "full_name": "symfony/symfony",
+      "languages": [
+        "PHP"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "PHP",
+          "rank": 94,
+          "stars": 31062
+        }
+      ],
+      "stars": 31062,
+      "stars_today": null,
+      "url": "https://github.com/symfony/symfony"
+    },
+    {
+      "description": "Open Source Continuous File Synchronization",
+      "full_name": "syncthing/syncthing",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Go",
+          "rank": 66,
+          "stars": 85143
+        }
+      ],
+      "stars": 85143,
+      "stars_today": null,
+      "url": "https://github.com/syncthing/syncthing"
+    },
+    {
+      "description": "Build smaller, faster, and more secure desktop and mobile applications with a web frontend.",
+      "full_name": "tauri-apps/tauri",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 83,
+          "stars": 107625
+        }
+      ],
+      "stars": 107625,
+      "stars_today": null,
+      "url": "https://github.com/tauri-apps/tauri"
+    },
+    {
+      "description": "An Open Source Machine Learning Framework for Everyone",
+      "full_name": "tensorflow/tensorflow",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C++",
+          "rank": 41,
+          "stars": 195608
+        }
+      ],
+      "stars": 195608,
+      "stars_today": null,
+      "url": "https://github.com/tensorflow/tensorflow"
+    },
+    {
+      "description": "Termux - a terminal emulator application for Android OS extendible by variety of packages.",
+      "full_name": "termux/termux-app",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 33,
+          "stars_today": "40"
+        }
+      ],
+      "stars": null,
+      "stars_today": "40",
+      "url": "https://github.com/termux/termux-app"
+    },
+    {
+      "description": "D2 is a modern diagram scripting language that turns text to diagrams.",
+      "full_name": "terrastruct/d2",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 63,
+          "stars_today": "56"
+        }
+      ],
+      "stars": null,
+      "stars_today": "56",
+      "url": "https://github.com/terrastruct/d2"
+    },
+    {
+      "description": "All Algorithms implemented in Java",
+      "full_name": "TheAlgorithms/Java",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Java",
+          "rank": 34,
+          "stars": 65798
+        }
+      ],
+      "stars": 65798,
+      "stars_today": null,
+      "url": "https://github.com/TheAlgorithms/Java"
+    },
+    {
+      "description": "tmux source code",
+      "full_name": "tmux/tmux",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 76,
+          "stars": 46390
+        }
+      ],
+      "stars": 46390,
+      "stars_today": null,
+      "url": "https://github.com/tmux/tmux"
+    },
+    {
+      "description": "Linux kernel source tree",
+      "full_name": "torvalds/linux",
+      "languages": [
+        "C"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "C",
+          "rank": 71,
+          "stars": 235854
+        }
+      ],
+      "stars": 235854,
+      "stars_today": null,
+      "url": "https://github.com/torvalds/linux"
+    },
+    {
+      "description": "AI-assisted TradingView chart analysis \u2014 connect Claude Code to your TradingView Desktop for personal workflow automation",
+      "full_name": "tradesdontlie/tradingview-mcp",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 16,
+          "stars_today": "31"
+        }
+      ],
+      "stars": null,
+      "stars_today": "31",
+      "url": "https://github.com/tradesdontlie/tradingview-mcp"
+    },
+    {
+      "description": "An agent-managed museum exhibit, built in Rust with Gajae-Code / LazyCodex \u2014 developed and maintained with no human intervention.",
+      "full_name": "ultraworkers/claw-code",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 81,
+          "stars": 193489
+        }
+      ],
+      "stars": 193489,
+      "stars_today": null,
+      "url": "https://github.com/ultraworkers/claw-code"
+    },
+    {
+      "description": "The trust-minimized, zero-knowledge bridging protocol, designed for censorship resistance, extremely high security, and usage in decentralized finance.",
+      "full_name": "unionlabs/union",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 90,
+          "stars": 73982
+        }
+      ],
+      "stars": 73982,
+      "stars_today": null,
+      "url": "https://github.com/unionlabs/union"
+    },
+    {
+      "description": "The React Framework",
+      "full_name": "vercel/next.js",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 14,
+          "stars": 139893
+        }
+      ],
+      "stars": 139893,
+      "stars_today": null,
+      "url": "https://github.com/vercel/next.js"
+    },
+    {
+      "description": "Next generation frontend tooling. It's fast!",
+      "full_name": "vitejs/vite",
+      "languages": [
+        "TypeScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "TypeScript",
+          "rank": 30,
+          "stars_today": "32"
+        }
+      ],
+      "stars": null,
+      "stars_today": "32",
+      "url": "https://github.com/vitejs/vite"
+    },
+    {
+      "description": "A bundler for javascript and friends. Packs many modules into a few bundled assets. Code Splitting allows for loading parts of the application on demand. Through \"loaders\", modules can be CommonJs, AMD, ES6 modules, CSS, Images, JSON, Coffeescript, LESS, ... and your custom stuff.",
+      "full_name": "webpack/webpack",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 19,
+          "stars_today": "18"
+        },
+        {
+          "file": "trending_100.json",
+          "language": "JavaScript",
+          "rank": 20,
+          "stars": 65786
+        }
+      ],
+      "stars": 65786,
+      "stars_today": "18",
+      "url": "https://github.com/webpack/webpack"
+    },
+    {
+      "description": "Sub2API is an open-source relay platform that unifies Claude, OpenAI, Gemini, and Antigravity subscriptions into a single endpoint. It supports account sharing and cost-sharing, with seamless native tool compatibility.",
+      "full_name": "Wei-Shaw/sub2api",
+      "languages": [
+        "Go"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Go",
+          "rank": 62,
+          "stars_today": "440"
+        }
+      ],
+      "stars": null,
+      "stars_today": "440",
+      "url": "https://github.com/Wei-Shaw/sub2api"
+    },
+    {
+      "description": "",
+      "full_name": "woheller69/FreeDroidWarn",
+      "languages": [
+        "Java"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Java",
+          "rank": 36,
+          "stars_today": "20"
+        }
+      ],
+      "stars": null,
+      "stars_today": "20",
+      "url": "https://github.com/woheller69/FreeDroidWarn"
+    },
+    {
+      "description": "Kodi is an award-winning free and open source home theater/media center software and entertainment hub for digital media. With its beautiful interface and powerful skinning engine, it's available for Android, BSD, Linux, macOS, iOS, tvOS and Windows.",
+      "full_name": "xbmc/xbmc",
+      "languages": [
+        "C++"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "C++",
+          "rank": 45,
+          "stars_today": "19"
+        }
+      ],
+      "stars": null,
+      "stars_today": "19",
+      "url": "https://github.com/xbmc/xbmc"
+    },
+    {
+      "description": "\u041b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 API-\u043f\u0440\u043e\u043a\u0441\u0438 \u0434\u043b\u044f Qwen AI \u0441 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0430 \u0434\u0438\u0430\u043b\u043e\u0433\u043e\u0432 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0441\u0435\u0441\u0441\u0438\u044f\u043c\u0438 \u0447\u0435\u0440\u0435\u0437 REST API",
+      "full_name": "y13sint/FreeQwenApi",
+      "languages": [
+        "JavaScript"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "JavaScript",
+          "rank": 20,
+          "stars_today": "13"
+        }
+      ],
+      "stars": null,
+      "stars_today": "13",
+      "url": "https://github.com/y13sint/FreeQwenApi"
+    },
+    {
+      "description": "Code at the speed of thought \u2013 Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.",
+      "full_name": "zed-industries/zed",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "trending_100.json",
+          "language": "Rust",
+          "rank": 89,
+          "stars": 84795
+        }
+      ],
+      "stars": 84795,
+      "stars_today": null,
+      "url": "https://github.com/zed-industries/zed"
+    },
+    {
+      "description": "Simple Yet Powerful Anti-Detect Browser \ud83c\udf69",
+      "full_name": "zhom/donutbrowser",
+      "languages": [
+        "Rust"
+      ],
+      "sources": [
+        {
+          "file": "github_trending_today.json",
+          "language": "Rust",
+          "rank": 87,
+          "stars_today": "21"
+        }
+      ],
+      "stars": null,
+      "stars_today": "21",
+      "url": "https://github.com/zhom/donutbrowser"
+    }
+  ]
+}
