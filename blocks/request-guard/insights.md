@@ -9,3 +9,9 @@ Distilled cross-project lessons. Merged, capped — not a log.
   the second instance, so the gate has to call it.
 - **Key on the caller, not the route.** Limiting per-path lets one caller exhaust everyone's
   budget on a hot route. Default the key to the client identity.
+
+<!-- fot:federated:begin -->
+## Federated lessons (auto-synced from the FoT store — do not edit by hand)
+
+_None yet — lessons deposited via the federation store appear here._
+<!-- fot:federated:end -->

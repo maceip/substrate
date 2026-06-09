@@ -51,6 +51,15 @@ await check('assertNoLoosening: adding a gate is allowed (tightening)', () => {
   assert.equal(assertNoLoosening(GATES, tightened).length, 0)
 })
 
+// AEvo armed: the live gates may not loosen the baseline committed at git HEAD
+// (block.json). Tightening passes; loosening fails until a human commits it.
+await check('PROTECTED: live gates do not loosen the committed baseline', async () => {
+  const { checkProtection } = await import('../_kernel/protect.ts')
+  const res = checkProtection(new URL('.', import.meta.url).pathname, GATES)
+  if (res.baseline === 'none') return console.log('      (no committed baseline yet — protection arms on first commit)')
+  assert.deepEqual(res.violations, [])
+})
+
 console.log('')
 if (failures > 0) {
   console.log(`${failures} failing\n`)

@@ -10,3 +10,9 @@ Distilled cross-project lessons. Merged, capped — not a log.
   public/prod gate exists precisely because forgetting it is invisible until you're attacked.
 - **Parse the body once, at the edge.** Handlers should receive already-parsed `body`, never the
   raw stream — otherwise every handler reinvents it and they drift.
+
+<!-- fot:federated:begin -->
+## Federated lessons (auto-synced from the FoT store — do not edit by hand)
+
+_None yet — lessons deposited via the federation store appear here._
+<!-- fot:federated:end -->

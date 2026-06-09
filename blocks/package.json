@@ -4,11 +4,13 @@
   "type": "module",
   "description": "The nursery: runnable capability blocks. App code imports each block's index.ts only.",
   "scripts": {
-    "demo": "node persistence/demo.ts && node env/demo.ts && node logging/demo.ts && node transport/demo.ts && node nursery-app/main.ts",
-    "test": "node persistence/block.test.ts && node env/block.test.ts && node logging/block.test.ts && node transport/block.test.ts && node nursery-app/app.test.ts",
+    "demo": "node persistence/demo.ts && node env/demo.ts && node logging/demo.ts && node transport/demo.ts && node input-validation/demo.ts && node request-guard/demo.ts && node nursery-app/main.ts",
+    "test": "node persistence/block.test.ts && node env/block.test.ts && node logging/block.test.ts && node transport/block.test.ts && node input-validation/block.test.ts && node request-guard/block.test.ts && node fot-proof/proof.test.ts && node nursery-app/app.test.ts",
+    "insights:sync": "node _kernel/sync-insights.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/node": "^25.9.2",
     "typescript": "^5.6.0"
   }
 }

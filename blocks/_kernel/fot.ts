@@ -6,14 +6,16 @@
 // by hand is not FoT; a lesson that travels on its own is).
 //
 // The store is MERGED and CAPPED (dedup by normalized text, keep the most recent CAP), not an
-// append-only log — exactly as the paper specifies. Location is the federation boundary: set
-// FOT_STORE to point independent projects at the same library (or isolate them in a test).
+// append-only log — exactly as the paper specifies. Location is the federation boundary: the
+// default lives OUTSIDE any repo (~/.substrate/) so independent projects on this machine share
+// one library by default — a store inside a repo can never carry a lesson across repos. Set
+// FOT_STORE to widen the boundary further (shared volume) or to isolate it in a test.
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { homedir } from 'node:os'
 
-const DEFAULT_STORE = join(dirname(fileURLToPath(import.meta.url)), '.fot-store.json')
+const DEFAULT_STORE = join(homedir(), '.substrate', 'fot-store.json')
 const CAP = 20
 
 function storePath(): string {

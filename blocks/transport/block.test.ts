@@ -51,7 +51,7 @@ await check('real socket: listen + fetch round-trip', async () => {
   r.route('GET', '/ping', () => ({ status: 200, body: { pong: true } }))
   const l = await r.listen(0)
   const res = await fetch(`${l.url}/ping`)
-  const json = await res.json()
+  const json = (await res.json()) as { pong: boolean }
   await l.close()
   assert.equal(res.status, 200)
   assert.equal(json.pong, true)
@@ -72,6 +72,15 @@ await check('under-grade caught: nursery server is public', () => {
 
 await check('assertNoLoosening rejects gate removal', () => {
   assert.ok(assertNoLoosening(GATES, GATES.slice(0, 1)).length > 0)
+})
+
+// AEvo armed: the live gates may not loosen the baseline committed at git HEAD
+// (block.json). Tightening passes; loosening fails until a human commits it.
+await check('PROTECTED: live gates do not loosen the committed baseline', async () => {
+  const { checkProtection } = await import('../_kernel/protect.ts')
+  const res = checkProtection(new URL('.', import.meta.url).pathname, GATES)
+  if (res.baseline === 'none') return console.log('      (no committed baseline yet — protection arms on first commit)')
+  assert.deepEqual(res.violations, [])
 })
 
 console.log('')

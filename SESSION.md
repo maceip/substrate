@@ -274,30 +274,57 @@ block/
    "port" meant both the interface seam AND the milestone ("when you hit a port"). Now: the
    seam is a PORT, the milestone is a GATE.
 
-3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far:
-   `persistence`, `env`, `logging`, `transport` (all runnable + tested, `npm test` green).
-   Shared spine extracted to `blocks/_kernel/grade.ts` (Grade ladder + assertNoLoosening).
-   Remaining backlog from port-catalog-v0: input-validation, schema-migrations, async-jobs,
-   request-guard, cache, authz, CI/release, etc.
+3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (6):
+   `persistence`, `env`, `logging`, `transport`, `input-validation`, `request-guard` — all
+   runnable + tested (`npm test` green, 38 checks). Shared spine in `blocks/_kernel/grade.ts`
+   (Grade ladder + assertNoLoosening). The last two are BOUNDARY blocks: each exports a
+   middleware that plugs into transport's router.use() with no cross-import. Remaining backlog
+   from port-catalog-v0: schema-migrations, async-jobs, cache, authz, CI/release, etc.
 
-4. Wire the four-paper structure into the blocks.
-   - MOSS (executable, not prose): DONE — every gate is a predicate that runs.
-   - AEvo (PROTECTED + tighten-not-loosen): DONE — `_kernel/assertNoLoosening`, PROTECTED files.
-   - Meta-Agent (blocks compose by boundary contracts): DONE — `blocks/nursery-app/` composes
-     env+logging+persistence+transport into a real notes service; `nursery-app/project.ts`
-     runs ONE ProjectSignals through every block's gate at once (the project-grade dashboard).
-     `npm test` includes the composition test (POST → transport → persistence → logging).
-   - FoT (lesson crosses a repo boundary unaided): STILL TODO. insights.md is seeded in each
-     block but has not yet been PROVEN — needs a SECOND project that pulls a block and inherits
-     a lesson without hand-copying. No meaning until ≥2 projects. THE next real milestone.
+4. Wire the four-paper structure into the blocks. ALL FOUR NOW REAL:
+   - MOSS (executable, not prose): every gate is a predicate that runs.
+   - AEvo (PROTECTED + tighten-not-loosen): ARMED, not honor-system. `_kernel/protect.ts`
+     reads each block's gate baseline from `block.json` AS OF GIT HEAD; every block.test.ts
+     fails if live gates loosen it. Tightening passes; loosening requires a human commit of
+     the loosened baseline — the approval IS the commit. (Before this, assertNoLoosening only
+     compared GATES against synthetic mutations of itself — discipline, not enforcement.)
+   - Meta-Agent (blocks compose by boundary contracts): `blocks/nursery-app/` composes all six
+     blocks into a real notes HTTP service; `nursery-app/project.ts` runs ONE ProjectSignals
+     through every block's gate at once (the project-grade dashboard). Composition test in suite.
+   - FoT (lesson crosses a repo boundary unaided): PROVEN. `_kernel/fot.ts` is the federation;
+     `blocks/fot-proof/` has two independent projects (separate processes, no shared imports);
+     `proof.test.ts` shows a persistence lesson travel project-a → federation → project-b with
+     zero hand-copying, origin preserved. This was THE open milestone; it is now closed.
+     The store's DEFAULT location is now `~/.substrate/fot-store.json` — outside any repo, so
+     lessons cross repo boundaries by default (a store inside a repo never could). The two
+     insight surfaces are bridged: `npm run insights:sync` renders each block's federated
+     lessons into a generated section of its `insights.md`; prose above the markers is curated,
+     the section inside them comes from the store. The store is the source of truth.
+
+   Remaining FoT hardening (optional): make `learn()` calls happen organically from real gate
+   crossings (e.g. deposit a lesson automatically when an under-grade is detected in prod),
+   rather than only via explicit app calls.
 
 5. Graduation mechanism — now PARTLY defined (was fully open). `gates.ts` answers "what
    triggers a grade-up" (executable thresholds over observed signals) and "what activates"
-   (requirements per gate). STILL OPEN: who authors the graduated impl when a gate fires, and
-   whether the system auto-swaps the adapter or just reports the under-grade (today it reports).
+   (requirements per gate). The SENSOR half now exists: `_kernel/signals.ts` MEASURES signals
+   instead of asking for them — writer count from a static call-site scan of the app dir,
+   instances/public from declared env (INSTANCES/WEB_CONCURRENCY/PUBLIC_URL), prod from
+   NODE_ENV, rows from live store.count(). The dashboard's first row is now measured, not
+   hypothetical (`node nursery-app/main.ts`). Honest limits: the scan is an approximation and
+   env is declared, not observed infra — better sensors can replace these behind the same
+   shape. STILL OPEN: who authors the graduated impl when a gate fires, and whether the
+   system auto-swaps the adapter or just reports the under-grade (today it reports).
+
+6. `SUBSTRATE-ARCHITECTURE.pdf` is HISTORICAL — a design snapshot from the Python/LangGraph-
+   patterns stage (June 6–8). `blocks/README.md` supersedes it on layout, vocabulary, grades,
+   gates, and FoT. Do not port things back to Python from it. Still worth extracting from it:
+   typed boundary channels (the data crossing between blocks has a declared type), the
+   compose-layer rule (exactly one file per app names adapters), tracing + evaluation as
+   ports, and the LOCAL → UPSTREAM → STRUCTURAL failure-attribution drill.
 
 ---
 
-## Credentials to Rotate Tonight
+## Credentials to Rotate (written Jun 9 — UNCONFIRMED as of Jun 10; delete this section once done)
 - GitHub PAT pasted in chat: github.com/settings/tokens
 - GitHub session cookie pasted in chat: github.com/settings/sessions

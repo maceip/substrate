@@ -18,3 +18,9 @@ repo boundary without being hand-copied.
 - **Graduation is a signal, not a calendar.** The move to postgres is driven by `instances>1` or
   real row counts, observed from infra — not by someone deciding it's time. Wire the gate, let it
   fire.
+
+<!-- fot:federated:begin -->
+## Federated lessons (auto-synced from the FoT store — do not edit by hand)
+
+_None yet — lessons deposited via the federation store appear here._
+<!-- fot:federated:end -->

@@ -3,8 +3,9 @@
 Runnable capability blocks. A new project starts here: the expensive plumbing is already
 working, you build on top, and changing it later is a one-place swap instead of a rewrite.
 
-`persistence/` is the canonical shape; `env/`, `logging/`, and `transport/` follow it; and
-`nursery-app/` composes all four into a real notes service. Run everything:
+`persistence/` is the canonical shape; `env/`, `logging/`, `transport/`, `input-validation/`,
+and `request-guard/` follow it; and `nursery-app/` composes all six into a real notes service.
+Run everything:
 
 ```sh
 npm test       # every block's invariants + the composition test
@@ -13,7 +14,7 @@ npm run demo   # every block's demo + the live composed service
 # or one at a time:
 node persistence/demo.ts                          # default adapter
 PERSIST_ADAPTER=memory node persistence/demo.ts   # same app code, different grade
-node nursery-app/main.ts                          # 4 blocks composed, + project-grade dashboard
+node nursery-app/main.ts                          # 6 blocks composed, + project-grade dashboard
 ```
 
 No build step, no dependencies — Node 24 runs the TypeScript directly.
@@ -26,11 +27,32 @@ No build step, no dependencies — Node 24 runs the TypeScript directly.
 | `env` | `load(spec)` | process.env → .env → secret manager | has secrets, then prod secrets |
 | `logging` | `Logger` | console → structured JSON → external sink | prod, then instances>1 |
 | `transport` | `Router` | node:http → +middleware → framework | public/prod, then instances>1 |
+| `input-validation` | `validate(schema)` | shape-check → coercion+errors → schema lib | public/prod, then shared client |
+| `request-guard` | `guard(opts)` | memory limiter → sliding+shield → distributed | public, then instances>1 |
+
+`input-validation` and `request-guard` are *boundary* blocks: each exports a middleware that
+plugs into `transport`'s `router.use()` — without either block importing the other (structural
+compatibility, not coupling). `nursery-app/app.ts` wires the full pipeline: logging → guard →
+validation → handler → store.
 
 `nursery-app/` is the composition: `project.ts` runs ONE `ProjectSignals` through every block's
 gate at once, so a single description of where the project stands lights up every block's
 required grade together (see the dashboard `node nursery-app/main.ts` prints). That is the
 Meta-Agent claim made real — blocks compose by their boundary contracts.
+
+## FoT — proven, not just structured (`fot-proof/`)
+
+The flywheel is real and tested. `_kernel/fot.ts` is a federated insight store (merged + capped,
+keyed by block). A block re-exports `learn()` / `insights()`. The proof (`npm test` runs it):
+
+```sh
+node fot-proof/proof.test.ts
+```
+
+`project-a.ts` deposits a distilled persistence lesson; `project-b.ts` — a *separate process*
+that never imports project-a — recalls it through the federation. The test asserts the lesson
+crossed with its origin intact and that project-b contains no reference to project-a. A lesson
+traveled across a repo boundary with zero hand-copying. That is the test of FoT.
 
 ---
 
@@ -77,12 +99,16 @@ persistence/
 
 - **MOSS** — behavior is in `adapters/*.ts` and the gate checks in `gates.ts` are executable
   predicates. Nothing load-bearing lives in prose. The check *runs*.
-- **AEvo** — `port.ts` and `gates.ts` are PROTECTED. `gates.assertNoLoosening()` enforces the
-  structural half: an agent can add a gate or raise a threshold, never remove or lower one.
+- **AEvo** — `port.ts` and `gates.ts` are PROTECTED, and the protection is ARMED, not honor-system:
+  `_kernel/protect.ts` reads each block's gate baseline from `block.json` AS OF GIT HEAD, and every
+  `block.test.ts` fails if the live gates loosen it. Tightening (adding gates/requirements) passes;
+  loosening fails until a human commits the loosened baseline — the approval IS the commit.
 - **Meta-Agent** — `port.ts` is the boundary contract. Compose blocks by wiring their index.ts
   surfaces; failures attribute to local (this block), upstream (a dependency), or structural.
-- **FoT** — `insights.md` accumulates lessons across every project that uses this block. The
-  test of whether it's real: a lesson crossed a repo boundary without being hand-copied.
+- **FoT** — lessons live in the federation store (`_kernel/fot.ts`; default `~/.substrate/fot-store.json`,
+  outside any repo so lessons cross repo boundaries by default). `fot-proof/` proves the crossing.
+  `npm run insights:sync` renders each block's federated lessons into its `insights.md` — the prose
+  above the markers is curated; the section inside them is generated from the store.
 
 ## How grading works (the part you asked for)
 

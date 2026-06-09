@@ -9,3 +9,9 @@ Distilled cross-project lessons. Merged, capped — not a log.
   unparseable the moment you have volume. The prod gate forces JSON before that bites.
 - **Correlation id is the cheapest thing that makes multi-instance logs usable.** Add it via
   `child({ correlationId })` at the request boundary once, and every downstream line inherits it.
+
+<!-- fot:federated:begin -->
+## Federated lessons (auto-synced from the FoT store — do not edit by hand)
+
+_None yet — lessons deposited via the federation store appear here._
+<!-- fot:federated:end -->

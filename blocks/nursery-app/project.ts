@@ -37,22 +37,34 @@ export async function gradeReport(p: ProjectSignals, sampleRecord: object, envSp
     validation.checkGrade({ public: p.public, prod: p.prod, sharedClient: false }),
     guard.checkGrade({ public: p.public, instances: p.instances }),
   ])
-  const rows: BlockGrade[] = [
+  // Every block's evaluation must satisfy this shape — the boundary contract of the
+  // dashboard itself. Structural typing checks it per block; no casts.
+  interface BlockEvaluation {
+    requiredGrade: string
+    ok: boolean
+    unmet: { requirement: string; describe: string }[]
+  }
+  const entries: [string, BlockEvaluation][] = [
     ['persistence', pers],
     ['env', env],
     ['logging', log],
     ['transport', tx],
     ['input-validation', val],
     ['request-guard', grd],
-  ].map(([block, e]) => ({ block: block as string, requiredGrade: (e as typeof pers).requiredGrade, ok: (e as typeof pers).ok, unmet: (e as typeof pers).unmet.map((u) => ({ requirement: u.requirement, describe: u.describe })) }))
-  return rows
+  ]
+  return entries.map(([block, e]) => ({
+    block,
+    requiredGrade: e.requiredGrade,
+    ok: e.ok,
+    unmet: e.unmet.map((u) => ({ requirement: u.requirement, describe: u.describe })),
+  }))
 }
 
 export function printReport(label: string, rows: BlockGrade[]): void {
   console.log(`\n  project grade — ${label}`)
   for (const r of rows) {
     const status = r.ok ? 'OK' : 'ACTION'
-    console.log(`    ${r.block.padEnd(12)} required:${r.requiredGrade.padEnd(11)} ${status}`)
+    console.log(`    ${r.block.padEnd(16)} required:${r.requiredGrade.padEnd(11)} ${status}`)
     for (const u of r.unmet) console.log(`        ✗ ${u.requirement}: ${u.describe}`)
   }
 }

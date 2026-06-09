@@ -1,3 +1,5 @@
 # runtime data written by the file persistence adapter
 **/.data/
+# FoT federation store (regenerated; tests use a temp store)
+_kernel/.fot-store.json
 node_modules/
