@@ -378,6 +378,28 @@ block/
    local-sphinx, x402-euro-eurd). These two are the real wave-5 candidates, plus authz if auth
    un-punts. Add them to PORTS before the next mine so they surface on their own.
 
+10. BEHAVIORAL SIGNAL — the third evidence source (Jun 10). `tools/mine_shell_history.py` mines
+    ~/.zsh_history (what the user RUNS, not what files say) → `outputs/shell-signal.{md,json}`.
+    Secret-safe (command tokens only, no values/lines stored). It is the STRONGEST signal and it
+    settles the payment/i18n question for good: ZERO `stripe`/`psql`/`redis-cli`/`docker`
+    invocations — they were file-content ghosts. Top capabilities by invocation:
+    agent-orchestration 195, remote-exec-filesync 131, python-runtime 41, edge-model-runtime 40,
+    release-ci-quality 36. The top three with no existing block became WAVE 5 (in flight):
+    `agent-gates`, `remote-exec`, `edge-model`.
+
+    NORTH STAR (user, Jun 10): "if we are successful here I shouldn't NEED to be doing as much
+    agent interaction." Agent-orchestration is the #1 behavior (195). Success is that number
+    FALLING — the nursery + `agent-gates` let agents self-check against executable contracts
+    (MOSS/AEvo) instead of the human re-driving them. `agent-gates` is the lever: artifact-gating
+    (does this agent output pass the contract?), distinct from _kernel/gates.ts grade-gating.
+    Measure progress by reduced manual agent-driving, not by more blocks.
+
+    TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
+    history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
+    write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
+    contaminated IDENTIFY, manufacturing payment/i18n. Order is now fixed: identify correctly
+    first (behavioral signal), then build only cards with real signal.
+
 ---
 
 ## Credentials to Rotate (written Jun 9 — UNCONFIRMED as of Jun 10; delete this section once done)
