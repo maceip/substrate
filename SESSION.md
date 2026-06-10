@@ -348,22 +348,35 @@ block/
    compose-layer rule (exactly one file per app names adapters), tracing + evaluation as
    ports, and the LOCAL → UPSTREAM → STRUCTURAL failure-attribution drill.
 
-9. MINING IS CONTAMINATED — fix before trusting the `local_recent` ranking again (Jun 10
-   audit, prompted by payment/i18n looking wrong). `tools/mine_port_catalog.py` over-counts
-   the local column via: (a) NO DEDUP of cloned/forked repo families — Nym ×3, coss/coss-ui/
-   coss-ui-parappa-clone ×3, tenet family ×N — each inflates every port it touches; (b) NO
-   EXCLUSION of vendored trees (.venv/site-packages/.build/node_modules — e.g. HTTP 402 in a
-   vendored httpx/_status_codes.py counted as "payment"); (c) SINGLE-WORD TEXT HITS weighted
-   like tree/path evidence, so semantic collisions pass: ledger=audit-log≠money,
-   messages=protocol≠translation, translation=ML-dataset≠UI, toLocaleString=every JS app,
-   keyword-in-test-fixture≠capability. The OSS columns (tree-based, clean repos) ARE
-   trustworthy — only `local_recent` is dirty. TODO before wave 5: dedup repo families by
-   content/remote, exclude vendored dirs, weight path/tree over text, regenerate the catalog.
-   WHAT THE NOISE HID (real recurring themes once you read through it): x402/HTTP-402
-   micropayments + ecash (the REAL "payment" in these repos, not Stripe), agent-governance
-   gates (strata/vet/cursor-anchor lineage — the kernel already exists in _kernel/gates.ts,
-   no block yet), and local/edge model conversion (litert/gguf/mlx — distinct from the cloud
-   ai-model seam). These are the real wave-5 candidates, AFTER the re-mine.
+9. MINING WAS CONTAMINATED — FIXED (Jun 10). `tools/mine_port_catalog_v1.py` supersedes v0;
+   `outputs/port-catalog-v1.{md,json}` is the trustworthy catalog. v0's `local_recent` column
+   over-counted three ways, all now corrected: (a) NO DEDUP of clone/fork families — fixed by
+   collapsing repos that share a git root-commit or origin remote (41 checkouts → 29 families);
+   (b) clones of OTHER people's repos counted as yours — fixed with an OWNERSHIP column
+   (`local_own`: origin owner == you, or no remote; 20 of 29 families are actually yours).
+   coss (×3) and nym (×3) were clones of cosscom/coss and nymtech/nym — correctly dropped from
+   your count; (c) vendored trees (.venv*/site-packages/.build/_next/.min.js/.cache) and
+   single-word README/fixture hits — fixed by prefix/suffix exclusion + a QUALIFICATION rule
+   (a port counts only with a path/tree hit or ≥2 hits in real code files). Also dropped the
+   worst collision tokens (payment's "ledger" = audit/exec logs; i18n's "messages" = protocol
+   msgs), and excluded the substrate repo itself (it self-references every block we build).
+
+   THE CLEAN RANKING VALIDATES WAVES 1–3. Your top domain ports by own-repo count are
+   attestation (14), async-jobs (13), authorization-policy (13), cache (12), schema-migrations
+   (12), ai-model (11), network-privacy (10) — and all except authz are BUILT. The two
+   contaminated picks fell to the bottom as expected: payment (7, and its real content is x402
+   not Stripe) and i18n (6). Your instinct was right; they were built correctly but ranked on
+   noise. Top UNBUILT: release-ci-quality (17, but meta-tooling — deferred by design),
+   authorization-policy (13, PUNTED with auth), auth (12, PUNTED).
+
+   TWO TAXONOMY GAPS the catalog STILL cannot see (not contamination — the port list lacks the
+   labels, so these get mis-attributed to release-ci/authz/attestation): (i) AGENT-GOVERNANCE
+   GATES — your single biggest repo cluster (vet, runcards, cordon, cursor-anchor,
+   attested-workload, strata, heart-transplant) is exactly executable-gates-over-agent-output,
+   the thing `_kernel/gates.ts` already is; no block exists for it as a capability. (ii) x402
+   MICROPAYMENTS — distinct from Stripe billing (HTTP 402 crypto micropayments; tenet,
+   local-sphinx, x402-euro-eurd). These two are the real wave-5 candidates, plus authz if auth
+   un-punts. Add them to PORTS before the next mine so they surface on their own.
 
 ---
 
