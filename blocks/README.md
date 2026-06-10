@@ -3,7 +3,7 @@
 Runnable capability blocks. A new project starts here: the expensive plumbing is already
 working, you build on top, and changing it later is a one-place swap instead of a rewrite.
 
-`persistence/` is the canonical shape and fifteen more blocks follow it (see the table);
+`persistence/` is the canonical shape and eighteen more blocks follow it (see the table);
 `nursery-app/` composes six of them into a real notes service. Run everything:
 
 ```sh
@@ -52,6 +52,9 @@ scaffolded project, origin intact, zero hand-copying.)
 | `realtime` | `PubSub` | emitter → ring-buffer+backpressure → SSE broker | subscribers>1/prod, then instances>1/volume |
 | `payment` | `PaymentRail` | memory ledger → file double-entry → provider+webhooks | prod/real money, then volume/multi-currency |
 | `i18n` | `I18n` | single catalog → multi-locale+negotiate → completeness+import | locales>1/prod/public, then external/locales>4 |
+| `agent-gates` | `GateSet` | in-proc predicates → +protected baseline → +failure attribution | agent edits/prod, then gate count |
+| `remote-exec` | `RemoteHost` | local exec → ssh one host → fleet fan-out+idempotent | hosts>1/prod, then mutate-remote |
+| `edge-model` | `ModelRuntime` | fetch+cache → +convert+checksum → +warm pool | prod/calls, then multi-format/shared |
 
 `input-validation` and `request-guard` are *boundary* blocks: each exports a middleware that
 plugs into `transport`'s `router.use()` — without either block importing the other (structural
