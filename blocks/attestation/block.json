@@ -1,0 +1,21 @@
+{
+  "block": "attestation",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "hmac", "capabilities": ["expiry-enforced"] },
+    { "grade": "elementary", "adapter": "ed25519", "capabilities": ["expiry-enforced", "asymmetric-keys", "key-persisted"] },
+    { "grade": "graduated", "adapter": "graduated", "capabilities": ["expiry-enforced", "asymmetric-keys", "key-persisted", "rotation-supported", "proof-aggregation", "policy-checked"], "standsInFor": "TEE/remote attestation + managed KMS rotation + policy verification (catalog ladder); swap is one adapter file" }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "prod || externalVerifiers", "activates": ["asymmetric-keys", "key-persisted", "expiry-enforced"] },
+    { "id": "gate:elementary->graduated", "trigger": "proofsPerDay>10000 || keyAgeDays>90", "activates": ["rotation-supported", "proof-aggregation", "policy-checked"] }
+  ],
+  "consumers": [
+    "signed domain claim (a record/action carries a Proof with an explicit claim shape, never a raw key or an ad-hoc hash)",
+    "verification boundary (inbound proofs pass through verify() — fail-closed — before anything trusts them)",
+    "key custody surface (keyInfo()/rotate() — operators see fingerprints and birthdays, never private material)"
+  ]
+}

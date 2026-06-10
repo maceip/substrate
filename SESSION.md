@@ -274,17 +274,20 @@ block/
    "port" meant both the interface seam AND the milestone ("when you hit a port"). Now: the
    seam is a PORT, the milestone is a GATE.
 
-3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (11):
+3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (14):
    `persistence`, `env`, `logging`, `transport`, `input-validation`, `request-guard` (the
    last two are BOUNDARY blocks: middleware that plugs into transport's router.use() with no
    cross-import), `async-jobs`, `cache`, `schema-migrations` (wave 1 of catalog-guardrailed
    background builders, Jun 10; schema-migrations feeds persistence's migrations-registered
    requirement), `files`, `ai-model` (wave 2, Jun 10 — ai-model tests run keyless/offline via
-   an injectable transport; model pinned per the claude-api reference). Each block's ladder
-   and consumers derive from its port-catalog-v0 row, not invented. All runnable + tested.
-   Shared spine in `blocks/_kernel/`. Remaining backlog by local-repo frequency:
-   network-privacy-transport (33/41), attestation-crypto-boundary (30/41), payment-billing
-   (27/41), realtime-pubsub, i18n, CI/release. (auth + authz: PUNTED, see item 7.)
+   an injectable transport; model pinned per the claude-api reference), `network-privacy`,
+   `attestation`, `realtime` (wave 3, Jun 10). NETWORK-PRIVACY CLOSES THE MIXNET WOUND: the
+   port makes peer addresses unrepresentable (opaque handles only) and a test deep-scans
+   every port return value against the engine's own address table — the guarantee that "had
+   nowhere to live" now has a file, a gate, and a test. Each block's ladder and consumers
+   derive from its port-catalog-v0 row, not invented. All runnable + tested. Shared spine in
+   `blocks/_kernel/`. Remaining backlog: payment-billing (27/41), i18n (20/41),
+   release-ci-quality (meta-tooling). (auth + authz: PUNTED, see item 7.)
 
 4. Wire the four-paper structure into the blocks. ALL FOUR NOW REAL:
    - MOSS (executable, not prose): every gate is a predicate that runs.
