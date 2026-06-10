@@ -1,0 +1,20 @@
+{
+  "block": "ai-model",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "anthropic", "capabilities": ["model-pinned"], "requires": ["ANTHROPIC_API_KEY"] },
+    { "grade": "elementary", "adapter": "resilient", "capabilities": ["model-pinned", "timeout-retry", "usage-accounting"], "requires": ["ANTHROPIC_API_KEY"] },
+    { "grade": "graduated", "adapter": "multi-provider", "capabilities": ["model-pinned", "timeout-retry", "usage-accounting", "fallback-policy", "per-provider-usage"], "requires": ["ANTHROPIC_API_KEY", "AI_FALLBACK_BASE_URL", "AI_FALLBACK_API_KEY", "AI_FALLBACK_MODEL"] }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "prod || callsPerDay>100", "activates": ["model-pinned", "timeout-retry", "usage-accounting"] },
+    { "id": "gate:elementary->graduated", "trigger": "multiModel || (costSensitive && callsPerDay>10000)", "activates": ["fallback-policy", "per-provider-usage"] }
+  ],
+  "consumers": [
+    "prompted operation (domain code calls a task-shaped model function)",
+    "embedding index (text/media records become searchable vectors)"
+  ]
+}

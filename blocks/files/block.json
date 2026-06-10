@@ -1,0 +1,21 @@
+{
+  "block": "files",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "memory", "capabilities": ["content-hash"] },
+    { "grade": "elementary", "adapter": "fs", "capabilities": ["content-hash", "atomic-put"] },
+    { "grade": "graduated", "adapter": "object", "capabilities": ["content-hash", "atomic-put", "expiring-urls", "shared-backend", "lifecycle-policy"], "standsInFor": "S3/R2/GCS + presigned URLs + bucket lifecycle policies (catalog ladder); swap is one adapter file" }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "prodData || objectCount>100", "activates": ["atomic-put", "content-hash"] },
+    { "id": "gate:elementary->graduated", "trigger": "instances>1 || publicDownloads || totalBytes>5000000000", "activates": ["expiring-urls", "shared-backend", "lifecycle-policy"] }
+  ],
+  "consumers": [
+    "upload/download path (handlers move bytes through the port, never a vendor SDK or a disk path)",
+    "object naming policy (namespaced keys <entity>/<id>/<filename> — the schema of blob storage)",
+    "download link handed to a client (url() — the signed-URL seam)"
+  ]
+}

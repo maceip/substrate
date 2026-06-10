@@ -4,8 +4,8 @@ Runnable capability blocks. A new project starts here: the expensive plumbing is
 working, you build on top, and changing it later is a one-place swap instead of a rewrite.
 
 `persistence/` is the canonical shape; `env/`, `logging/`, `transport/`, `input-validation/`,
-`request-guard/`, `async-jobs/`, `cache/`, and `schema-migrations/` follow it; and
-`nursery-app/` composes six of them into a real notes service. Run everything:
+`request-guard/`, `async-jobs/`, `cache/`, `schema-migrations/`, `files/`, and `ai-model/`
+follow it; and `nursery-app/` composes six of them into a real notes service. Run everything:
 
 ```sh
 npm test       # every block's invariants + the composition test
@@ -46,6 +46,8 @@ scaffolded project, origin intact, zero hand-copying.)
 | `async-jobs` | `JobQueue` | inline → retry+dead-letter → durable file queue | external/prod jobs, then instances>1/volume |
 | `cache` | `Cache<T>` | memory TTL → LRU+single-flight → shared-file | prod/costly fills, then instances>1 |
 | `schema-migrations` | `Migrator` | memory → file journal → +checksum verify | prod/changes>1, then instances>1/changes>10 |
+| `files` | `BlobStore` | memory → atomic fs + sha256 etags → object layout + signed URLs | prod/objects>100, then public/instances>1/5GB |
+| `ai-model` | `ModelClient` | anthropic (pinned) → +timeout/retry/usage → multi-provider fallback | prod/calls>100, then multi-model/cost |
 
 `input-validation` and `request-guard` are *boundary* blocks: each exports a middleware that
 plugs into `transport`'s `router.use()` — without either block importing the other (structural
