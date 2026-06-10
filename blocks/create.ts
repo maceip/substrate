@@ -40,7 +40,7 @@ if (existsSync(target) && readdirSync(target).length > 0) {
 const blocks = readdirSync(here, { withFileTypes: true })
   .filter((e) => e.isDirectory() && !e.name.startsWith('.') && !e.name.startsWith('_'))
   .map((e) => e.name)
-  .filter((n) => !['nursery-app', 'fot-proof', 'node_modules'].includes(n))
+  .filter((n) => !['nursery-app', 'fot-proof', 'agent-ops', 'node_modules'].includes(n))
   .sort()
 
 const keep = (src: string) => !src.includes('/.data') && !src.endsWith('.DS_Store')

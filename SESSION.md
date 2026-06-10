@@ -398,6 +398,24 @@ block/
     (does this agent output pass the contract?), distinct from _kernel/gates.ts grade-gating.
     Measure progress by reduced manual agent-driving, not by more blocks.
 
+11. BLIND TEST #1 — PASSED (Jun 10). A builder agent was handed the essence of pinback
+    (the user's Jun-6 C99 agent-workspace supervisor) as a fresh spec — never told it
+    existed — and rebuilt it on the nursery in one session: `/Users/mac/blind-build/workdesk`,
+    16/16 e2e checks green over real HTTP + real child processes, including SSE replay→live,
+    restart survival, and the snapshot/revert stretch goal. Spec preserved at
+    `outputs/blindtest-1-spec.md`. 8 blocks consumed; builder self-reported ~75% of effort on
+    domain logic, ~25% plumbing. Four HANDROLLED sites = the honest block-gap list:
+    (a) long-lived interactive child process (remote-exec is run-to-completion only),
+    (b) streaming/SSE response (transport Res is one-shot JSON — biggest port-rule temptation),
+    (c) local directory-tree walk + diff-restore (files does blobs only),
+    (d) filesystem-aware validation rules (FieldRule is shape-only).
+    Friction fixed in this repo: create.ts stamped a broken test script (agent-ops has no
+    block.test.ts — now excluded as the composed app it is). Friction federated: 4 lessons
+    deposited FROM workdesk into the FoT store and synced back into transport/
+    input-validation/persistence/files insights.md — the first deposits authored by a real
+    second project. The validate()-discards-coerced-value trap is now a recorded lesson;
+    consider fixing the middleware itself next session.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

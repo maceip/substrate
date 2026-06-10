@@ -13,5 +13,5 @@ Distilled cross-project lessons. Merged, capped — not a log.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- The validate() middleware form discards the coerced value, so handlers see the raw body (dir: 42 stays a number and isAbsolute throws). Call parse() directly in the handler and consume r.value instead of using the middleware form with a coercing grade. *(workdesk, 2026-06-10)*
 <!-- fot:federated:end -->

@@ -22,5 +22,6 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
+- The file adapter data dir is fixed at substrate/persistence/.data — tests in a stamped project must isolate via unique collection-name prefixes (an env-driven namespace), not temp dirs. *(workdesk, 2026-06-10)*
 - Swapping memory->file->postgres never touches app code; what ripples is the data shape. Install id/created_at/updated_at/version at nursery so a later gate cannot force a retrofit. *(substrate-nursery, 2026-06-10)*
 <!-- fot:federated:end -->

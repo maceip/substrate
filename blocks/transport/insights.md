@@ -14,5 +14,5 @@ Distilled cross-project lessons. Merged, capped — not a log.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- The transport port Res is one-shot JSON and cannot hold a connection open — SSE/streaming endpoints need a thin socket shell that delegates non-streaming requests to router.handle(); in-process dispatch keeps routing/middleware in the block. *(workdesk, 2026-06-10)*
 <!-- fot:federated:end -->

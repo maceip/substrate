@@ -24,5 +24,5 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- BlobStore stores and serves blobs but nothing walks a local directory tree or applies one back to disk — snapshot/restore of a workspace dir is app-side; only the blob layout belongs to the block. *(workdesk, 2026-06-10)*
 <!-- fot:federated:end -->
