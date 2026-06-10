@@ -316,7 +316,18 @@ block/
    shape. STILL OPEN: who authors the graduated impl when a gate fires, and whether the
    system auto-swaps the adapter or just reports the under-grade (today it reports).
 
-6. `SUBSTRATE-ARCHITECTURE.pdf` is HISTORICAL — a design snapshot from the Python/LangGraph-
+6. NEW PROJECTS START HERE: `node blocks/create.ts <dir> [name]` stamps a project out of
+   the nursery — all blocks under `substrate/`, a starter app on the ports, git-inited with
+   an initial commit so AEvo is armed from minute one. FoT VERIFIED WITH A REAL SECOND
+   PROJECT (Jun 10): a persistence lesson deposited from this repo was recalled inside a
+   freshly scaffolded project via `~/.substrate/fot-store.json`, origin intact, zero
+   hand-copying. The flywheel now has two sides: this repo deposits, new projects withdraw.
+
+7. AUTH: PUNTED for now (user decision, Jun 10). Do NOT build the auth block yet, even
+   though the architecture PDF lists it as "first thing to build". When it comes back, it
+   also unlocks the typed-channel demonstration (auth outputs AuthedUser, consumers take it).
+
+8. `SUBSTRATE-ARCHITECTURE.pdf` is HISTORICAL — a design snapshot from the Python/LangGraph-
    patterns stage (June 6–8). `blocks/README.md` supersedes it on layout, vocabulary, grades,
    gates, and FoT. Do not port things back to Python from it. Still worth extracting from it:
    typed boundary channels (the data crossing between blocks has a declared type), the

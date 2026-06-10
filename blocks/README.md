@@ -19,6 +19,20 @@ node nursery-app/main.ts                          # 6 blocks composed, + project
 
 No build step, no dependencies — Node 24 runs the TypeScript directly.
 
+## Starting a new project (what the nursery is for)
+
+```sh
+node create.ts ~/code/my-app        # or: node create.ts <dir> <name>
+cd ~/code/my-app && npm test && npm start
+```
+
+The new project gets every block under `substrate/`, a starter app in `app/` built only
+against the ports, and an initial git commit so AEvo protection is armed from minute one.
+FoT needs no setup: the federation store is `~/.substrate/fot-store.json`, so lessons other
+projects deposited are already there — the starter app logs what it inherited at boot.
+(Proven end-to-end: a lesson deposited from this repo was recalled inside a freshly
+scaffolded project, origin intact, zero hand-copying.)
+
 ## Blocks built so far
 
 | block | port (app imports) | nursery → elementary → graduated | gate that escalates |
