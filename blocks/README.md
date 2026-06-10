@@ -4,8 +4,8 @@ Runnable capability blocks. A new project starts here: the expensive plumbing is
 working, you build on top, and changing it later is a one-place swap instead of a rewrite.
 
 `persistence/` is the canonical shape; `env/`, `logging/`, `transport/`, `input-validation/`,
-and `request-guard/` follow it; and `nursery-app/` composes all six into a real notes service.
-Run everything:
+`request-guard/`, `async-jobs/`, `cache/`, and `schema-migrations/` follow it; and
+`nursery-app/` composes six of them into a real notes service. Run everything:
 
 ```sh
 npm test       # every block's invariants + the composition test
@@ -43,6 +43,9 @@ scaffolded project, origin intact, zero hand-copying.)
 | `transport` | `Router` | node:http → +middleware → framework | public/prod, then instances>1 |
 | `input-validation` | `validate(schema)` | shape-check → coercion+errors → schema lib | public/prod, then shared client |
 | `request-guard` | `guard(opts)` | memory limiter → sliding+shield → distributed | public, then instances>1 |
+| `async-jobs` | `JobQueue` | inline → retry+dead-letter → durable file queue | external/prod jobs, then instances>1/volume |
+| `cache` | `Cache<T>` | memory TTL → LRU+single-flight → shared-file | prod/costly fills, then instances>1 |
+| `schema-migrations` | `Migrator` | memory → file journal → +checksum verify | prod/changes>1, then instances>1/changes>10 |
 
 `input-validation` and `request-guard` are *boundary* blocks: each exports a middleware that
 plugs into `transport`'s `router.use()` — without either block importing the other (structural

@@ -274,12 +274,16 @@ block/
    "port" meant both the interface seam AND the milestone ("when you hit a port"). Now: the
    seam is a PORT, the milestone is a GATE.
 
-3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (6):
-   `persistence`, `env`, `logging`, `transport`, `input-validation`, `request-guard` — all
-   runnable + tested (`npm test` green, 38 checks). Shared spine in `blocks/_kernel/grade.ts`
-   (Grade ladder + assertNoLoosening). The last two are BOUNDARY blocks: each exports a
-   middleware that plugs into transport's router.use() with no cross-import. Remaining backlog
-   from port-catalog-v0: schema-migrations, async-jobs, cache, authz, CI/release, etc.
+3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (9):
+   `persistence`, `env`, `logging`, `transport`, `input-validation`, `request-guard` (the
+   last two are BOUNDARY blocks: middleware that plugs into transport's router.use() with no
+   cross-import), `async-jobs`, `cache`, `schema-migrations` (wave 1 of catalog-guardrailed
+   background builders, Jun 10 — each block's ladder/consumers derived from the
+   port-catalog-v0 row, not invented; schema-migrations feeds persistence's
+   migrations-registered requirement). All runnable + tested. Shared spine in `blocks/_kernel/`.
+   Remaining backlog from port-catalog-v0 by local-repo frequency: files-artifacts-storage
+   (36/41), ai-model-provider (33/41), realtime-pubsub, errors/observability, i18n,
+   CI/release. (auth + authz: PUNTED, see item 7.)
 
 4. Wire the four-paper structure into the blocks. ALL FOUR NOW REAL:
    - MOSS (executable, not prose): every gate is a predicate that runs.
