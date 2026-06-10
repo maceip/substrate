@@ -1,0 +1,22 @@
+{
+  "block": "i18n",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "nursery", "capabilities": ["fallback-policy", "missing-key-reported", "interpolation-checked"] },
+    { "grade": "elementary", "adapter": "elementary", "capabilities": ["fallback-policy", "missing-key-reported", "interpolation-checked", "locale-negotiation"] },
+    { "grade": "graduated", "adapter": "graduated", "capabilities": ["fallback-policy", "missing-key-reported", "interpolation-checked", "locale-negotiation", "catalog-completeness", "import-pipeline"] }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "locales>1 || prod || public", "activates": ["fallback-policy", "missing-key-reported", "interpolation-checked", "locale-negotiation"] },
+    { "id": "gate:elementary->graduated", "trigger": "externalTranslators || locales>4", "activates": ["catalog-completeness", "import-pipeline"] }
+  ],
+  "consumers": [
+    "localized route/view (t(key, vars) at every user-facing string, engine hidden)",
+    "language negotiation (Accept-Language / preference -> served locale)",
+    "translation file layout (messages/<locale>.json as committed content)",
+    "localized auth/UI (login + account surfaces resolve through the same catalog)"
+  ]
+}

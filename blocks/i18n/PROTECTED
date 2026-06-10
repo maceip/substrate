@@ -1,0 +1,19 @@
+PROTECTED (AEvo)
+
+These files define what this block PROMISES. An agent improving this block may TIGHTEN them
+but may not LOOSEN them without human approval.
+
+  port.ts    — the boundary contract. May add a method, narrow a type, add a guarantee.
+               May NOT remove a method, widen a return, or drop a guarantee. The three PORT
+               GUARANTEES (stated missing-key policy, missing-interpolation caught, deterministic
+               negotiation) are the floor — an adapter may not quietly opt out of any of them.
+  gates.ts   — the protected evaluator. May ADD a gate, RAISE a threshold, ADD a requirement.
+               May NOT remove a gate, lower a threshold, or drop a requirement.
+
+Tightening is automatic. Loosening requires the human. The structural half of this is
+enforced by gates.assertNoLoosening(committed, proposed); the semantic half (a human reading
+a threshold change) is the human's job.
+
+Everything else in this block (adapters/*, messages/*, demo.ts, insights.md) is freely
+editable. The messages/*.json catalogs are CONTENT, not contract — translators change them
+freely; what is protected is the policy by which a missing or torn string is handled.

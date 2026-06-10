@@ -1,0 +1,7 @@
+{
+  "greeting": "Bonjour, {name}",
+  "items_in_cart": "Vous avez {count} articles dans votre panier",
+  "goodbye": "Au revoir",
+  "login_prompt": "Connectez-vous pour continuer",
+  "welcome_back": "Bon retour, {name}"
+}

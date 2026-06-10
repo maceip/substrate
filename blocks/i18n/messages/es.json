@@ -1,0 +1,5 @@
+{
+  "greeting": "Hola, {name}",
+  "goodbye": "Adiós",
+  "login_prompt": "Inicia sesión para continuar"
+}

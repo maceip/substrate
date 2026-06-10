@@ -274,20 +274,26 @@ block/
    "port" meant both the interface seam AND the milestone ("when you hit a port"). Now: the
    seam is a PORT, the milestone is a GATE.
 
-3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (14):
+3. Build the next blocks by cloning `blocks/persistence/`. IN PROGRESS — built so far (16):
    `persistence`, `env`, `logging`, `transport`, `input-validation`, `request-guard` (the
    last two are BOUNDARY blocks: middleware that plugs into transport's router.use() with no
    cross-import), `async-jobs`, `cache`, `schema-migrations` (wave 1 of catalog-guardrailed
    background builders, Jun 10; schema-migrations feeds persistence's migrations-registered
    requirement), `files`, `ai-model` (wave 2, Jun 10 — ai-model tests run keyless/offline via
    an injectable transport; model pinned per the claude-api reference), `network-privacy`,
-   `attestation`, `realtime` (wave 3, Jun 10). NETWORK-PRIVACY CLOSES THE MIXNET WOUND: the
-   port makes peer addresses unrepresentable (opaque handles only) and a test deep-scans
-   every port return value against the engine's own address table — the guarantee that "had
-   nowhere to live" now has a file, a gate, and a test. Each block's ladder and consumers
-   derive from its port-catalog-v0 row, not invented. All runnable + tested. Shared spine in
-   `blocks/_kernel/`. Remaining backlog: payment-billing (27/41), i18n (20/41),
-   release-ci-quality (meta-tooling). (auth + authz: PUNTED, see item 7.)
+   `attestation`, `realtime` (wave 3, Jun 10), `payment`, `i18n` (wave 4, Jun 10).
+   NETWORK-PRIVACY CLOSES THE MIXNET WOUND: the port makes peer addresses unrepresentable
+   (opaque handles only) and a test deep-scans every port return value against the engine's
+   own address table — the guarantee that "had nowhere to live" now has a file, a gate, and a
+   test. All runnable + tested. Shared spine in `blocks/_kernel/`. (auth + authz: PUNTED, see
+   item 7.)
+
+   CAVEAT ON PRIORITY — payment + i18n were prioritized off the `local_recent` column of
+   port-catalog-v0, which is CONTAMINATED (see item 9). On audit, payment's 27/41 is ~4 real
+   (and those are x402/ecash, NOT the Stripe-style rail that got built); i18n's 20/41 is ~2
+   real. Both are sound NURSERY blocks, but not what the repos actually asked for —
+   "generically useful, built correctly, wrongly prioritized." Block SHAPE was still
+   guardrailed by the (clean) OSS columns, so the blocks themselves are fine.
 
 4. Wire the four-paper structure into the blocks. ALL FOUR NOW REAL:
    - MOSS (executable, not prose): every gate is a predicate that runs.
@@ -341,6 +347,23 @@ block/
    typed boundary channels (the data crossing between blocks has a declared type), the
    compose-layer rule (exactly one file per app names adapters), tracing + evaluation as
    ports, and the LOCAL → UPSTREAM → STRUCTURAL failure-attribution drill.
+
+9. MINING IS CONTAMINATED — fix before trusting the `local_recent` ranking again (Jun 10
+   audit, prompted by payment/i18n looking wrong). `tools/mine_port_catalog.py` over-counts
+   the local column via: (a) NO DEDUP of cloned/forked repo families — Nym ×3, coss/coss-ui/
+   coss-ui-parappa-clone ×3, tenet family ×N — each inflates every port it touches; (b) NO
+   EXCLUSION of vendored trees (.venv/site-packages/.build/node_modules — e.g. HTTP 402 in a
+   vendored httpx/_status_codes.py counted as "payment"); (c) SINGLE-WORD TEXT HITS weighted
+   like tree/path evidence, so semantic collisions pass: ledger=audit-log≠money,
+   messages=protocol≠translation, translation=ML-dataset≠UI, toLocaleString=every JS app,
+   keyword-in-test-fixture≠capability. The OSS columns (tree-based, clean repos) ARE
+   trustworthy — only `local_recent` is dirty. TODO before wave 5: dedup repo families by
+   content/remote, exclude vendored dirs, weight path/tree over text, regenerate the catalog.
+   WHAT THE NOISE HID (real recurring themes once you read through it): x402/HTTP-402
+   micropayments + ecash (the REAL "payment" in these repos, not Stripe), agent-governance
+   gates (strata/vet/cursor-anchor lineage — the kernel already exists in _kernel/gates.ts,
+   no block yet), and local/edge model conversion (litert/gguf/mlx — distinct from the cloud
+   ai-model seam). These are the real wave-5 candidates, AFTER the re-mine.
 
 ---
 

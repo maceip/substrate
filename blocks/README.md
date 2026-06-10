@@ -3,7 +3,7 @@
 Runnable capability blocks. A new project starts here: the expensive plumbing is already
 working, you build on top, and changing it later is a one-place swap instead of a rewrite.
 
-`persistence/` is the canonical shape and thirteen more blocks follow it (see the table);
+`persistence/` is the canonical shape and fifteen more blocks follow it (see the table);
 `nursery-app/` composes six of them into a real notes service. Run everything:
 
 ```sh
@@ -50,6 +50,8 @@ scaffolded project, origin intact, zero hand-copying.)
 | `network-privacy` | `PrivateTransport` | broker → relay+replay-protect → 2-hop sealed mixnet | peers>2/prod, then hostile/volume |
 | `attestation` | `Attestor` | hmac ephemeral → ed25519 persisted → keyring+rotation+policy | prod/external verifiers, then volume/key-age |
 | `realtime` | `PubSub` | emitter → ring-buffer+backpressure → SSE broker | subscribers>1/prod, then instances>1/volume |
+| `payment` | `PaymentRail` | memory ledger → file double-entry → provider+webhooks | prod/real money, then volume/multi-currency |
+| `i18n` | `I18n` | single catalog → multi-locale+negotiate → completeness+import | locales>1/prod/public, then external/locales>4 |
 
 `input-validation` and `request-guard` are *boundary* blocks: each exports a middleware that
 plugs into `transport`'s `router.use()` — without either block importing the other (structural

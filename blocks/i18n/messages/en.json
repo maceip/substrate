@@ -1,0 +1,8 @@
+{
+  "greeting": "Hello, {name}",
+  "items_in_cart": "You have {count} items in your cart",
+  "goodbye": "Goodbye",
+  "login_prompt": "Sign in to continue",
+  "welcome_back": "Welcome back, {name}",
+  "order_total": "Your total is {total}"
+}

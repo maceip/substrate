@@ -1,0 +1,21 @@
+{
+  "block": "payment",
+  "portVersion": "0.1.0",
+  "port": "port.ts",
+  "appImportsOnly": "index.ts",
+  "protected": ["port.ts", "gates.ts"],
+  "grades": [
+    { "grade": "nursery", "adapter": "memory", "capabilities": ["idempotent-charge", "integer-minor-units"] },
+    { "grade": "elementary", "adapter": "file", "capabilities": ["idempotent-charge", "integer-minor-units", "double-entry-ledger", "durable-ledger"] },
+    { "grade": "graduated", "adapter": "graduated", "capabilities": ["idempotent-charge", "integer-minor-units", "double-entry-ledger", "webhook-verified", "reconciliation"], "requires": ["PAYMENT_API_KEY", "PAYMENT_WEBHOOK_SECRET", "PAYMENT_BASE_URL"], "standsInFor": "Stripe/Adyen/etc. (catalog ladder); the injectable transport hits a generic charges/refunds/webhooks API — swapping to a specific provider is one file (_wire.ts), never the port" }
+  ],
+  "gates": [
+    { "id": "gate:nursery->elementary", "trigger": "prod || realMoney", "activates": ["idempotent-charge", "integer-minor-units", "double-entry-ledger"] },
+    { "id": "gate:elementary->graduated", "trigger": "(realMoney && chargesPerDay>1000) || multiCurrency", "activates": ["webhook-verified", "reconciliation"] }
+  ],
+  "consumers": [
+    "checkout / payment action (domain code calls charge() with an idempotencyKey — never a raw provider client, never card material)",
+    "ledger read (balance()/ledger() power invoices and reporting off the SUM of entries, not a separately mutated total)",
+    "webhook boundary (inbound provider events pass through handleWebhook() — fail-closed — before anything trusts them)"
+  ]
+}
