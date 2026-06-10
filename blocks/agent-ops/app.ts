@@ -10,7 +10,7 @@
 //   agent-gates (contract check) · remote-exec (ship) · edge-model (summarize) ·
 //   persistence (record) · logging (observe) · env (config).
 
-import { gateSet } from '../agent-gates/index.ts'
+import { gateSet, learn } from '../agent-gates/index.ts'
 import type { Artifact, Report } from '../agent-gates/index.ts'
 import type { RemoteHost } from '../remote-exec/index.ts'
 import type { ModelRuntime } from '../edge-model/index.ts'
@@ -82,6 +82,12 @@ export async function runTask(task: string, artifact: Artifact, deps: Deps): Pro
     deps.log.info('shipped', { task, deploy: res.stdout.trim() })
   } else {
     deps.log.warn('ship blocked by contract', { task, failures: report.failures.map((f) => f.id) })
+    // FoT: a real run just learned something — a contract proved load-bearing. Deposit the
+    // distilled lesson (merged, capped, deduped) so the NEXT project that pulls agent-gates
+    // inherits it without anyone hand-copying. This is the flywheel turning on real work.
+    for (const f of report.failures.filter((x) => x.severity === 'block')) {
+      learn(`contract '${f.id}' is load-bearing: it blocked a ship (${f.detail}). keep it — tighten, never loosen.`, 'agent-ops')
+    }
   }
 
   const record = await deps.store.create({ task, shipped, failures: report.failures.map((f) => f.id), summary })

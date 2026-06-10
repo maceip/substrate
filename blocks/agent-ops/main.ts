@@ -7,6 +7,7 @@ import { writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { load } from '../env/index.ts'
+import { insights } from '../agent-gates/index.ts'
 import { getLogger } from '../logging/index.ts'
 import { open as openStore } from '../persistence/index.ts'
 import { open as openHost } from '../remote-exec/index.ts'
@@ -27,6 +28,8 @@ writeFileSync(modelFile, 'stub-runtime')
 await model.fetch({ source: 'file', id: modelFile })
 
 console.log('\n=== agent-ops — the daily loop, composed from six blocks ===\n')
+const inherited = insights().length // agent-gates lessons accumulated from prior real runs / projects
+console.log(`  FoT: inherited ${inherited} agent-gates lesson(s) from prior runs before doing anything.`)
 
 // 1) a clean agent output: no TODO, every claim has evidence, non-empty.
 const good = await runTask(
@@ -56,6 +59,9 @@ console.log(`      blocked by: ${bad.report.failures.map((f) => `${f.id}(${f.sev
 // the record of what happened — the gate decided, not a human.
 const runs = await store.list()
 console.log(`\n  ${runs.length} runs recorded; ${runs.filter((r) => r.shipped).length} shipped, ${runs.filter((r) => !r.shipped).length} blocked at the contract.`)
+const known = insights()
+console.log(`  FoT: now ${known.length} lesson(s) in the federation; this run's deposit travels to the next project that pulls agent-gates.`)
+if (known[0]) console.log(`       latest: "${known[0].text}" (${known[0].origin})`)
 
 await host.close()
 await model.close()

@@ -315,9 +315,13 @@ block/
      lessons into a generated section of its `insights.md`; prose above the markers is curated,
      the section inside them comes from the store. The store is the source of truth.
 
-   Remaining FoT hardening (optional): make `learn()` calls happen organically from real gate
-   crossings (e.g. deposit a lesson automatically when an under-grade is detected in prod),
-   rather than only via explicit app calls.
+   FoT hardening DONE (Jun 10): `learn()` now fires from a REAL app event — `blocks/agent-ops/`
+   deposits a distilled lesson whenever a contract gate blocks a ship, so the flywheel turns on
+   real work, not just the fot-proof lab. `app.test.ts` asserts deposit + recall + dedup; a real
+   `node agent-ops/main.ts` accumulated 2 lessons into the federation, rendered into
+   agent-gates/insights.md via `insights:sync`. Stores are now accumulated, not seeded. Also
+   verified AEvo is genuinely ARMED post-commit: checkProtection returns baseline='commit' and
+   catches a real loosening against git HEAD (not just synthetic mutations).
 
 5. Graduation mechanism — now PARTLY defined (was fully open). `gates.ts` answers "what
    triggers a grade-up" (executable thresholds over observed signals) and "what activates"

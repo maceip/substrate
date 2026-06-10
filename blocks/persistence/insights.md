@@ -22,5 +22,5 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- Swapping memory->file->postgres never touches app code; what ripples is the data shape. Install id/created_at/updated_at/version at nursery so a later gate cannot force a retrofit. *(substrate-nursery, 2026-06-10)*
 <!-- fot:federated:end -->

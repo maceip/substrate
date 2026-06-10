@@ -26,5 +26,6 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- contract 'claims-have-evidence' is load-bearing: it blocked a ship (unsupported claims: signature-verified). keep it — tighten, never loosen. *(agent-ops, 2026-06-10)*
+- contract 'no-todo' is load-bearing: it blocked a ship (hook.ts still contains TODO/FIXME). keep it — tighten, never loosen. *(agent-ops, 2026-06-10)*
 <!-- fot:federated:end -->

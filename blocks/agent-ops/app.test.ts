@@ -4,11 +4,13 @@
 //   node agent-ops/app.test.ts
 
 process.env.PERSIST_ADAPTER = 'memory' // isolate the test store; no .data on disk
+process.env.FOT_STORE = join(tmpdir(), `agent-ops-fot-${process.pid}.json`) // isolate FoT; no pollution
 
 import assert from 'node:assert/strict'
 import { writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { insights } from '../agent-gates/index.ts'
 import { getLogger } from '../logging/index.ts'
 import { open as openStore } from '../persistence/index.ts'
 import { open as openHost } from '../remote-exec/index.ts'
@@ -68,6 +70,21 @@ await check('the store recorded both runs — the gate decided, not a human', as
   const runs = await store.list()
   assert.equal(runs.length, 2)
   assert.equal(runs.filter((r) => r.shipped).length, 1)
+})
+
+await check('FoT: the blocked run DEPOSITED a real distilled lesson (flywheel turns on real work)', async () => {
+  const learned = insights()
+  assert.ok(learned.length >= 1, 'a blocked ship should have deposited a lesson')
+  assert.ok(
+    learned.some((i) => i.text.includes("'no-todo'") && i.origin === 'agent-ops'),
+    'the lesson should name the load-bearing contract and its origin',
+  )
+})
+
+await check('FoT: re-running the same block does not duplicate — merged, not appended', async () => {
+  const before = insights().length
+  await runTask('dirty', dirty, deps) // identical block failures as the earlier dirty run
+  assert.equal(insights().length, before, 'an identical lesson must dedup, not accumulate')
 })
 
 await host.close()
