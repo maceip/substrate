@@ -480,6 +480,19 @@ block/
     half-turn (fixes flowing BACK to projects) now exists. Design review remaining: FoT
     approval gate (#3, injection channel), port tiering / standard-schema (#2, own session).
 
+15. THE CATALOG — BLOCK REPRESENTATION SETTLED FOR SHIP (Jun 11). `blocks/CATALOG.json` is
+    the registry of record: 137 blocks (19 built infra + 118 defined operation cards), one
+    schema, three link kinds only (buildsOn = composition, classes = the four invariant-class
+    gate library A/B/C/D, evidence = proving repos). `_kernel/check-catalog.ts` runs FIRST in
+    npm test (executable schema — names, enums, domain-free ports for operations, resolving
+    edges, built-dir consistency, no orphan folders). `CATALOG.md` is generated
+    (catalog:render) — edit JSON, never md. RESCUE: the mining session's newest ~46 hole-fill
+    ops (Outline/Immich ownership, Discourse/Zulip notifications, Lemmy/Mastodon feed-ranking,
+    Postiz scheduling) existed ONLY in its transcript; preserved verbatim in
+    outputs/domain-catalog-holefill.md and merged into the catalog. Miner's overlap flag
+    preserved: ~4 Postiz scheduler verbs overlap async-jobs. DOOR CLOSED: no new builds this
+    release; new DEFINED cards enter only through CATALOG.json + validator.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

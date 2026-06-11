@@ -156,3 +156,20 @@ Clone the layout. Keep `index.ts` the only import surface, put the contract in `
 data shape in `schema.ts`, the thresholds in `gates.ts`, mark both protected, and write a demo
 that proves the swap. Catalogue its consumers in `block.json`. The 20-port catalog in
 `../outputs/port-catalog-v0.md` is the backlog of blocks to build next.
+
+## The catalog — how a block is represented (ship version)
+
+`CATALOG.json` is the registry of record: **every block is one entry**, whether `built`
+(folder exists: port.ts, adapters/, gates.ts, insights.md, PROTECTED, tests) or `defined`
+(mined card, evidenced, not yet code). `CATALOG.md` is generated from it (`npm run
+catalog:render`) — edit the JSON, never the md. `_kernel/check-catalog.ts` runs FIRST in
+`npm test`: names unique + kebab, grains/statuses enums, operations must state their port
+domain-free (the grain-2 litmus) and carry an invariant or class, every `buildsOn` edge must
+resolve, built dirs must exist and match, no orphan folders.
+
+A block links three ways, and only three:
+1. **buildsOn** — composition: which catalog blocks its implementation consumes (ports).
+2. **classes** — which of the four invariant classes (A conservation · B fail-closed-verify ·
+   C events→reproducible-verdict · D canonical-formula) its gates instantiate. The classes
+   ARE the gate library.
+3. **evidence** — the repos it recurs in. No evidence, no entry.
