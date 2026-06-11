@@ -65,7 +65,7 @@ writeFileSync(
       description: `${name} — grown from the substrate nursery. App code imports each block's index.ts only.`,
       scripts: {
         start: 'node app/main.ts',
-        test: blocks.map((b) => `node substrate/${b}/block.test.ts`).join(' && '),
+        test: ['node substrate/_kernel/check-ports.ts', ...blocks.map((b) => `node substrate/${b}/block.test.ts`)].join(' && '),
         'insights:sync': 'node substrate/_kernel/sync-insights.ts',
         typecheck: 'tsc --noEmit',
       },

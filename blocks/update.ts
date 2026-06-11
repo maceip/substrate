@@ -106,6 +106,13 @@ console.log(`\nupdating ${target} from nursery @ ${nurserySha}`)
 console.log(`  replaced: ${replaced.length} units; added: ${added.length}${added.length ? ` (${added.join(', ')})` : ''}`)
 if (unknown.length) console.log(`  left alone (not in nursery): ${unknown.join(', ')}`)
 
+// Enforce the port-only rule even in projects whose (project-owned) test script predates it.
+try {
+  execFileSync('node', [join(sub, '_kernel/check-ports.ts')], { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
+} catch {
+  console.error('  WARNING: app/ imports an adapter directly — run `node substrate/_kernel/check-ports.ts` for the list. The update proceeds; the violation predates it.')
+}
+
 console.log('  running the project’s own test suite...')
 try {
   execFileSync('npm', ['test'], { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
