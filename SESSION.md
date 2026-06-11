@@ -458,6 +458,17 @@ block/
     asked not yet measurable). RULE: every piece of work declares which lens it serves; a
     mechanism gets one proof artifact, then must show up in lens 1 or stop growing.
 
+13b. GRADES SHARPENED BY THE STRATA PIVOT (Jun 11, settles the "did graduation survive?"
+    question): grades measure OPERATIONAL WEIGHT, not code quality. Zod-as-default does not
+    violate the nursery — wrapping a free library carries zero operational commitment, so the
+    nursery default can BE the best implementation. Graduation keeps its teeth where the
+    gradient is operational: persistence (file -> a server you run), logging (console -> a
+    paid sink), CI (unit -> E2E infra). A gate fires when measured signals demand a heavier
+    operational commitment; its requirements are readiness for that commitment. Where no
+    operational gradient exists, grades collapse to one — by design, not failure. Companion
+    principle: GATES REPORT, NEVER BLOCK — except invariants the user explicitly declared
+    sacred (network-privacy) and contracts an app opts into (agent-gates).
+
 14. THE UPDATE CHANNEL (Jun 11) — `node blocks/update.ts <project-dir>` closes the design
     review's #1 failure (stamp = fork = create-react-app freeze). Safe by construction:
     substrate/ in a stamped project is system-owned, so it is replaced wholesale (preserving
