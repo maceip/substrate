@@ -443,6 +443,21 @@ block/
     (same workdesk spec, no substrate, score against the same 16 e2e checks) — the honest price
     of the whole system is unknown until it runs.
 
+13. THE TWO-LENS CONSTITUTION (Jun 11) — `node tools/lens.ts` is the instrument; run it at
+    session end, snapshots accumulate in outputs/lens-history.json.
+    LENS 1 — USER (holds veto): agent-orchestration SHARE of shell history (share, not count —
+    history is cumulative; baseline 0.1865) + the stamp ledger (~/.substrate/projects.json,
+    written automatically by create.ts = revealed preference).
+    LENS 2 — PAPERS: the REPEAT RATE — already-solved problems that bite again (a lesson/gate/
+    upstream fix existed and didn't protect). All four papers reduce to "never pay twice":
+    MOSS kills repeat failures, AEvo kills repeat litigation, Meta-Agent kills repeat diagnosis,
+    FoT kills repeat learning. Repeats are recorded by hand (`node tools/lens.ts repeat "..."`)
+    until detection can be automated; target is zero. Cost-per-project was REJECTED as the
+    metric (user, Jun 11): scale confounds it and three of the four papers apply within a
+    single project. Supporting counters: lessons by origin, tightening commits (unprompted-vs-
+    asked not yet measurable). RULE: every piece of work declares which lens it serves; a
+    mechanism gets one proof artifact, then must show up in lens 1 or stop growing.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

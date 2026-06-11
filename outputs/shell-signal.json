@@ -1,19 +1,19 @@
 {
   "history_lines": 1067,
   "capability_invocations": {
-    "agent-orchestration": 195,
+    "agent-orchestration": 199,
     "remote-exec-filesync": 131,
     "python-runtime": 41,
     "edge-model-runtime": 40,
-    "release-ci-quality": 36,
-    "build-package": 4,
+    "release-ci-quality": 37,
+    "build-package": 3,
     "attestation-crypto-boundary": 2
   },
   "capability_commands": {
     "agent-orchestration": {
-      "claude": 56,
+      "claude": 57,
       "codex": 65,
-      "agent": 68,
+      "agent": 71,
       "agy": 6
     },
     "remote-exec-filesync": {
@@ -35,11 +35,11 @@
       "yt-dlp": 1
     },
     "release-ci-quality": {
-      "git": 24,
+      "git": 25,
       "gh": 12
     },
     "build-package": {
-      "brew": 4
+      "brew": 3
     },
     "attestation-crypto-boundary": {
       "ssh-keygen": 2

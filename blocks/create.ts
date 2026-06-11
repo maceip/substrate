@@ -17,8 +17,9 @@
 // so the new project inherits every lesson already deposited there. Starting a project IS
 // the withdrawal; the starter app prints what it inherited.
 
-import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
+import { homedir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -169,6 +170,17 @@ try {
   armed = true
 } catch {
   /* no git available or identity unset — protection arms on the user's first commit */
+}
+
+// Lens 1 (revealed preference): a stamp IS the metric — record it. Non-fatal.
+try {
+  const ledger = join(homedir(), '.substrate', 'projects.json')
+  const list = existsSync(ledger) ? (JSON.parse(readFileSync(ledger, 'utf8')) as unknown[]) : []
+  list.push({ name, dir: target, ts: new Date().toISOString() })
+  mkdirSync(dirname(ledger), { recursive: true })
+  writeFileSync(ledger, JSON.stringify(list, null, 2))
+} catch {
+  /* ledger unavailable — the stamp still works */
 }
 
 console.log(`\n${name} created at ${target}`)
