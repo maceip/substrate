@@ -149,32 +149,10 @@ through \`~/.substrate/fot-store.json\` automatically.
 `,
 )
 
-// Install runtime deps so ecosystem-backed adapters work out of the box. Failure is reported,
-// not fatal — the dependency-free fallback grades (VALIDATE_IMPL=detailed, ...) still run.
-let depsInstalled = false
-try {
-  execFileSync('npm', ['install', '--no-fund', '--no-audit'], { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
-  depsInstalled = true
-} catch {
-  /* offline or npm missing — fallback grades keep the project runnable */
-}
-
-// Arm AEvo: the committed block.json baselines are the protection. No git, no arming —
-// so the scaffold commits itself. Failure here is reported, not fatal.
-let armed = false
-try {
-  const git = (...args: string[]) => execFileSync('git', args, { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
-  git('init')
-  git('add', '-A')
-  git('commit', '-m', `scaffold ${name} from the substrate nursery`)
-  armed = true
-} catch {
-  /* no git available or identity unset — protection arms on the user's first commit */
-}
-
 // The built-in agent config: any agent that walks into this repo reads AGENTS.md (the
-// cross-tool convention) and knows how to behave. Project-owned after stamping — the
-// update channel never touches it.
+// cross-tool convention) and knows how to behave. Written BEFORE the git block so it is
+// part of the initial commit. Project-owned after stamping — the update channel never
+// touches it.
 writeFileSync(
   join(target, 'AGENTS.md'),
   `# Working in ${name} (an agent contract)
@@ -200,6 +178,37 @@ is the app in \`app/\`. Five rules:
 `,
 )
 writeFileSync(join(target, 'CLAUDE.md'), '@AGENTS.md\n')
+
+// Chokepoint sync: render the freshest federated lessons into the stamp, so the rendered
+// insights.md never depends on someone remembering to run sync. Non-fatal.
+try {
+  execFileSync('node', [join(target, 'substrate/_kernel/sync-insights.ts')], { stdio: ['ignore', 'ignore', 'ignore'] })
+} catch {
+  /* store unreadable — the nursery's last rendered insights.md still ship */
+}
+
+// Install runtime deps so ecosystem-backed adapters work out of the box. Failure is reported,
+// not fatal — the dependency-free fallback grades (VALIDATE_IMPL=detailed, ...) still run.
+let depsInstalled = false
+try {
+  execFileSync('npm', ['install', '--no-fund', '--no-audit'], { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
+  depsInstalled = true
+} catch {
+  /* offline or npm missing — fallback grades keep the project runnable */
+}
+
+// Arm AEvo: the committed block.json baselines are the protection. No git, no arming —
+// so the scaffold commits itself. Failure here is reported, not fatal.
+let armed = false
+try {
+  const git = (...args: string[]) => execFileSync('git', args, { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
+  git('init')
+  git('add', '-A')
+  git('commit', '-m', `scaffold ${name} from the substrate nursery`)
+  armed = true
+} catch {
+  /* no git available or identity unset — protection arms on the user's first commit */
+}
 
 // Lens 1 (revealed preference): a stamp IS the metric — record it. Non-fatal.
 try {

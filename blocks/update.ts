@@ -95,6 +95,13 @@ try {
   console.error('warning: npm install failed — ecosystem-backed grades may not run until deps install')
 }
 
+// Chokepoint sync: an update is also the moment the project's rendered lessons refresh.
+try {
+  execFileSync('node', [join(sub, '_kernel/sync-insights.ts')], { stdio: ['ignore', 'ignore', 'ignore'] })
+} catch {
+  /* non-fatal — the nursery's rendered insights.md arrived with the copy regardless */
+}
+
 console.log(`\nupdating ${target} from nursery @ ${nurserySha}`)
 console.log(`  replaced: ${replaced.length} units; added: ${added.length}${added.length ? ` (${added.join(', ')})` : ''}`)
 if (unknown.length) console.log(`  left alone (not in nursery): ${unknown.join(', ')}`)
