@@ -12,9 +12,9 @@ const schema: Schema = {
 }
 
 let failures = 0
-function check(name: string, fn: () => void) {
+async function check(name: string, fn: () => void | Promise<void>) {
   try {
-    fn()
+    await fn()
     console.log(`  ✓ ${name}`)
   } catch (e) {
     failures++
@@ -24,13 +24,13 @@ function check(name: string, fn: () => void) {
 
 console.log('\ninput-validation block invariants:')
 
-check('detailed: coerces numeric strings + booleans', () => {
+await check('detailed: coerces numeric strings + booleans', () => {
   const r = parseDetailed(schema, { title: 'ok', priority: '3' })
   assert.ok(r.ok)
   if (r.ok) assert.equal(r.value.priority, 3)
 })
 
-check('detailed: per-field errors with reasons', () => {
+await check('detailed: per-field errors with reasons', () => {
   const r = parseDetailed(schema, { priority: 9 })
   assert.ok(!r.ok)
   if (!r.ok) {
@@ -39,26 +39,45 @@ check('detailed: per-field errors with reasons', () => {
   }
 })
 
-check('shape-check: rejects but only generically (nursery)', () => {
+await check('shape-check: rejects but only generically (nursery)', () => {
   const r = parseShape(schema, { priority: 9 })
   assert.ok(!r.ok)
   if (!r.ok) assert.ok(r.errors.every((e) => e.message === 'invalid'))
 })
 
-check('gate escalation: public -> elementary; shared client -> graduated', () => {
+await check('gate escalation: public -> elementary; shared client -> graduated', () => {
   const base = { capabilities: new Set(['detailed-errors', 'coercion', 'shared-schema']), adapterGrade: 'graduated' as const }
   assert.equal(evaluate({ ...base, signals: { public: false, prod: false, sharedClient: false } }).requiredGrade, 'nursery')
   assert.equal(evaluate({ ...base, signals: { public: true, prod: false, sharedClient: false } }).requiredGrade, 'elementary')
   assert.equal(evaluate({ ...base, signals: { public: true, prod: true, sharedClient: true } }).requiredGrade, 'graduated')
 })
 
-check('under-grade caught: shape-check is public', () => {
+await check('under-grade caught: shape-check is public', () => {
   const e = evaluate({ signals: { public: true, prod: true, sharedClient: false }, capabilities: new Set(), adapterGrade: 'nursery' })
   assert.ok(e.underGraded)
   assert.ok(e.unmet.some((u) => u.requirement === 'detailed-errors'))
 })
 
-check('assertNoLoosening rejects gate removal', () => {
+// Regression (workdesk, Jun 2026): the middleware used to discard the coerced value, so
+// handlers saw the raw body — `dir: 42` stayed a number and isAbsolute(42) threw a 500.
+await check('validate() middleware: handler sees the coerced body, not the raw input', async () => {
+  const { validate } = await import('./index.ts')
+  const req = { body: { title: 'ok', priority: '3' } as unknown }
+  const short = await validate(schema)(req)
+  assert.equal(short, null)
+  assert.equal((req.body as Record<string, unknown>).priority, 3)
+})
+
+await check('validate() middleware: bad body short-circuits 400 and leaves req.body untouched', async () => {
+  const { validate } = await import('./index.ts')
+  const raw = { priority: 9 }
+  const req = { body: raw as unknown }
+  const short = await validate(schema)(req)
+  assert.equal(short?.status, 400)
+  assert.equal(req.body, raw)
+})
+
+await check('assertNoLoosening rejects gate removal', () => {
   assert.ok(assertNoLoosening(GATES, GATES.slice(0, 1)).length > 0)
 })
 

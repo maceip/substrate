@@ -13,5 +13,5 @@ Distilled cross-project lessons. Merged, capped — not a log.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-- The validate() middleware form discards the coerced value, so handlers see the raw body (dir: 42 stays a number and isAbsolute throws). Call parse() directly in the handler and consume r.value instead of using the middleware form with a coercing grade. *(workdesk, 2026-06-10)*
+- validate() middleware originally discarded the coerced value, so handlers saw the raw body (dir: 42 stayed a number and isAbsolute threw). Fixed in substrate Jun 2026: on success the middleware writes the coerced value back onto req.body, regression-tested in block.test.ts. In projects stamped BEFORE the fix, call parse() directly and consume r.value. *(workdesk, 2026-06-10)*
 <!-- fot:federated:end -->

@@ -34,11 +34,16 @@ export async function parse(schema: Schema, input: unknown): Promise<Result> {
 }
 
 // validate: a transport-compatible boundary middleware. Returns 400 with errors on a bad body,
-// or null to let the request continue.
+// or null to let the request continue. On success the COERCED value replaces req.body — the
+// handler must see what the validator accepted, not the raw input (a coercing adapter may have
+// turned `dir: 42` into "42"; handing the handler the raw number reintroduces the bug the
+// boundary exists to stop).
 export function validate(schema: Schema) {
   return async (req: { body: unknown }) => {
     const r = await parse(schema, req.body)
-    return r.ok ? null : { status: 400, body: { error: 'validation failed', errors: r.errors } }
+    if (!r.ok) return { status: 400, body: { error: 'validation failed', errors: r.errors } }
+    req.body = r.value
+    return null
   }
 }
 
