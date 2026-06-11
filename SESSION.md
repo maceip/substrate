@@ -458,6 +458,17 @@ block/
     asked not yet measurable). RULE: every piece of work declares which lens it serves; a
     mechanism gets one proof artifact, then must show up in lens 1 or stop growing.
 
+14. THE UPDATE CHANNEL (Jun 11) — `node blocks/update.ts <project-dir>` closes the design
+    review's #1 failure (stamp = fork = create-react-app freeze). Safe by construction:
+    substrate/ in a stamped project is system-owned, so it is replaced wholesale (preserving
+    each block's .data/); unknown dirs are left alone; deps merge; scripts stay project-owned;
+    requires a clean git tree; green tests → auto-commit, red → uncommitted + revert command.
+    FIRST REAL RUN: workdesk updated across 7 nursery commits — received the validate() fix
+    and the zod default, its own 16-check e2e passed untouched (port promise held on a real
+    project crossing an adapter swap), committed as workdesk@e906187. The flywheel's missing
+    half-turn (fixes flowing BACK to projects) now exists. Design review remaining: FoT
+    approval gate (#3, injection channel), port tiering / standard-schema (#2, own session).
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
