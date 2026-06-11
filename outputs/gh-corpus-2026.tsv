@@ -1,0 +1,165 @@
+maceip/substrate	TypeScript	
+maceip/tmp-eng	Kotlin	
+maceip/johnny-mnemonic	Kotlin	
+maceip/tenet	Python	tenet — self-driving commerce: an agent pays a reputation-st
+maceip/tenet-www	JavaScript	
+maceip/sphinx-tahoe	Python	Python implementation of the Sphinx mix format. - Paper: htt
+maceip/x402-algo	?	x402 on Algorand
+maceip/ds4	?	DeepSeek 4 Flash local inference engine for Metal and CUDA
+maceip/pinback	C	remote-accessible workspace ui for darkstar ds4
+maceip/cordon	C#	A Merkle Tree Certificate authority and ACME server, in .NET
+maceip/attested-workload	Rust	
+maceip/faest-pass	C++	spiritual successor to 𝚙𝚛𝚒𝚟𝚊𝚌𝚢𝚙𝚊𝚜𝚜 == doesnt require secure 
+maceip/vet	C++	agent memory audit kit
+maceip/webkitium	C++	webkit on mac, windows, ios, android, linux. webauthn, webgp
+maceip/runcards	Rust	Proof cards for agentic software. Verify what’s running befo
+maceip/personal-dash-website	HTML	Source of secure.build — Ryan MacArthur's personal page
+maceip/CommandCenter	Kotlin	
+maceip/v9	JavaScript	
+maceip/clipcity	Kotlin	Let ai manage entire cloud: auto clip, upload, measure, impr
+maceip/stitch	HTML	Android library for inspecting WebView bridge messages in re
+maceip/FM	Kotlin	Ambient agent with local on-device intelligence
+maceip/inherent	Python	conformer 
+maceip/unified-quote	Rust	Unified quote format and build attestation across cloud TEEs
+maceip/anonymous-usdc-algo	?	Obscura: Privacy-Preserving Protocol for the Algorand Blockc
+maceip/webkitium-release	Shell	WebKitium cross-platform debug CI (checks out maceip/webkiti
+maceip/webtui	CSS	Modular CSS Library that brings the beauty of Terminal UIs t
+maceip/logiclayer	Python	LogicLens implementation: synthesize AST-derived syntax and 
+maceip/smui	CSS	🪐 A dark terminal-aesthetic theme for shadcn/ui. Nord-inspir
+maceip/anchor	JavaScript	stop drifting
+maceip/private-compute-services	?	
+maceip/cosmos	Kotlin	
+maceip/Retroma	CSS	Retroma is an Obsidian theme that blends nostalgic, classic 
+maceip/mobile-sandbox	Kotlin	
+maceip/nexus-ui	TypeScript	Beautiful, customizable components for modern AI experiences
+maceip/cs16.css	CSS	CSS library based on Counter Strike 1.6 UI.
+maceip/voice-typing	Rust	real time speech to text that types into any focused window 
+maceip/BountyNet	Python	a prover network where agents get paid to fix your builds wi
+maceip/gemma3-mcp	JavaScript	
+maceip/WebKit-ng	Shell	
+ZukunftBau/llm-chat-app-template	JavaScript	
+maceip/bountynet-shadow	?	Attested shadow builds — ephemeral TDX VMs produce EAT token
+maceip/ng-webkit-ui	C++	Staging repo for ng-webkit UI, Android WPE MiniBrowser salva
+maceip/WebKit	JavaScript	Home of the WebKit project, the browser engine used by Safar
+maceip/audit	CSS	
+maceip/bountynet-test	Rust	Test repo for bountynet attested builds
+maceip/OperitTerminalCore	Kotlin	
+maceip/LiteRT-LM	C++	
+maceip/cef	Rust	A hyper-optimized CEF fork for autonomous agents, stripped o
+maceip/daydream	Kotlin	 local only desktop ASR /w wakeword, custom dictionary, stre
+maceip/Cory	Python	
+maceip/queeker	?	A twitter clone built with Qwik and drizzle ORM, inspired by
+maceip/bichon	TypeScript	Bichon – A lightweight, high-performance Rust email archiver
+maceip/quickstart	HCL	Quickstarts to provision Kubernetes with Otomi
+maceip/adbkeeper	Rust	
+maceip/hermes-agent	?	The agent that grows with you
+maceip/scute	TypeScript	Expose any local server to the internet over QUIC/H3 — power
+maceip/freehold-relay	Rust	T𝘳𝘶𝘴𝘵less anycast reverse proxy
+maceip/hack-prep	TypeScript	Hackathon scaffold: dApp (Wake/Solidity + web + server) + An
+maceip/typescript-sdk-1	?	
+maceip/ai-sdk-provider	?	The OpenRouter provider for the Vercel AI SDK contains suppo
+maceip/caddy-security	?	🔐 Authentication, Authorization, and Accounting (AAA) App an
+maceip/llm-sidebar-infinite-context	TypeScript	
+maceip/c2w-emcc4	Go	
+maceip/cef-rs	Rust	
+maceip/sleeve	Rust	dev tools, env vars, task runner
+ZukunftBau/autobahn	EJS	⚡🪪
+maceip/wiggum.ps1	PowerShell	zero dep powershell script that auto nudges all your agents:
+maceip/openrouter-examples	?	Examples of integrating the OpenRouter API
+maceip/Step-3.5-Flash-Distill-MolmoWeb-8B-TQ-Mixed	Python	
+maceip/node-cmake-build	Python	Build Node.js with CMake. Generates modern CMake from Node.j
+maceip/phase	C++	Phase browser infrastructure project
+maceip/druids	?	
+maceip/www-terminal	JavaScript	
+maceip/kanna	?	A beautiful web-based UI for Claude Code & Codex
+maceip/infra	TypeScript	
+maceip/v9landingpg	?	
+maceip/kasm-ui-app	TypeScript	
+maceip/codex	Rust	Lightweight coding agent that runs in your terminal
+maceip/phase-browser	C++	Sovereignty browser: Chromium + IPFS + Tor overlay
+maceip/ungoogled-chromium-windows	?	Windows packaging for ungoogled-chromium
+maceip/ipfs-chromium	C++	
+maceip/kasm-ui	JavaScript	
+assemblyxyz/v9	?	
+walletpass-idp/v9	?	
+maceip/friscy	Makefile	run containers in the browser via RISC-V emulation compiled 
+maceip/socket.iwa	JavaScript	Turn your browser into a WebSocket/WebTransport server witho
+maceip/kasm	JavaScript	
+maceip/tsh	Rust	a bash compatible token-optimized shell for agents and human
+maceip/page-agent	TypeScript	JavaScript in-page GUI agent. Control web interfaces with na
+maceip/brush	?	🐚bash/POSIX-compatible shell implemented in Rust 🦀
+assemblyxyz/phase	C++	Phase browser infrastructure project
+maceip/Calyx	?	A macOS 26+ native terminal application
+maceip/sign-in-with-openrouter	?	Templates and skills for adding Sign In with OpenRouter
+maceip/open-terminal	?	A computer you can curl ⚡
+maceip/tor.iwa	JavaScript	
+maceip/contracts-v2	?	
+maceip/emscripten	C++	Emscripten: An LLVM-to-WebAssembly Compiler
+maceip/sterm	JavaScript	
+teleport-computer/teleport-web	TypeScript	
+maceip/freehold-net	TypeScript	Freehold: Decentralized, Sybil-resistant, anonymous corporat
+maceip/numerous	C++	Billy Numerous
+maceip/press-secretary	Kotlin	
+maceip/Tor	C	🧅
+maceip/arti	?	An implementation of Tor, in Rust. [NOT Official, Mirrors On
+maceip/BossTerm	Kotlin	Pure Kotlin Terminal Emulator. Works with SSH and PTY.
+maceip/stare-socket	HTML	chrome isolated web app — quic echo server iwa
+maceip/stare-material	TypeScript	
+maceip/Launcher4	Kotlin	pixel launcher aesthetics and performance for ai natives
+maceip/stare-network	JavaScript	
+maceip/meridian-shaders	TypeScript	
+maceip/meridian-web	TypeScript	
+maceip/flow	JavaScript	
+maceip/AlexMack	Kotlin	
+maceip/tinytim	Python	The 100 line AI agent that solves GitHub issues or helps you
+maceip/fcitx5-android-1	Kotlin	Fcitx5 input method framework and engines ported to Android
+maceip/tinyclaw	Rust	TinyClaw is a tiny agent that acts as your 24/7 personal ass
+maceip/socialite	Kotlin	Hyperflow walkie-talkie Android companion - connects to Hub,
+maceip/kotlin-c2w	Java	
+maceip/mdma	Rust	merge conflict resolution engine for agents
+maceip/.github	Shell	Shared CI/CD workflows and actions for maceip Android repos
+maceip/MediaMaid	Kotlin	
+maceip/noty	Kotlin	Android notification capture library
+maceip/tt	Kotlin	Music Converter (TT)
+maceip/MusicConverter	Kotlin	Music Converter
+maceip/WAVE	Rust	
+assemblyxyz/core	Solidity	assembly token implementation & deployer
+maceip/Bochs	C++	Bochs - Cross Platform x86 Emulator Project
+tlsnotary/tlsn-js	TypeScript	NPM Modules for proving and verifying using TLSNotary in the
+maceip/kiosk	Kotlin	
+maceip/wpe-android	HTML	WPE WebKit for Android
+maceip/stare	C	Anycast reverse proxy network
+maceip/id	?	
+maceip/trident	?	
+maceip/MyBrain	?	All-in-one productivity app and AI assistant with Tasks, Not
+maceip/ComicViewer	?	
+maceip/xxx	Kotlin	
+maceip/civitaimodelbrowser	?	A way to view, favorite, and create lists models from CivitA
+maceip/findbtc	Python	
+maceip/gemma3n-executorch	Python	export gemma3n instruction-tuned models to executorch pte fo
+maceip/odml-th	Kotlin	
+maceip/drako	Kotlin	
+maceip/RLMArena	Python	 verification as a service: moving beyond llm as a judge
+maceip/claude-delegator	?	Delegate tasks to Codex GPT 5.2 directly from within Claude 
+maceip/JetOverlay	Kotlin	A lightweight, Compose-first Android Overlay SDK. Features p
+maceip/agent-code-execution-demos	Python	Code execution agents demonstrating LangGraph, OpenAI, AutoG
+maceip/cloud-deployment-agent	Python	Autonomous LangGraph agent for multi-cloud infrastructure de
+maceip/langgraph-legal-agent	Python	LangGraph multi-node agent for legal document processing and
+maceip/nav3-recipes	?	Implement common use cases with Compose Multiplatform Naviga
+maceip/alan	Kotlin	
+maceip/nope	Kotlin	
+maceip/koog	?	Koog is the official Kotlin framework for building predictab
+maceip/EveryCom	Kotlin	AI-powered notification manager with on-device LLM support
+maceip/container2wasm	Go	Container to WASM converter
+maceip/twine	?	Twine: A multiplatform RSS reader built using Kotlin and Com
+maceip/qemu-wasm-sample-fork	?	
+maceip/qemu-wasm-fork	?	QEMU on browser
+maceip/qemu-wasm-sample	Dockerfile	
+maceip/qemu-wasm	C	
+maceip/XCalendar	Kotlin	Google Calendar Clone using Compose Multiplatform
+maceip/gallery	Kotlin	A gallery that showcases on-device ML/GenAI use cases and al
+maceip/typescript-sdk	?	The official TypeScript SDK for Model Context Protocol serve
+maceip/wasm-micro-runtime	?	WebAssembly Micro Runtime (WAMR)
+maceip/libriscv	?	The fastest RISC-V sandbox
+maceip/aipractice	?	
+maceip/webgitmounter	?	
