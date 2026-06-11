@@ -416,6 +416,32 @@ block/
     second project. The validate()-discards-coerced-value trap is now a recorded lesson;
     consider fixing the middleware itself next session.
 
+12. THE STRATA PIVOT (Jun 11, decided by user deferral): NO teardown — but the zero-dependency
+    purity is dead. The user's objection landed: "the global open source strata already has all
+    those lessons baked in." Evidence: the flywheel's one generic lesson (validate() coercion)
+    was a bug Zod solved years ago and existed ONLY because the adapters were hand-rolled; the
+    other three workdesk lessons were all about substrate's own seams. NEW RULE: where a mature
+    library exists, the adapter WRAPS it — hand-roll only where nothing fits. FoT's claim
+    shrinks to its real niche: the LOCAL delta (your invariants, your seams) that no dependency
+    or training data can carry.
+
+    Proof executed the same day, using the system's own swap mechanism: input-validation's
+    schema-lib adapter (previously a stub that threw) is now real zod and the DEFAULT grade;
+    shape-check/detailed remain as dependency-free fallbacks. The port promise HELD — zero
+    changes above the port: block suite, nursery-app composition, full suite, and a fresh
+    `create.ts` stamp (now npm-installs deps, non-fatal offline) all green. KILL CRITERION: if
+    a future adapter swap leaks above its port, the port was a lie and teardown is back on the
+    table. NEXT CANDIDATES for ecosystem backing: persistence (better-sqlite3/pglite),
+    schema-migrations, transport middleware — same one-block-at-a-time discipline.
+
+    PARKED, deliberately: federated executable cases (_kernel/cases.ts was designed and then
+    removed uncommitted) and the CLAUDE.md behavior agreement — both were flywheel machinery
+    ahead of need. The discipline problem ("loop turns only when someone deposits/tightens") is
+    real but the answer is sensors at seams, not more prose or more kernel — and it waits until
+    the strata pivot proves out across 2-3 more blocks. Also still unrun: the CONTROL EXPERIMENT
+    (same workdesk spec, no substrate, score against the same 16 e2e checks) — the honest price
+    of the whole system is unknown until it runs.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

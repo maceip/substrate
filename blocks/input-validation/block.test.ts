@@ -39,6 +39,37 @@ await check('detailed: per-field errors with reasons', () => {
   }
 })
 
+await check('schema-lib (zod): coerces numeric strings, same Result as the hand-rolled grades', async () => {
+  const { parseZod } = await import('./adapters/schema-lib.ts')
+  const r = parseZod(schema, { title: 'ok', priority: '3' })
+  assert.ok(r.ok)
+  if (r.ok) assert.equal(r.value.priority, 3)
+})
+
+await check('schema-lib (zod): per-field errors; required + bounds', async () => {
+  const { parseZod } = await import('./adapters/schema-lib.ts')
+  const r = parseZod(schema, { priority: 9 })
+  assert.ok(!r.ok)
+  if (!r.ok) {
+    assert.ok(r.errors.some((e) => e.field === 'title' && e.message === 'required'))
+    assert.ok(r.errors.some((e) => e.field === 'priority'))
+  }
+})
+
+await check("schema-lib (zod): 'false' coerces to false (the Boolean(v) footgun is handled)", async () => {
+  const { parseZod } = await import('./adapters/schema-lib.ts')
+  const r = parseZod({ flag: { type: 'boolean' } }, { flag: 'false' })
+  assert.ok(r.ok)
+  if (r.ok) assert.equal(r.value.flag, false)
+})
+
+await check('schema-lib (zod): unknown keys are stripped from the value', async () => {
+  const { parseZod } = await import('./adapters/schema-lib.ts')
+  const r = parseZod(schema, { title: 'ok', extra: 'dropped' })
+  assert.ok(r.ok)
+  if (r.ok) assert.ok(!('extra' in r.value))
+})
+
 await check('shape-check: rejects but only generically (nursery)', () => {
   const r = parseShape(schema, { priority: 9 })
   assert.ok(!r.ok)

@@ -68,6 +68,7 @@ writeFileSync(
         'insights:sync': 'node substrate/_kernel/sync-insights.ts',
         typecheck: 'tsc --noEmit',
       },
+      dependencies: { zod: '^4.4.3' }, // ecosystem-backed adapters (schema-lib) live behind the ports
       devDependencies: { '@types/node': '^25.9.2', typescript: '^5.6.0' },
     },
     null,
@@ -147,6 +148,16 @@ through \`~/.substrate/fot-store.json\` automatically.
 `,
 )
 
+// Install runtime deps so ecosystem-backed adapters work out of the box. Failure is reported,
+// not fatal — the dependency-free fallback grades (VALIDATE_IMPL=detailed, ...) still run.
+let depsInstalled = false
+try {
+  execFileSync('npm', ['install', '--no-fund', '--no-audit'], { cwd: target, stdio: ['ignore', 'pipe', 'pipe'] })
+  depsInstalled = true
+} catch {
+  /* offline or npm missing — fallback grades keep the project runnable */
+}
+
 // Arm AEvo: the committed block.json baselines are the protection. No git, no arming —
 // so the scaffold commits itself. Failure here is reported, not fatal.
 let armed = false
@@ -162,5 +173,6 @@ try {
 
 console.log(`\n${name} created at ${target}`)
 console.log(`  blocks: ${blocks.join(', ')}`)
+console.log(`  deps: ${depsInstalled ? 'installed' : 'NOT installed (npm unavailable) — dependency-free grades still run, e.g. VALIDATE_IMPL=detailed'}`)
 console.log(`  AEvo protection: ${armed ? 'armed (initial commit made)' : 'arms on your first git commit'}`)
 console.log(`\n  cd ${target}\n  npm test\n  npm start\n`)

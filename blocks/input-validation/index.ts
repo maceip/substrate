@@ -1,5 +1,6 @@
 // index.ts — THE ONLY FILE APP CODE IMPORTS for input-validation.
-//   VALIDATE_IMPL = shape-check | detailed | schema-lib   (default: detailed)
+//   VALIDATE_IMPL = shape-check | detailed | schema-lib   (default: schema-lib, zod-backed —
+//   the ecosystem's baked-in lessons; shape-check/detailed are the dependency-free fallbacks)
 //
 // Exports parse() for direct use, and validate(schema) — a boundary middleware structurally
 // compatible with the transport block's Middleware (req -> Res | null), so it plugs into
@@ -22,7 +23,7 @@ const IMPLS: Record<string, () => Promise<{ validator: Validator }>> = {
 let loaded: Validator | null = null
 async function current(): Promise<Validator> {
   if (loaded) return loaded
-  const name = process.env.VALIDATE_IMPL ?? 'detailed'
+  const name = process.env.VALIDATE_IMPL ?? 'schema-lib'
   const mod = IMPLS[name]
   if (!mod) throw new Error(`unknown VALIDATE_IMPL=${name} (expected: ${Object.keys(IMPLS).join(', ')})`)
   loaded = (await mod()).validator
