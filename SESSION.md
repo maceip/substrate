@@ -464,6 +464,13 @@ block/
     contaminated IDENTIFY, manufacturing payment/i18n. Order is now fixed: identify correctly
     first (behavioral signal), then build only cards with real signal.
 
+    SUNSET CLAUSE (user, Jun 11): the two modes are BOOTSTRAP-ONLY. Mining exists because there
+    were no operational blocks to listen to. Once blocks live inside real projects, demand
+    signal comes from USAGE — HANDROLLED markers, friction reports, repeats, lessons — which is
+    in-grain, in-context, and uncontaminable in the ways the repo mining was. Proof already in
+    hand: workdesk's four HANDROLLED sites named the next blocks better than the whole catalog.
+    Do not run new mining passes once usage signal flows; retire IDENTIFY as a separate mode.
+
 ---
 
 ## Credentials to Rotate (written Jun 9 — UNCONFIRMED as of Jun 10; delete this section once done)
