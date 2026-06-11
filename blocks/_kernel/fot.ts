@@ -65,6 +65,15 @@ export function recall(block: string): Insight[] {
   return read()[block] ?? []
 }
 
+// recallAll / totalInsights: the federation-wide view, so a project can show how much it
+// inherited the moment it starts — across every block, not one. Read-only infrastructure.
+export function recallAll(): Record<string, Insight[]> {
+  return read()
+}
+export function totalInsights(): number {
+  return Object.values(read()).reduce((n, list) => n + list.length, 0)
+}
+
 // forBlock: the handle a block's index.ts re-exports so app code says `learn(...)` / `insights()`
 // without knowing the store exists.
 export function forBlock(block: string) {

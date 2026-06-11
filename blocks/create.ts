@@ -87,10 +87,11 @@ process.env.PROJECT ??= '${name}' // FoT origin tag for lessons this project dep
 
 import { load } from '../substrate/env/index.ts'
 import { getLogger } from '../substrate/logging/index.ts'
-import { open, insights, type BaseRecord } from '../substrate/persistence/index.ts'
+import { open, type BaseRecord } from '../substrate/persistence/index.ts'
 import { createRouter } from '../substrate/transport/index.ts'
 import { validate, type Schema } from '../substrate/input-validation/index.ts'
 import { guard } from '../substrate/request-guard/index.ts'
+import { totalInsights } from '../substrate/_kernel/fot.ts' // shared FoT infrastructure (read-only)
 
 interface Item extends BaseRecord {
   name: string
@@ -102,8 +103,9 @@ const cfg = await load({ PORT: { default: '3000', parse: Number, describe: 'http
 const log = await getLogger({ service: '${name}' })
 const store = await open<Item>('items')
 
-// FoT: lessons other projects learned about these blocks are already here.
-log.info('federated lessons inherited', { persistence: insights().length })
+// FoT: lessons other projects already deposited into the federation (~/.substrate) — this
+// project inherited every one of them the moment it started, across all blocks.
+log.info('federated lessons inherited', { total: totalInsights() })
 
 const router = await createRouter()
 const limiter = await guard({ limit: 1000, windowMs: 60_000 })
