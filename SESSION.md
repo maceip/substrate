@@ -434,8 +434,9 @@ block/
     table. NEXT CANDIDATES for ecosystem backing: persistence (better-sqlite3/pglite),
     schema-migrations, transport middleware — same one-block-at-a-time discipline.
 
-    PARKED, deliberately: federated executable cases (_kernel/cases.ts was designed and then
-    removed uncommitted) and the CLAUDE.md behavior agreement — both were flywheel machinery
+    PARKED, deliberately: federated executable cases (_kernel/cases.ts — briefly committed in
+    09e894e, deleted in 4abcc64, recoverable via `git show 09e894e:blocks/_kernel/cases.ts`)
+    and the CLAUDE.md behavior agreement — both were flywheel machinery
     ahead of need. The discipline problem ("loop turns only when someone deposits/tightens") is
     real but the answer is sensors at seams, not more prose or more kernel — and it waits until
     the strata pivot proves out across 2-3 more blocks. Also still unrun: the CONTROL EXPERIMENT
