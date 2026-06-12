@@ -39,10 +39,22 @@ function scanTs(dir: string, out: { rel: string; text: string }[], base = dir): 
 }
 
 export function harvestProject(name: string, dir: string): ProjectFacts | null {
-  const appDir = join(dir, 'app')
-  if (!existsSync(appDir)) return null
+  // Stamped projects keep app code in app/; adopted repos declare their app dirs in
+  // substrate.json (per-capability boundary). Scan whichever applies.
+  let scanDirs: string[] = []
+  try {
+    const manifest = JSON.parse(readFileSync(join(dir, 'substrate.json'), 'utf8')) as { appDirs?: string[] }
+    if (manifest.appDirs?.length) scanDirs = manifest.appDirs.map((d) => join(dir, d))
+  } catch {
+    /* not adopted — fall back to app/ */
+  }
+  if (!scanDirs.length) {
+    const appDir = join(dir, 'app')
+    if (!existsSync(appDir)) return null
+    scanDirs = [appDir]
+  }
   const files: { rel: string; text: string }[] = []
-  scanTs(appDir, files)
+  for (const d of scanDirs) if (existsSync(d)) scanTs(d, files, d)
 
   const blocksUsed = new Set<string>()
   const handrolled: Handrolled[] = []
