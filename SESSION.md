@@ -493,6 +493,16 @@ block/
     preserved: ~4 Postiz scheduler verbs overlap async-jobs. DOOR CLOSED: no new builds this
     release; new DEFINED cards enter only through CATALOG.json + validator.
 
+16. CORPUS CLOSED + SECOND RESCUE (Jun 12). The mining session finished ("corpus closed",
+    ~225 mapped ops) but its final five waves (~61 ops) again existed only in its transcript —
+    rescued to outputs/domain-catalog-enterprise-raw.md and merged: CATALOG.json now holds
+    198 blocks (19 built, 179 defined) across 16 op clusters + infra. First entry in the
+    repeat ledger: transcript-only mining output bit twice (known after rescue #1, not
+    prevented). Miner's honest unmined gaps: audit/activity-history, moderation/review-queue.
+    NOTE: the mining agent has now realized this and is writing its own files to disk — do
+    not stomp on or rewrite whatever it produces; reconcile into CATALOG.json via the
+    validator instead.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
