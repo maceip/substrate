@@ -41,7 +41,8 @@
       "outputs/domain-catalog-holefill.md (ownership/notifications/feed/scheduling \u2014 rescued from transcript)",
       "outputs/domain-catalog-enterprise.md + outputs/domain-catalog-enterprise-raw.md (account-org/entitlement/email/workspace/chat)",
       "outputs/domain-catalog-audit-moderation.md (audit-log + moderation \u2014 the last two gaps)",
-      "outputs/port-catalog-v1.md (infrastructure)"
+      "outputs/port-catalog-v1.md (infrastructure)",
+      "outputs/agentic-ops.json (agent-task layer mined from the user's own repos: pinback, vet, runcards, cordon, cursor-anchor \u2014 Jun 12)"
     ]
   },
   "blocks": [
@@ -4682,6 +4683,652 @@
       ],
       "evidence": [
         "Mastodon"
+      ],
+      "dir": null
+    },
+    {
+      "name": "append-event-write-through",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "transcript-persistence",
+      "classes": [
+        "A"
+      ],
+      "summary": "Append one event under a single write lock to an in-memory ring AND an append-only disk file in the same critical section, then broadcast to live subscribers without holding the lock.",
+      "invariant": "Every appended event gets exactly one monotonically increasing seq; the ring slot, the on-disk JSONL line, and the broadcast payload are the same bytes; disk writes fsync-batch every 16 events and always fsync on close; a slow/dead subscriber is marked dead and reaped, never blocks producers.",
+      "port": {
+        "in": "kind + opaque payload",
+        "out": "sequenced, timestamped, generation-tagged event record (durable + streamed)"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/event_log.c:pin_event_log_append",
+        "pinback:src/event_log.c:log_writeln_locked"
+      ],
+      "dir": null
+    },
+    {
+      "name": "resume-stream-from-cursor",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "transcript-persistence",
+      "classes": [
+        "A",
+        "C"
+      ],
+      "summary": "Re-attach a subscriber at (generation, after_seq) and deliver exactly the missed events, falling back to snapshot or in-band cursor_reset when the cursor cannot be honored.",
+      "invariant": "A resumed client never silently skips events: generation mismatch or future cursor forces an in-band cursor_reset; a cursor inside the retained window replays exactly (after, newest]; older than the window receives a full snapshot before going live; discontinuities are themselves sequenced synthetic events.",
+      "port": {
+        "in": "client cursor (generation, last seq)",
+        "out": "gapless event replay, or snapshot, or explicit reset signal"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/event_log.c:apply_resume",
+        "pinback:src/event_log.c:pin_event_log_bump_generation"
+      ],
+      "dir": null
+    },
+    {
+      "name": "rebuild-live-window-from-log-tail",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "transcript-persistence",
+      "classes": [
+        "C"
+      ],
+      "summary": "On open, replay the tail of the append-only file to restore the in-memory window and continue numbering where the previous process stopped.",
+      "invariant": "After restart, newest_seq continues from the max persisted seq and the new generation is strictly greater than any persisted generation, so stale cursors can never be mistaken for valid; partial trailing lines are skipped, only complete records restored.",
+      "port": {
+        "in": "append-only event file",
+        "out": "restored ring window + (newest_seq, generation) for the new run"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/event_log.c:pin_event_log_open"
+      ],
+      "dir": null
+    },
+    {
+      "name": "diff-turn-against-start-snapshot",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "workspace-turn-diffs",
+      "classes": [
+        "C",
+        "D"
+      ],
+      "summary": "Before each turn, commit a baseline into a private shadow VCS; at turn end, emit the workspace delta as one canonical patch event.",
+      "invariant": "Each turn's change set derives from one canonical formula \u2014 diff against the turn-start baseline in an isolated shadow repo \u2014 reproducible from filesystem state, never touching the user's own VCS.",
+      "port": {
+        "in": "workspace directory + turn boundary signals",
+        "out": "per-turn reversible patch event with file count"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/snapshot.c:pin_snapshot_begin",
+        "pinback:src/snapshot.c:pin_snapshot_diff",
+        "pinback:src/agent.c:agent_emit_turn_changes"
+      ],
+      "dir": null
+    },
+    {
+      "name": "revert-turn-by-reverse-patch",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "workspace-turn-diffs",
+      "classes": [
+        "A"
+      ],
+      "summary": "Undo a turn by reverse-applying the exact patch the turn_diff event recorded.",
+      "invariant": "A turn diff is reversible: revert is reverse-apply of the emitted patch bytes; failure returns an explicit refusal with no partial application reported as success; a successful revert appends a 'reverted' event to the same log.",
+      "port": {
+        "in": "previously emitted patch",
+        "out": "restored workspace + audit event, or explicit refusal"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/snapshot.c:pin_snapshot_revert",
+        "pinback:src/handlers.c:handle_ws_revert"
+      ],
+      "dir": null
+    },
+    {
+      "name": "serialize-agent-lifecycle-single-flight",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "process-supervision",
+      "classes": [
+        "A"
+      ],
+      "summary": "One mutex serializes activate/submit/reset/abort; abort signals the child's process group without killing it.",
+      "invariant": "Exactly one agent child process exists at any moment; concurrent callers cannot interleave lifecycle transitions; submit is refused (not queued) while a turn is in flight; abort interrupts the in-flight turn only and returns to READY with an audit event.",
+      "port": {
+        "in": "concurrent lifecycle requests",
+        "out": "serialized state transitions over exactly one child process"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/agent.h:pin_agent",
+        "pinback:src/agent.c:pin_agent_submit",
+        "pinback:src/agent.c:pin_agent_abort"
+      ],
+      "dir": null
+    },
+    {
+      "name": "save-kill-respawn-on-switch",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "process-supervision",
+      "classes": [
+        "A",
+        "B"
+      ],
+      "summary": "Switching workspaces runs save -> graceful-kill -> drain readers -> spawn fresh -> restore.",
+      "invariant": "The saved-session id is confirmed against the filesystem as primary authority and persisted under the workspace id pinned BEFORE the switch began \u2014 a save can never be attributed to the incoming workspace; kill always reaps (SIGTERM, bounded wait, SIGKILL) before respawn.",
+      "port": {
+        "in": "target workspace id",
+        "out": "fresh child bound to new workspace, prior session durably resumable"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/agent.c:kv_save_and_capture",
+        "pinback:src/agent.c:newest_saved_session",
+        "pinback:src/agent.c:kill_child",
+        "pinback:src/agent.c:pin_agent_activate"
+      ],
+      "dir": null
+    },
+    {
+      "name": "attribute-emit-to-pinned-binding",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "process-supervision",
+      "classes": [
+        "B"
+      ],
+      "summary": "Reader threads snapshot (workspace_id, bind_generation) before emitting; the append is dropped if the binding changed in between.",
+      "invariant": "An event is appended to a workspace's log only if the binding snapshot taken at emit time still equals the live binding at append time \u2014 stale emits from a child being torn down can never land in the wrong workspace's transcript (fail-closed drop, not redirect).",
+      "port": {
+        "in": "child output + binding snapshot",
+        "out": "correctly attributed event, or silent drop"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/agent.c:agent_bind_snapshot",
+        "pinback:src/agent.c:agent_bind_still_valid",
+        "pinback:src/agent.c:emit_event_snap"
+      ],
+      "dir": null
+    },
+    {
+      "name": "detect-turn-end-from-sideband-marker",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "process-supervision",
+      "classes": [
+        "C"
+      ],
+      "summary": "Turn completion is detected only from an out-of-band channel, never inferred from content.",
+      "invariant": "BUSY -> READY flips at most once per turn: the transition is mutex-guarded (no-op unless BUSY), and only the transition triggers end-of-turn side effects \u2014 exactly once regardless of how many marker lines arrive.",
+      "port": {
+        "in": "sideband idle markers from a supervised process",
+        "out": "exactly-once turn-end event + state transition"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/agent.c:classifier_signal_turn_end",
+        "pinback:src/agent.c:stderr_line_is_idle_marker",
+        "pinback:src/agent.c:tui_process"
+      ],
+      "dir": null
+    },
+    {
+      "name": "re-prefill-transcript-on-resume",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "resume-handoff",
+      "classes": [
+        "B"
+      ],
+      "summary": "On workspace re-entry, restore context exactly via saved session if the restore ack arrives; otherwise fall back to silently prepending the rendered transcript to the next prompt.",
+      "invariant": "Resume mechanics never alter the visible record: the user event stores exactly what the user typed even when the staged transcript is prepended to the agent's stdin; exact restore is trusted only after an explicit ack \u2014 on timeout the system degrades to transcript re-prefill rather than assuming restoration.",
+      "port": {
+        "in": "workspace with prior history",
+        "out": "agent with prior context; unmodified user-visible transcript"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "pinback:src/agent.c:build_pending_resume",
+        "pinback:src/agent.c:pin_agent_activate",
+        "pinback:src/event_log.c:pin_event_log_render_transcript"
+      ],
+      "dir": null
+    },
+    {
+      "name": "verify-memory-checkpoint-by-exact-replay",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "C",
+        "B"
+      ],
+      "summary": "Replay the raw event log through the projector and compare the replayed projection's content hash to the checkpoint manifest's body hash; record the verdict as a certificate.",
+      "invariant": "Drift is binary in v1: 0.0 iff the replayed projection bytes hash-match the checkpoint body, 1.0 otherwise; the audit certificate is ledger-written and Merkle-anchored as a child of the checkpoint \u2014 the verdict is itself tamper-evident and reproducible from (events, projector config) alone.",
+      "port": {
+        "in": "append-only event log + checkpoint manifest hash",
+        "out": "audit certificate (binary drift verdict) + optional auto-correction"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/projection_replay_auditor.h:VerifyProjectionCheckpointFromRaw"
+      ],
+      "dir": null
+    },
+    {
+      "name": "gate-checkpoint-use-fail-closed",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "B"
+      ],
+      "summary": "A checkpoint may be used as decision memory only after passing the audit/correction gate; every refusal mode forces re-projection from the raw log.",
+      "invariant": "Missing audit, pending audit, failed thaw verification, incompatibility, drift above tolerance (default zero), insufficient valid signatures, or any blocking correction all yield may_use=false \u2014 there is no path to using unaudited or invalidated memory for a decision.",
+      "port": {
+        "in": "checkpoint identity + audit ledger + correction index",
+        "out": "may_use verdict with reason"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/checkpoint_decision_gate.h:MayUseCheckpointForDecision",
+        "vet:runtime/dpm/audited_checkpoint_loader.h:LoadAuditedProjectionCheckpointForDecision"
+      ],
+      "dir": null
+    },
+    {
+      "name": "replay-raw-with-correction-directives",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "B",
+        "C"
+      ],
+      "summary": "When a blocking correction invalidates the active checkpoint, recover by replaying raw events through the projector with compiled, typed correction directives.",
+      "invariant": "A blocking correction that interrupts prediction must carry machine-actionable content (invalidated facts, replacement facts, or a replacement projection) \u2014 otherwise compilation fails closed rather than degrading to prompt-only policy text; recovery is exactly: gate-accepted checkpoint, else directive-guided raw replay, else refusal.",
+      "port": {
+        "in": "event log + correction payloads + projector",
+        "out": "corrected projected memory, or refusal"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/correction_protocol.h:CompileProjectionCorrectionDirectives",
+        "vet:runtime/dpm/audited_checkpoint_loader.h:LoadOrReplayAuditedProjectionCheckpointForDecision"
+      ],
+      "dir": null
+    },
+    {
+      "name": "build-revoked-evidence-view",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "A",
+        "B"
+      ],
+      "summary": "Render a correction-applied view over the immutable log: events carrying invalidated facts are replaced with revocation markers before the decision layer sees them.",
+      "invariant": "Nothing is erased and nothing is renumbered: the active view preserves original global event ids, invalidated events become revocation markers in decision prompts, and the original revoked bytes remain retrievable through a separate revoked-evidence log for audit only.",
+      "port": {
+        "in": "immutable event range + correction directives",
+        "out": "active evidence log + revoked-evidence log with original bytes"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/active_evidence_view.h:BuildActiveEvidenceView"
+      ],
+      "dir": null
+    },
+    {
+      "name": "interrupt-before-next-predict-on-correction",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "B"
+      ],
+      "summary": "A barrier between corrections and the next model call: a blocking correction against the active checkpoint must interrupt before the next prediction.",
+      "invariant": "If the correction index holds a blocking correction for the active checkpoint manifest hash, the barrier decision sets must_interrupt_before_next_predict and must_reproject \u2014 the next inference cannot legally run on stale memory.",
+      "port": {
+        "in": "active checkpoint hash + correction index",
+        "out": "barrier decision (interrupt / reproject / proceed) with blocking corrections"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/checkpoint_decision_gate.h:EvaluateCorrectionBarrier",
+        "vet:runtime/dpm/correction_protocol.h:CorrectionPayload.must_interrupt_before_next_predict"
+      ],
+      "dir": null
+    },
+    {
+      "name": "record-correction-as-append-only-event",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "audited-memory",
+      "classes": [
+        "C"
+      ],
+      "summary": "Corrections are themselves events appended to the same log, targeting a checkpoint by manifest hash and event range; the blocking set is rebuilt by folding the log.",
+      "invariant": "The set of blocking corrections for any checkpoint is a pure function of the event log \u2014 no out-of-band mutable state decides what memory is invalid.",
+      "port": {
+        "in": "validated correction payload",
+        "out": "appended event; reproducible per-checkpoint blocking index"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/correction_protocol.h:AppendCorrectionEvent",
+        "vet:runtime/dpm/correction_protocol.h:CorrectionIndex::Build"
+      ],
+      "dir": null
+    },
+    {
+      "name": "reuse-kv-prefix-on-exact-byte-match",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "context-cache",
+      "classes": [
+        "B",
+        "D"
+      ],
+      "summary": "Reuse a cached KV checkpoint only when its recorded prompt prefix is a byte-identical prefix of the current prompt under the full identity tuple.",
+      "invariant": "A resumed prefix must be a true byte-prefix: reuse requires matching tenant/session/branch, schema hash, model artifact hash, and backend, and the prefix-hash proof over the exact bytes; on a hit, cached-KV plus suffix is byte-equivalent to prefilling the full prompt from scratch.",
+      "port": {
+        "in": "full prompt + identity + schema",
+        "out": "longest exact-prefix hit with suffix, or NotFound"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:runtime/dpm/projection_prefix_cache.h:EvaluateProjectionPrefixCacheHit",
+        "vet:runtime/dpm/projection_prefix_cache.h:FindLongestPrefixHit"
+      ],
+      "dir": null
+    },
+    {
+      "name": "verify-handoff-bundle-against-live-log",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "resume-handoff",
+      "classes": [
+        "B",
+        "C"
+      ],
+      "summary": "A session handoff bundle embeds digests as proofs; verification recomputes both from the live session files and fails on any mismatch.",
+      "invariant": "A handoff is trusted only if the bundle's identity digest equals the digest recomputed from the live identity file AND the bundled trace digest equals the digest recomputed from the live event log; any failed check is enumerated and exits non-zero, never partially verified.",
+      "port": {
+        "in": "handoff bundle + session root",
+        "out": "verified/failed report with per-check pass/fail details"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "vet:tools/vet/vet_trace.cc:VerifyHandoffBundle",
+        "vet:tools/vet/vet_main.cc:RunVerify",
+        "vet:tools/vet/vet_trace.cc:BuildHandoffBundle"
+      ],
+      "dir": null
+    },
+    {
+      "name": "hash-chain-and-sign-run-events",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "run-attestation",
+      "classes": [
+        "A",
+        "B"
+      ],
+      "summary": "Every captured run event carries event_index and previous_event_hash, and is signed over its canonical encoding with the signature field cleared.",
+      "invariant": "Per-actor events form an append-only hash chain (inserted, dropped, or reordered events break continuity); signing bytes are deterministic, so verification recomputes exactly what was signed; decode rejects version/profile mismatches.",
+      "port": {
+        "in": "run measurement (metrics, hashes, evidence)",
+        "out": "signed, chained, content-addressed event record"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "runcards:src/llm_attested.rs:ContestEvent::signing_bytes",
+        "runcards:src/llm_attested.rs:ContestEvent::sign/verify"
+      ],
+      "dir": null
+    },
+    {
+      "name": "verify-attestation-chain-against-pinned-roots-deep",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "run-attestation",
+      "classes": [
+        "B"
+      ],
+      "summary": "Verify a recursive attestation token chain: each stage's hardware quote checked against pinned vendor roots and its report_data binding, with chain depth bounded.",
+      "invariant": "Every stage must carry the leaf's binding value (any drift is a hard error), be on an accepted platform list, have a quote whose signature chain verifies to pinned roots and whose report_data binds the stage's own binding bytes; chains deeper than 16 stages are rejected.",
+      "port": {
+        "in": "attestation token + accepted-platform policy",
+        "out": "verified (platform, measurement, binding, depth) or typed refusal"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "runcards:src/llm_attested.rs:verify_eat_chain",
+        "runcards:src/quote/verify.rs:verify_platform_quote",
+        "runcards:INVARIANT.md"
+      ],
+      "dir": null
+    },
+    {
+      "name": "bind-run-events-to-attested-capture-claim",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "run-attestation",
+      "classes": [
+        "B"
+      ],
+      "summary": "Build an attested-capture claim only for allowlisted capture paths advertised by the manifest, then accept an event as attested only if its fields equal the claim.",
+      "invariant": "A claim exists only if the capture method is on the static allowlist, the manifest advertises it, and receipt/binding hashes match; an event matches only if all its capture fields equal the claim's \u2014 any missing field fails the match.",
+      "port": {
+        "in": "manifest + verified attestation receipt + event",
+        "out": "capture claim; per-event attested/not-attested verdict"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "runcards:src/llm_attested.rs:build_capture_ra_claim",
+        "runcards:src/llm_attested.rs:event_matches_capture_ra_claim"
+      ],
+      "dir": null
+    },
+    {
+      "name": "derive-score-from-signed-events",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "run-attestation",
+      "classes": [
+        "D"
+      ],
+      "summary": "Rankings and eligibility are derived totals over the signed event set, computed by one canonical formula with deterministic tie-breaking.",
+      "invariant": "Score is a fold over verified events grouped by actor; ordering is fully deterministic (value, then lexicographic id; eligibility partitions before rank) \u2014 re-running scoring over the same events always yields the identical report.",
+      "port": {
+        "in": "verified signed events (+ optional budget)",
+        "out": "ranked score reports with eligibility status"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "runcards:src/llm_attested.rs:score_min_tokens",
+        "runcards:src/llm_attested.rs:score_max_tokens_under_budget"
+      ],
+      "dir": null
+    },
+    {
+      "name": "mirror-log-and-halt-on-inconsistency",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "tamper-evident-log",
+      "classes": [
+        "B",
+        "A"
+      ],
+      "summary": "Follow an upstream transparency log: verify the cosignature on each checkpoint, refetch new entries, recompute the Merkle root locally, and commit durably before advancing in-memory state.",
+      "invariant": "The follower never trusts an upstream root it did not recompute from entry bytes; upstream rollback or a recomputed-root mismatch persists a halt marker and stops the mirror permanently; durable checkpoint+size files are written BEFORE memory advances, so a crash can lose progress but never verified-state consistency.",
+      "port": {
+        "in": "upstream checkpoint + data tiles + pinned cosigner key",
+        "out": "verified local replica, or persisted halt"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cordon:dotnet/src/Cordon.Mirror/Follower.cs:AdvanceAsync",
+        "cordon:dotnet/src/Cordon.Mirror/Follower.cs:Halt"
+      ],
+      "dir": null
+    },
+    {
+      "name": "verify-consistency-between-checkpoints",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "tamper-evident-log",
+      "classes": [
+        "B"
+      ],
+      "summary": "Verify a Merkle consistency proof that a subtree is contained in a larger tree with the given root.",
+      "invariant": "Append-only-ness is provable: the proof reconstructs the root from the subtree hash and sibling hashes, and any validity, structural, or reconstructed-hash mismatch throws \u2014 there is no partial acceptance.",
+      "port": {
+        "in": "(subtree range, subtree hash, tree size, root, proof hashes)",
+        "out": "accept, or thrown consistency exception"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cordon:dotnet/src/Cordon.Core/Consistency.cs:Tlog.VerifyConsistencyProof"
+      ],
+      "dir": null
+    },
+    {
+      "name": "publish-entry-under-quorum-cosigned-checkpoint",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "tamper-evident-log",
+      "classes": [
+        "A",
+        "B"
+      ],
+      "summary": "Append assigns an index immediately; a separate wait blocks until the entry is inside a published signed checkpoint whose covering subtree has collected at least a quorum of independently verified cosignatures.",
+      "invariant": "Index assignment and durability/coverage are decoupled but conserved: an entry's index never changes, and it counts as issued only once its covering subtree is signed; the quorum collector throws if fewer than quorum valid signatures arrive, while individual mirror failures degrade gracefully.",
+      "port": {
+        "in": "log entry; mirror endpoints + quorum",
+        "out": "index immediately; inclusion proof + quorum cosignatures on completion"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cordon:dotnet/src/Cordon.Log/Log.cs:IssuanceLog",
+        "cordon:dotnet/src/Cordon.Mirror/MirrorQuorumClient.cs:Collect"
+      ],
+      "dir": null
+    },
+    {
+      "name": "self-heal-append-only-trajectory",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "trajectory-drift",
+      "classes": [
+        "A"
+      ],
+      "summary": "Record activity as JSONL appends; before any read, detect a trailing partial line (crash mid-write) by parse failure and truncate back to the last complete record.",
+      "invariant": "The trajectory file always converges to a sequence of complete records: a torn final write is removed rather than corrupting reads, and unparseable interior lines surface explicitly as type 'corrupt' instead of being dropped.",
+      "port": {
+        "in": "typed event (ts, type, data)",
+        "out": "durable append-only trajectory; clean tail reads"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cursor-anchor:plugins/anchor/scripts/lib/trajectory.mjs:recordEvent",
+        "cursor-anchor:plugins/anchor/scripts/lib/trajectory.mjs:recoverTrailingPartialLine"
+      ],
+      "dir": null
+    },
+    {
+      "name": "import-events-by-watermark",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "trajectory-drift",
+      "classes": [
+        "A"
+      ],
+      "summary": "Sync external history into the trajectory using a persisted high-water mark so each source item becomes exactly one trajectory event.",
+      "invariant": "Only items since the stored watermark are imported, and the watermark advances only after the events are recorded; per-event side channels are best-effort and must not block or fail the sync.",
+      "port": {
+        "in": "external append-only history + stored watermark",
+        "out": "one trajectory event per new item; advanced watermark"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cursor-anchor:plugins/anchor/scripts/lib/trajectory.mjs:sync"
+      ],
+      "dir": null
+    },
+    {
+      "name": "graduate-baseline-from-nursery-window",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "trajectory-drift",
+      "classes": [
+        "C",
+        "D"
+      ],
+      "summary": "Accumulate the first N samples per metric in a nursery phase, compute baselines once at graduation, and return to nursery (full reset) after a long stability streak.",
+      "invariant": "Baselines (mean, std) are computed from exactly the nursery window by one formula and are the only reference for monitoring; after a stability-threshold streak of all-quiet, the pipeline re-enters nursery with baselines, history, and trackers reset \u2014 baselines are never silently mutated in place.",
+      "port": {
+        "in": "stream of per-commit metric vectors",
+        "out": "phase transitions + frozen baselines"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:_execute_nursery",
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:_initiate_re_nursery"
+      ],
+      "dir": null
+    },
+    {
+      "name": "detect-sustained-drift-with-cusum",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "trajectory-drift",
+      "classes": [
+        "C"
+      ],
+      "summary": "Per-metric CUSUM trackers turn a stream of z-scores against frozen baselines into a sustained-drift alarm; all tracker state round-trips through an explicit snapshot.",
+      "invariant": "Alarm iff S exceeds h where S = max(0, S + z - k) per update; because all state is serialized in/out of every evaluation (the evaluator is stateless), the same event sequence plus the same starting snapshot always reproduces the same verdict.",
+      "port": {
+        "in": "metric value + baseline + prior snapshot",
+        "out": "alarm/no-alarm + new snapshot"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/cusum.py:CUSUMTracker.update_and_check",
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:evaluate"
+      ],
+      "dir": null
+    },
+    {
+      "name": "quarantine-lock-until-remediation",
+      "grain": "operation",
+      "status": "defined",
+      "cluster": "trajectory-drift",
+      "classes": [
+        "B"
+      ],
+      "summary": "Deception-class signals past thresholds trigger quarantine; while quarantined, every subsequent commit is rejected.",
+      "invariant": "Quarantine is fail-closed and sticky: in quarantine the pipeline short-circuits to rejection before computing anything else, and the actor cannot re-baseline until an explicit remediation releases the lock; deception thresholds apply in both nursery and monitoring phases.",
+      "port": {
+        "in": "per-commit telemetry (deception counters, CI status)",
+        "out": "quarantine decisions with named alarms"
+      },
+      "buildsOn": [],
+      "evidence": [
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:process_commit_report",
+        "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:_trigger_quarantine"
       ],
       "dir": null
     }

@@ -1,6 +1,6 @@
 # Block Catalog — GENERATED from CATALOG.json (do not edit; run _kernel/render-catalog.ts)
 
-**215 blocks: 19 built, 196 defined.**
+**245 blocks: 19 built, 226 defined.**
 A block is one entry in CATALOG.json. Built blocks also have a folder (port.ts, adapters/, gates.ts,
 insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition), **classes**
 (invariant-class gate library), **evidence** (repos proving recurrence).
@@ -38,7 +38,7 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **remote-exec** | run-to-completion remote command + file sync behind a port |
 | **edge-model** | on-device model runtime behind a port |
 
-## Operations (196 — verb grain)
+## Operations (226 — verb grain)
 
 ### verifiable-claims (6)
 
@@ -370,3 +370,78 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **apply-account-action** | A | account + sanction + report → applied action | no-op | sanction + strike + mod-log + resolution in one transaction |
 | **record-moderator-action-modlog** | B | moderator action → mod-log entry | append-only moderator action log |
 | **handle-appeal** | A | strike + appeal → appeal outcome | one appeal per strike; approval reverses the sanction |
+
+### transcript-persistence (3)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **append-event-write-through** | A | kind + opaque payload → sequenced, timestamped, generation-tagged event record (durable + streamed) | Append one event under a single write lock to an in-memory ring AND an append-only disk file in the same critical section, then broadcast to live subscribers without holding the lock. |
+| **resume-stream-from-cursor** | A,C | client cursor (generation, last seq) → gapless event replay, or snapshot, or explicit reset signal | Re-attach a subscriber at (generation, after_seq) and deliver exactly the missed events, falling back to snapshot or in-band cursor_reset when the cursor cannot be honored. |
+| **rebuild-live-window-from-log-tail** | C | append-only event file → restored ring window + (newest_seq, generation) for the new run | On open, replay the tail of the append-only file to restore the in-memory window and continue numbering where the previous process stopped. |
+
+### workspace-turn-diffs (2)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **diff-turn-against-start-snapshot** | C,D | workspace directory + turn boundary signals → per-turn reversible patch event with file count | Before each turn, commit a baseline into a private shadow VCS; at turn end, emit the workspace delta as one canonical patch event. |
+| **revert-turn-by-reverse-patch** | A | previously emitted patch → restored workspace + audit event, or explicit refusal | Undo a turn by reverse-applying the exact patch the turn_diff event recorded. |
+
+### process-supervision (4)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **serialize-agent-lifecycle-single-flight** | A | concurrent lifecycle requests → serialized state transitions over exactly one child process | One mutex serializes activate/submit/reset/abort; abort signals the child's process group without killing it. |
+| **save-kill-respawn-on-switch** | A,B | target workspace id → fresh child bound to new workspace, prior session durably resumable | Switching workspaces runs save -> graceful-kill -> drain readers -> spawn fresh -> restore. |
+| **attribute-emit-to-pinned-binding** | B | child output + binding snapshot → correctly attributed event, or silent drop | Reader threads snapshot (workspace_id, bind_generation) before emitting; the append is dropped if the binding changed in between. |
+| **detect-turn-end-from-sideband-marker** | C | sideband idle markers from a supervised process → exactly-once turn-end event + state transition | Turn completion is detected only from an out-of-band channel, never inferred from content. |
+
+### resume-handoff (2)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **re-prefill-transcript-on-resume** | B | workspace with prior history → agent with prior context; unmodified user-visible transcript | On workspace re-entry, restore context exactly via saved session if the restore ack arrives; otherwise fall back to silently prepending the rendered transcript to the next prompt. |
+| **verify-handoff-bundle-against-live-log** | B,C | handoff bundle + session root → verified/failed report with per-check pass/fail details | A session handoff bundle embeds digests as proofs; verification recomputes both from the live session files and fails on any mismatch. |
+
+### audited-memory (6)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **verify-memory-checkpoint-by-exact-replay** | C,B | append-only event log + checkpoint manifest hash → audit certificate (binary drift verdict) + optional auto-correction | Replay the raw event log through the projector and compare the replayed projection's content hash to the checkpoint manifest's body hash; record the verdict as a certificate. |
+| **gate-checkpoint-use-fail-closed** | B | checkpoint identity + audit ledger + correction index → may_use verdict with reason | A checkpoint may be used as decision memory only after passing the audit/correction gate; every refusal mode forces re-projection from the raw log. |
+| **replay-raw-with-correction-directives** | B,C | event log + correction payloads + projector → corrected projected memory, or refusal | When a blocking correction invalidates the active checkpoint, recover by replaying raw events through the projector with compiled, typed correction directives. |
+| **build-revoked-evidence-view** | A,B | immutable event range + correction directives → active evidence log + revoked-evidence log with original bytes | Render a correction-applied view over the immutable log: events carrying invalidated facts are replaced with revocation markers before the decision layer sees them. |
+| **interrupt-before-next-predict-on-correction** | B | active checkpoint hash + correction index → barrier decision (interrupt / reproject / proceed) with blocking corrections | A barrier between corrections and the next model call: a blocking correction against the active checkpoint must interrupt before the next prediction. |
+| **record-correction-as-append-only-event** | C | validated correction payload → appended event; reproducible per-checkpoint blocking index | Corrections are themselves events appended to the same log, targeting a checkpoint by manifest hash and event range; the blocking set is rebuilt by folding the log. |
+
+### context-cache (1)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **reuse-kv-prefix-on-exact-byte-match** | B,D | full prompt + identity + schema → longest exact-prefix hit with suffix, or NotFound | Reuse a cached KV checkpoint only when its recorded prompt prefix is a byte-identical prefix of the current prompt under the full identity tuple. |
+
+### run-attestation (4)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **hash-chain-and-sign-run-events** | A,B | run measurement (metrics, hashes, evidence) → signed, chained, content-addressed event record | Every captured run event carries event_index and previous_event_hash, and is signed over its canonical encoding with the signature field cleared. |
+| **verify-attestation-chain-against-pinned-roots-deep** | B | attestation token + accepted-platform policy → verified (platform, measurement, binding, depth) or typed refusal | Verify a recursive attestation token chain: each stage's hardware quote checked against pinned vendor roots and its report_data binding, with chain depth bounded. |
+| **bind-run-events-to-attested-capture-claim** | B | manifest + verified attestation receipt + event → capture claim; per-event attested/not-attested verdict | Build an attested-capture claim only for allowlisted capture paths advertised by the manifest, then accept an event as attested only if its fields equal the claim. |
+| **derive-score-from-signed-events** | D | verified signed events (+ optional budget) → ranked score reports with eligibility status | Rankings and eligibility are derived totals over the signed event set, computed by one canonical formula with deterministic tie-breaking. |
+
+### tamper-evident-log (3)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **mirror-log-and-halt-on-inconsistency** | B,A | upstream checkpoint + data tiles + pinned cosigner key → verified local replica, or persisted halt | Follow an upstream transparency log: verify the cosignature on each checkpoint, refetch new entries, recompute the Merkle root locally, and commit durably before advancing in-memory state. |
+| **verify-consistency-between-checkpoints** | B | (subtree range, subtree hash, tree size, root, proof hashes) → accept, or thrown consistency exception | Verify a Merkle consistency proof that a subtree is contained in a larger tree with the given root. |
+| **publish-entry-under-quorum-cosigned-checkpoint** | A,B | log entry; mirror endpoints + quorum → index immediately; inclusion proof + quorum cosignatures on completion | Append assigns an index immediately; a separate wait blocks until the entry is inside a published signed checkpoint whose covering subtree has collected at least a quorum of independently verified cosignatures. |
+
+### trajectory-drift (5)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **self-heal-append-only-trajectory** | A | typed event (ts, type, data) → durable append-only trajectory; clean tail reads | Record activity as JSONL appends; before any read, detect a trailing partial line (crash mid-write) by parse failure and truncate back to the last complete record. |
+| **import-events-by-watermark** | A | external append-only history + stored watermark → one trajectory event per new item; advanced watermark | Sync external history into the trajectory using a persisted high-water mark so each source item becomes exactly one trajectory event. |
+| **graduate-baseline-from-nursery-window** | C,D | stream of per-commit metric vectors → phase transitions + frozen baselines | Accumulate the first N samples per metric in a nursery phase, compute baselines once at graduation, and return to nursery (full reset) after a long stability streak. |
+| **detect-sustained-drift-with-cusum** | C | metric value + baseline + prior snapshot → alarm/no-alarm + new snapshot | Per-metric CUSUM trackers turn a stream of z-scores against frozen baselines into a sustained-drift alarm; all tracker state round-trips through an explicit snapshot. |
+| **quarantine-lock-until-remediation** | B | per-commit telemetry (deception counters, CI status) → quarantine decisions with named alarms | Deception-class signals past thresholds trigger quarantine; while quarantined, every subsequent commit is rejected. |

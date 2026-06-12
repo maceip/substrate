@@ -503,6 +503,36 @@ block/
     not stomp on or rewrite whatever it produces; reconcile into CATALOG.json via the
     validator instead.
 
+17. PAPERS ACTUALLY READ + AGENTIC LAYER MINED (Jun 12). All four papers located, read,
+    and diffed — outputs/four-papers-corrections.md SUPERSEDES this file's paraphrases
+    where they conflict. Four corrections: AEvo's tighten/loosen asymmetry is OUR invention
+    (paper's evaluator is symmetric-frozen; the meta-agent Φ loop is what we lack); FoT's
+    merge is LLM consolidation, not dedup (ours = their worst baseline; saturation ~20 not
+    50-70; distill fires per-solve); MOSS's gap is the evidence pipeline not autonomy
+    (cron-scanned failure batches sealed at N; promotion is human-gated like ours); Meta-
+    Agent contracts are declarative data (schemas + assertions) driving BOTH construction-
+    time verification (+7.1 ablation) and mechanical attribution. Graftable code verified:
+    dixiyao/FoT (MIT, port ~500 LOC), hkgai-official/Moss (Apache-2.0, pattern+port);
+    Meta-Agent + AEvo are code-less (implement native); facebookresearch/HyperAgents is
+    CC-NC = reference only. AGENTIC GENETICS BOLSTERED: 30 evidence-anchored agent-task ops
+    mined from pinback/vet/runcards/cordon/cursor-anchor (transcript-persistence, process-
+    supervision, audited-memory, run-attestation, tamper-evident-log, trajectory-drift,
+    resume-handoff, context-cache) — catalog now 245 blocks (19 built, 226 defined). Both
+    residual notes from the state-of-the-union are RETIRED (Postiz adjudicated; agentic
+    thinness bolstered).
+
+18. CLONEABILITY NORTH STAR (user, Jun 12): another developer must be able to adopt
+    substrate without submitting to it — swap components, add their own blocks, modify
+    blocks DURABLY. Already true: adapters swap by env var; app code has no framework
+    import (ports only); stamps are plain Node/TS; foreign block dirs in substrate/ are
+    already preserved by update.ts (unknown-dirs rule); new cards enter via CATALOG.json +
+    validator. THE ONE HARD CONFLICT: update.ts replaces nursery-known blocks wholesale, so
+    a developer's local modification to a SHIPPED block is destroyed on update. Design
+    (not yet built): per-block EJECT marker (substrate/<block>/.ejected) — update skips
+    ejected blocks and reports drift instead; eject is the escape hatch that makes the
+    system a starting point, not a cage. Rigidity stays only where it is the product
+    (PROTECTED/gates INSIDE a block you keep); everything else must be leavable.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
