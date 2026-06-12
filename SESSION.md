@@ -643,6 +643,31 @@ block/
     PRIORITY REORIENT: the selection/wiring layer (selective stamp -> adopt.ts -> intent match)
     is the road to the product claim; strata cleanup (cache/i18n/ai-model) is POLISH, deferred.
 
+25. GOVERNANCE DOCTRINE (user-ratified, Jun 12) — binding on every future turn, Claude's
+    included. Two rules, recorded as prose (NOT as an enforcement check — a check that forbids
+    new machinery would be the first machine it forbids; enforcement is the user's veto + the
+    pull-test below):
+      (a) FREEZE LINE: the mechanism layer is done. NO NEW KERNEL ORGAN. The 8 protocol
+          segments + the organs (evidence, contract, phi, consolidate, crispr, harvest) are
+          frozen at 'exists, proven once'. Improving an existing organ is fine; adding a new
+          species is creep.
+      (b) PULL-NOT-PUSH: before ANY new mechanism, name the REAL-PROJECT failure that pulled
+          it (a HANDROLLED marker, a logged repeat, a failed task, measured pain). Absent that
+          signal, it waits. harvest->evidence->Φ already generates the pull signal; trust it.
+          Pushed-by-reasoning ('the papers say', 'more complete', 'elegant') is exactly the
+          creep this rule stops. This session, harvest + the transport fix were correctly
+          PULLED; Φ/consolidation/the full MOSS pipeline were PUSHED and should have waited.
+      Claude is the scope-creep engine; this rule is mostly a leash on Claude, and the written
+      ground for the user to veto with 'what pulled this?'.
+
+26. VALUE-PROP PARTITION (user, Jun 12): the two entry paths promise DIFFERENT things and are
+    measured differently. NET-NEW (create.ts) -> the promise is SPEED (pre-wired plumbing;
+    measured by time-to-working + domain/plumbing ratio: weather 65% domain, workdesk 75%).
+    BROWNFIELD (adopt.ts) -> the promise is NOT speed; it is lessons + discipline + gap-fill +
+    (later) the guarantee layer over the repo's own seams (measured by lessons-inherited and
+    gaps-filled). OpenClaw proved blocks do not speed brownfield development (zero crossed) —
+    claiming speed there would be dishonest. 'Speed up development' is a NET-NEW claim only.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
