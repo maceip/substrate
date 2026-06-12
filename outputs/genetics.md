@@ -75,3 +75,16 @@ catalog cannot serve, the genetics critique is confirmed in practice and the age
 becomes the build priority regardless of the door. If instead markers cluster in classic
 domains, the SaaS genes were the right inheritance and the worry was premature. Either way
 the instrument that decides is usage, not opinion.
+
+## CRISPR (user, Jun 12): the name for the missing coupling
+
+The components all exist, disconnected: guide RNA = attribution + repeat ledger + HANDROLLED
+markers (targeting); Cas9 = agent source-rewrite (today human-triggered); repair template =
+strata rule + federated lessons (never freestyle); PAM safety = the protected evaluator
+(no cut where verification is absent); germline vs somatic = nursery edit propagated by the
+update channel vs app-level handroll; and the spacer archive (CRISPR's original immune
+memory) = the parked federated-cases design. CRISPR v1 is one coupled loop: failure →
+attribute the block → draft repair from template → apply in nursery → suite green →
+[auto-tighten] commit → update channel propagates. Somatic edits free; germline edits
+human-gated until trust accumulates. The five closing moves in four-papers-map.md are this
+assembly, in order.
