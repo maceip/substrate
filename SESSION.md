@@ -601,6 +601,22 @@ block/
     demonstrates it can carry repairs end-to-end without hand-mining (measure: a few
     consecutive CONVERGED crispr cycles merged with no manual rework).
 
+23. BROWNFIELD-FIRST (user, Jun 12): the most common touchpoint is NOT a fresh stamp — it
+    is someone inside an existing repo (their own, a clone of someone else's, a vendor
+    boilerplate). Greenfield is the special case. What this changes, concretely:
+    (a) ADOPT.TS — the missing sibling of create.ts: vendor substrate INTO an existing repo
+    without touching its layout. Requirements from first principles (test 3 will correct
+    them): SELECTIVE by default (adopt the blocks the repo lacks, not all 19 — also solves
+    the test tax), a substrate.json manifest declaring where app code lives so check-ports/
+    harvest scope correctly, MERGE-not-overwrite for AGENTS.md and package.json (namespaced
+    scripts: substrate:test), no git init, update channel keyed on .origin.json exactly like
+    stamps. (b) THE BROWNFIELD VALUE PROP IS DIFFERENT: a foreign repo already has its ORM,
+    logger, server — it will not rip them out for our blocks. What substrate offers brownfield
+    is gap-filling blocks (the capabilities the repo LACKS), the federated lessons, the
+    AGENTS.md discipline, and eventually contracts/gates wrapped around the repo's OWN seams
+    (the ambitious version — not v1). (c) User test 3 (clone OpenClaw + add feature, running
+    now) is the first empirical probe; adopt.ts gets built FROM its findings, not before.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
