@@ -3,19 +3,66 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "nursery", "capabilities": ["fail-closed", "block-severity-stops"] },
-    { "grade": "elementary", "adapter": "elementary", "capabilities": ["fail-closed", "block-severity-stops", "protected-baseline"] },
-    { "grade": "graduated", "adapter": "graduated", "capabilities": ["fail-closed", "block-severity-stops", "protected-baseline", "failure-attribution"] }
+    {
+      "grade": "nursery",
+      "adapter": "nursery",
+      "capabilities": [
+        "fail-closed",
+        "block-severity-stops"
+      ]
+    },
+    {
+      "grade": "elementary",
+      "adapter": "elementary",
+      "capabilities": [
+        "fail-closed",
+        "block-severity-stops",
+        "protected-baseline"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "graduated",
+      "capabilities": [
+        "fail-closed",
+        "block-severity-stops",
+        "protected-baseline",
+        "failure-attribution"
+      ]
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "agentEdits", "activates": ["fail-closed", "block-severity-stops"] },
-    { "id": "gate:elementary->graduated", "trigger": "prod || gateCount>3", "activates": ["protected-baseline", "failure-attribution"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "agentEdits",
+      "activates": [
+        "fail-closed",
+        "block-severity-stops"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "prod || gateCount>3",
+      "activates": [
+        "protected-baseline",
+        "failure-attribution"
+      ]
+    }
   ],
   "consumers": [
     "agent self-check before commit",
     "CI contract gate",
     "tighten-only policy set"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "pass-iff-no-blocking-failure"
+    ],
+    "forbidden": []
+  }
 }

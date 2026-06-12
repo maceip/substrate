@@ -3,19 +3,66 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "memory", "capabilities": ["ttl"] },
-    { "grade": "elementary", "adapter": "lru", "capabilities": ["ttl", "bounded", "single-flight"] },
-    { "grade": "graduated", "adapter": "shared-file", "capabilities": ["ttl", "bounded", "single-flight", "shared-backend", "shared-single-flight"], "standsInFor": "redis/memcached + distributed lock (catalog ladder); swap is one adapter file" }
+    {
+      "grade": "nursery",
+      "adapter": "memory",
+      "capabilities": [
+        "ttl"
+      ]
+    },
+    {
+      "grade": "elementary",
+      "adapter": "lru",
+      "capabilities": [
+        "ttl",
+        "bounded",
+        "single-flight"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "shared-file",
+      "capabilities": [
+        "ttl",
+        "bounded",
+        "single-flight",
+        "shared-backend",
+        "shared-single-flight"
+      ],
+      "standsInFor": "redis/memcached + distributed lock (catalog ladder); swap is one adapter file"
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "prod || (hotKeys>0 && fillCostMs>100)", "activates": ["ttl-enforced", "bounded-size", "single-flight"] },
-    { "id": "gate:elementary->graduated", "trigger": "instances>1", "activates": ["shared-backend", "shared-single-flight"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "prod || (hotKeys>0 && fillCostMs>100)",
+      "activates": [
+        "ttl-enforced",
+        "bounded-size",
+        "single-flight"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "instances>1",
+      "activates": [
+        "shared-backend",
+        "shared-single-flight"
+      ]
+    }
   ],
   "consumers": [
     "memoized expensive read (getOrFill wrapped around a costly source call)",
     "invalidation hook (write paths del the keys they make stale)",
     "TTL policy per namespace (how stale each kind of result may be)"
-  ]
+  ],
+  "contract": {
+    "assertions": [],
+    "forbidden": []
+  }
 }

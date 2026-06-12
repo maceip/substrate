@@ -3,18 +3,67 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "node-http", "capabilities": ["routing"] },
-    { "grade": "elementary", "adapter": "node-http-mw", "capabilities": ["routing", "middleware", "graceful-shutdown"] },
-    { "grade": "graduated", "adapter": "framework", "capabilities": ["routing", "middleware", "graceful-shutdown", "streaming", "http2"], "requires": ["fastify"] }
+    {
+      "grade": "nursery",
+      "adapter": "node-http",
+      "capabilities": [
+        "routing"
+      ]
+    },
+    {
+      "grade": "elementary",
+      "adapter": "node-http-mw",
+      "capabilities": [
+        "routing",
+        "middleware",
+        "graceful-shutdown"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "framework",
+      "capabilities": [
+        "routing",
+        "middleware",
+        "graceful-shutdown",
+        "streaming",
+        "http2"
+      ],
+      "requires": [
+        "fastify"
+      ]
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "public || prod", "activates": ["boundary-pipeline", "graceful-shutdown"] },
-    { "id": "gate:elementary->graduated", "trigger": "instances>1", "activates": ["response-streaming"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "public || prod",
+      "activates": [
+        "boundary-pipeline",
+        "graceful-shutdown"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "instances>1",
+      "activates": [
+        "response-streaming"
+      ]
+    }
   ],
   "consumers": [
     "API route pattern (validate input, authorize, call store, return typed output)",
     "boundary middleware (input-validation + request-guard blocks plug in here)"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "status-is-http"
+    ],
+    "forbidden": []
+  }
 }

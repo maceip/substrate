@@ -3,19 +3,66 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "pluggsInto": "transport boundary middleware (validate(schema) -> router.use)",
   "grades": [
-    { "grade": "nursery", "adapter": "shape-check", "capabilities": [] },
-    { "grade": "elementary", "adapter": "detailed", "capabilities": ["detailed-errors", "coercion"] },
-    { "grade": "graduated", "adapter": "schema-lib", "capabilities": ["detailed-errors", "coercion", "shared-schema", "type-generation"], "requires": ["zod"] }
+    {
+      "grade": "nursery",
+      "adapter": "shape-check",
+      "capabilities": []
+    },
+    {
+      "grade": "elementary",
+      "adapter": "detailed",
+      "capabilities": [
+        "detailed-errors",
+        "coercion"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "schema-lib",
+      "capabilities": [
+        "detailed-errors",
+        "coercion",
+        "shared-schema",
+        "type-generation"
+      ],
+      "requires": [
+        "zod"
+      ]
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "public || prod", "activates": ["detailed-errors", "safe-coercion"] },
-    { "id": "gate:elementary->graduated", "trigger": "sharedClient", "activates": ["shared-schema"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "public || prod",
+      "activates": [
+        "detailed-errors",
+        "safe-coercion"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "sharedClient",
+      "activates": [
+        "shared-schema"
+      ]
+    }
   ],
   "consumers": [
     "API route input validation (validate(schema) at the boundary)",
     "CLI/arg validation (same schema, non-http boundary)"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "rejection-names-fields"
+    ],
+    "forbidden": [
+      "no-value-on-failure"
+    ]
+  }
 }

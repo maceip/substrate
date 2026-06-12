@@ -3,19 +3,67 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "nursery", "capabilities": ["content-addressed-cache"] },
-    { "grade": "elementary", "adapter": "elementary", "capabilities": ["content-addressed-cache", "checksum-verified", "format-convert"] },
-    { "grade": "graduated", "adapter": "graduated", "capabilities": ["content-addressed-cache", "checksum-verified", "format-convert", "warm-pool", "multi-format"], "standsInFor": "HF-download + gguf/onnx convert + a warm local runtime (llama.cpp/onnxruntime); swap is one adapter file + an injected transport/converter/inference" }
+    {
+      "grade": "nursery",
+      "adapter": "nursery",
+      "capabilities": [
+        "content-addressed-cache"
+      ]
+    },
+    {
+      "grade": "elementary",
+      "adapter": "elementary",
+      "capabilities": [
+        "content-addressed-cache",
+        "checksum-verified",
+        "format-convert"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "graduated",
+      "capabilities": [
+        "content-addressed-cache",
+        "checksum-verified",
+        "format-convert",
+        "warm-pool",
+        "multi-format"
+      ],
+      "standsInFor": "HF-download + gguf/onnx convert + a warm local runtime (llama.cpp/onnxruntime); swap is one adapter file + an injected transport/converter/inference"
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "prod || callsPerDay>100", "activates": ["content-addressed-cache", "checksum-verified"] },
-    { "id": "gate:elementary->graduated", "trigger": "multiFormat || sharedCache", "activates": ["format-convert", "warm-pool"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "prod || callsPerDay>100",
+      "activates": [
+        "content-addressed-cache",
+        "checksum-verified"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "multiFormat || sharedCache",
+      "activates": [
+        "format-convert",
+        "warm-pool"
+      ]
+    }
   ],
   "consumers": [
     "local inference call",
     "model artifact cache",
     "format conversion step"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "sha256-is-hex-digest"
+    ],
+    "forbidden": []
+  }
 }

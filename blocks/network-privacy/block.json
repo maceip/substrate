@@ -3,19 +3,76 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "broker", "capabilities": ["opaque-handles", "no-address-storage"] },
-    { "grade": "elementary", "adapter": "relay", "capabilities": ["opaque-handles", "no-address-storage", "relay-hop", "replay-protection"] },
-    { "grade": "graduated", "adapter": "mixnet", "capabilities": ["opaque-handles", "no-address-storage", "relay-hop", "replay-protection", "multi-hop", "sealed-envelopes", "cover-traffic-ready"], "standsInFor": "a real mixnet / onion-routing transport (catalog ladder); swap is one adapter file" }
+    {
+      "grade": "nursery",
+      "adapter": "broker",
+      "capabilities": [
+        "opaque-handles",
+        "no-address-storage"
+      ]
+    },
+    {
+      "grade": "elementary",
+      "adapter": "relay",
+      "capabilities": [
+        "opaque-handles",
+        "no-address-storage",
+        "relay-hop",
+        "replay-protection"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "mixnet",
+      "capabilities": [
+        "opaque-handles",
+        "no-address-storage",
+        "relay-hop",
+        "replay-protection",
+        "multi-hop",
+        "sealed-envelopes",
+        "cover-traffic-ready"
+      ],
+      "standsInFor": "a real mixnet / onion-routing transport (catalog ladder); swap is one adapter file"
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "peers>2 || prod", "activates": ["opaque-handles", "no-address-storage", "relay-hop", "replay-protection"] },
-    { "id": "gate:elementary->graduated", "trigger": "hostileNetwork || messagesPerDay>10000", "activates": ["multi-hop", "sealed-envelopes", "cover-traffic-ready"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "peers>2 || prod",
+      "activates": [
+        "opaque-handles",
+        "no-address-storage",
+        "relay-hop",
+        "replay-protection"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "hostileNetwork || messagesPerDay>10000",
+      "activates": [
+        "multi-hop",
+        "sealed-envelopes",
+        "cover-traffic-ready"
+      ]
+    }
   ],
   "consumers": [
     "contact book of opaque handles (peer discovery without address exchange)",
     "private messaging channel (conversations keyed by handle, never by address)",
     "address exposure boundary (the app layer that provably cannot leak what it never receives)"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "handles-are-opaque-32hex"
+    ],
+    "forbidden": [
+      "no-dialable-address"
+    ]
+  }
 }

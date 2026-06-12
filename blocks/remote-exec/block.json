@@ -3,19 +3,70 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "grades": [
-    { "grade": "nursery", "adapter": "local", "capabilities": [] },
-    { "grade": "elementary", "adapter": "ssh", "capabilities": ["exit-code-surfaced", "no-secret-leak"], "requires": ["REMOTE_HOST"] },
-    { "grade": "graduated", "adapter": "fleet", "capabilities": ["exit-code-surfaced", "no-secret-leak", "host-inventory", "parallel-fanout", "idempotent-copy"], "requires": ["REMOTE_HOSTS"] }
+    {
+      "grade": "nursery",
+      "adapter": "local",
+      "capabilities": []
+    },
+    {
+      "grade": "elementary",
+      "adapter": "ssh",
+      "capabilities": [
+        "exit-code-surfaced",
+        "no-secret-leak"
+      ],
+      "requires": [
+        "REMOTE_HOST"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "fleet",
+      "capabilities": [
+        "exit-code-surfaced",
+        "no-secret-leak",
+        "host-inventory",
+        "parallel-fanout",
+        "idempotent-copy"
+      ],
+      "requires": [
+        "REMOTE_HOSTS"
+      ]
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "hosts>0 || prod || mutatesRemote", "activates": ["exit-code-surfaced", "no-secret-leak"] },
-    { "id": "gate:elementary->graduated", "trigger": "hosts>1", "activates": ["host-inventory", "parallel-fanout", "idempotent-copy"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "hosts>0 || prod || mutatesRemote",
+      "activates": [
+        "exit-code-surfaced",
+        "no-secret-leak"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "hosts>1",
+      "activates": [
+        "host-inventory",
+        "parallel-fanout",
+        "idempotent-copy"
+      ]
+    }
   ],
   "consumers": [
     "deploy step: push build + run remote command",
     "fleet fan-out: same command across hosts",
     "remote file sync"
-  ]
+  ],
+  "contract": {
+    "assertions": [],
+    "forbidden": [
+      "no-key-material-in-streams"
+    ]
+  }
 }

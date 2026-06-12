@@ -3,19 +3,59 @@
   "portVersion": "0.1.0",
   "port": "port.ts",
   "appImportsOnly": "index.ts",
-  "protected": ["port.ts", "gates.ts"],
+  "protected": [
+    "port.ts",
+    "gates.ts"
+  ],
   "feeds": "persistence gate requirement `migrations-registered` — pass registered().length to persistence.checkGrade",
   "grades": [
-    { "grade": "nursery", "adapter": "memory", "capabilities": [] },
-    { "grade": "elementary", "adapter": "file", "capabilities": ["journal"] },
-    { "grade": "graduated", "adapter": "graduated", "capabilities": ["journal", "checksum-verify"] }
+    {
+      "grade": "nursery",
+      "adapter": "memory",
+      "capabilities": []
+    },
+    {
+      "grade": "elementary",
+      "adapter": "file",
+      "capabilities": [
+        "journal"
+      ]
+    },
+    {
+      "grade": "graduated",
+      "adapter": "graduated",
+      "capabilities": [
+        "journal",
+        "checksum-verify"
+      ]
+    }
   ],
   "gates": [
-    { "id": "gate:nursery->elementary", "trigger": "prodData || schemaChanges>1", "activates": ["history-recorded", "monotonic-versions"] },
-    { "id": "gate:elementary->graduated", "trigger": "instances>1 || schemaChanges>10", "activates": ["down-defined", "compat-checked"] }
+    {
+      "id": "gate:nursery->elementary",
+      "trigger": "prodData || schemaChanges>1",
+      "activates": [
+        "history-recorded",
+        "monotonic-versions"
+      ]
+    },
+    {
+      "id": "gate:elementary->graduated",
+      "trigger": "instances>1 || schemaChanges>10",
+      "activates": [
+        "down-defined",
+        "compat-checked"
+      ]
+    }
   ],
   "consumers": [
     "baseline domain table (id/created_at/updated_at/version become the default shape)",
     "backfill task (a migration produces a one-off job consumer)"
-  ]
+  ],
+  "contract": {
+    "assertions": [
+      "versions-strictly-increase"
+    ],
+    "forbidden": []
+  }
 }
