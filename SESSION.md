@@ -552,6 +552,27 @@ block/
     SA caveat recorded — pattern-port, don't vendor verbatim. S7 adoption rule: required
     for every block touched from now on; anatomy check enforces S1-S4 on all 19 today.
 
+20. CLOSED-LOOP V1 (Jun 12). The three remaining metabolism moves landed, all tested:
+    (1) S5 CONSOLIDATION — _kernel/consolidate.ts (pure, injectable model; the paper's
+    cluster->synthesize merge with the log-cap target; fail-closed: a merge that loses or
+    duplicates inputs is REFUSED; provenance survives merging; pre-merge library archived
+    to ~/.substrate/consolidations/) + consolidate-cli.ts (real model = `claude -p`;
+    `npm run consolidate`). (2) MOSS BACK HALF — tools/crispr.ts: sealed batch -> fresh
+    worktree (deps installed, evidence brief committed as preamble) -> pluggable coding
+    agent (CODING_AGENT, default claude) -> full-suite trial WITH the ratchet inside ->
+    verdict CONVERGED (candidate branch, human-gated merge, evidence consumed) or
+    NEED_MORE_WORK (evidence kept; clean teardown). Smoke-tested with a no-op agent —
+    which caught and fixed two real bugs (EVIDENCE.md counted as agent work; trial ran
+    depless). (3) Φ OBSERVER — _kernel/phi.ts: AEvo's actual contribution; observes lens
+    history + repeat ledger + both queues, emits EXACTLY ONE action per steward boundary,
+    ranked rewrite > consolidation > repeats > north-star drift > "go build a real
+    project"; redundant actions are flagged as their own signal; Φ history in
+    ~/.substrate/phi.json. First real observation: "auto-tighten still 0; no mechanism
+    work due — spend the next cycle on a real project." THE LOOP NOW CLOSES: failure ->
+    evidence -> sealed batch -> crispr -> ratchet-gated candidate -> human merge ->
+    steward propagates germline -> lessons consolidate -> Φ names the next move.
+    Remaining human gates (by design): crispr promotion, loosening, Φ action execution.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

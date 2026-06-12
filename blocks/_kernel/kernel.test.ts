@@ -73,6 +73,52 @@ await check('S5: deposits accumulate past the sweet spot (no truncation) and fla
   assert.ok(due.some((d) => d.block === 'demo-block' && d.count === SWEET_SPOT + 3))
 })
 
+// ---- S5: consolidation (merge never destroys) --------------------------------------------
+const { consolidateBlock, parseMerge, targetSize } = await import('./consolidate.ts')
+
+await check('S5: log-cap target matches the paper formula', () => {
+  assert.equal(targetSize(10), 11)
+  assert.equal(targetSize(249), 25) // their DeepSeek run: 249 traces
+})
+
+await check('S5: consolidation merges via the model and preserves every input + provenance', async () => {
+  const stub = async () => JSON.stringify([
+    { text: 'merged: lessons about X', from: [0, 1] },
+    { text: 'lesson number 2', from: [2] },
+  ])
+  deposit('merge-demo', 'lesson 0 about X', 'proj-a')
+  deposit('merge-demo', 'lesson 1 about X', 'proj-b')
+  deposit('merge-demo', 'lesson number 2', 'proj-a')
+  const r = await consolidateBlock('merge-demo', stub)
+  assert.equal(r.before, 3)
+  assert.equal(r.after, 2)
+  const merged = r.library.find((l) => l.text.startsWith('merged'))
+  assert.ok(merged?.origin.includes('proj-a') && merged?.origin.includes('proj-b'), 'provenance must survive merging')
+})
+
+await check('S5: a merge that LOSES or DUPLICATES inputs is refused (fail closed)', () => {
+  assert.throws(() => parseMerge(JSON.stringify([{ text: 'kept', from: [0] }]), 2), /lost inputs/)
+  assert.throws(() => parseMerge(JSON.stringify([{ text: 'a', from: [0, 1] }, { text: 'b', from: [1] }]), 2), /covered twice/)
+})
+
+// ---- AEvo Φ: one action per boundary, correctly ranked -----------------------------------
+const { observe } = await import('./phi.ts')
+
+await check('Φ: rewrite queue outranks consolidation outranks repeats; exactly one action', () => {
+  const base = { repeats: 0, prevRepeats: 0, orchestrationShare: 0.1, prevOrchestrationShare: 0.1, autoTightenings: 0, lastAction: null }
+  const full = observe({ ...base, sealedUnits: [{ unit: 'u', batches: 1 }], consolidationDue: [{ block: 'b', count: 25 }] })
+  assert.ok(full.action.includes('crispr.ts u'))
+  const cons = observe({ ...base, sealedUnits: [], consolidationDue: [{ block: 'b', count: 25 }] })
+  assert.ok(cons.action.includes('consolidate-cli.ts b'))
+  const idle = observe({ ...base, sealedUnits: [], consolidationDue: [] })
+  assert.ok(idle.action.includes('real project'))
+})
+
+await check('Φ: repeating last cycle\'s action is itself flagged (redundancy is a signal)', () => {
+  const i = { sealedUnits: [{ unit: 'u', batches: 1 }], consolidationDue: [], repeats: 0, prevRepeats: 0, orchestrationShare: null, prevOrchestrationShare: null, autoTightenings: 1, lastAction: 'run a rewrite cycle: node tools/crispr.ts u' }
+  assert.ok(observe(i).action.includes('REPEATED'))
+})
+
 rmSync(tmp, { recursive: true, force: true })
 
 console.log('')

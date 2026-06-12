@@ -77,6 +77,15 @@ export function recall(block: string): Insight[] {
   return read()[block] ?? []
 }
 
+// replaceLibrary: swap a block's whole library — ONLY for consolidation (S5's merge step),
+// which must archive the pre-merge library first and is forbidden from losing inputs
+// (parseMerge fails closed). Not for general use; deposit() is the write path.
+export function replaceLibrary(block: string, lessons: Insight[]): void {
+  const s = read()
+  s[block] = lessons
+  write(s)
+}
+
 // recallAll / totalInsights: the federation-wide view, so a project can show how much it
 // inherited the moment it starts — across every block, not one. Read-only infrastructure.
 export function recallAll(): Record<string, Insight[]> {

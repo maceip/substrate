@@ -20,6 +20,7 @@
 import { execFileSync } from 'node:child_process'
 import { consolidationDue } from '../blocks/_kernel/fot.ts'
 import { recordEvidence, sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { phi } from '../blocks/_kernel/phi.ts'
 import { existsSync, readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -96,6 +97,11 @@ for (const [unit, batches] of Object.entries(sealedBatches())) {
 for (const d of consolidationDue()) {
   judgment.push(`${d.block}: ${d.count} lessons (> sweet spot) — LLM consolidation due (FoT S5)`)
 }
+
+// Φ (AEvo): one observation, ONE action per boundary. The steward is the boundary.
+const decision = phi(join(ROOT, 'outputs', 'lens-history.json'))
+console.log(`\nΦ observes: ${decision.observation}`)
+console.log(`Φ action (one per cycle): ${decision.action}`)
 
 // judgment report — the only part that wants an intelligent reader
 console.log('\njudgment needed:')
