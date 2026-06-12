@@ -32,8 +32,8 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **network-privacy** | peer addresses unrepresentable — opaque handles only (the mixnet wound, closed) |
 | **attestation** | quotes/claims verified against pinned roots |
 | **realtime** | pub/sub fanout behind a port |
-| **payment** | payment rail behind a port (built on contaminated priority; sound nursery) |
-| **i18n** | locale routing/messages (built on contaminated priority; sound nursery) |
+| **payment** | payment rail behind a port — sound nursery; clean-catalog rank LOW for this user (the real local pattern is x402 micropayments, a different card) |
+| **i18n** | locale routing/messages — sound nursery; clean-catalog rank LOW; keep, no further investment |
 | **agent-gates** | executable contracts over agent output; fail-closed artifact gating |
 | **remote-exec** | run-to-completion remote command + file sync behind a port |
 | **edge-model** | on-device model runtime behind a port |

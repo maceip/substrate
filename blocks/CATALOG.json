@@ -273,7 +273,7 @@
       "classes": [
         "A"
       ],
-      "summary": "payment rail behind a port (built on contaminated priority; sound nursery)",
+      "summary": "payment rail behind a port \u2014 sound nursery; clean-catalog rank LOW for this user (the real local pattern is x402 micropayments, a different card)",
       "invariant": null,
       "port": null,
       "buildsOn": [],
@@ -289,7 +289,7 @@
       "status": "built",
       "cluster": "infra",
       "classes": [],
-      "summary": "locale routing/messages (built on contaminated priority; sound nursery)",
+      "summary": "locale routing/messages \u2014 sound nursery; clean-catalog rank LOW; keep, no further investment",
       "invariant": null,
       "port": null,
       "buildsOn": [],

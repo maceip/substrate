@@ -86,20 +86,23 @@ for (const l of lessons) byOrigin[l.origin] = (byOrigin[l.origin] ?? 0) + 1
 interface Snapshot {
   ts: string
   user: { orchestration: number | null; historyLines: number | null; orchestrationShare: number | null; stamps: number }
-  papers: { repeats: number; lessons: number; origins: number; tighteningCommits: number | null }
+  papers: { repeats: number; lessons: number; origins: number; tighteningCommits: number | null; autoTightenings?: number | null }
 }
 const history = readJson<Snapshot[]>(HISTORY, [])
 const prev = history[history.length - 1]
 
 let tightenings: number | null = null
+let autoTightenings: number | null = null
 try {
   const since = prev?.ts ?? '2026-06-01'
-  const out = execFileSync(
-    'git',
-    ['log', `--since=${since}`, '--oneline', '--', 'blocks/*/gates.ts', 'blocks/*/block.test.ts', 'blocks/*/cases.json'],
-    { cwd: ROOT },
-  )
-  tightenings = out.toString().split('\n').filter(Boolean).length
+  const args = ['log', `--since=${since}`, '--oneline', '--', 'blocks/*/gates.ts', 'blocks/*/block.test.ts', 'blocks/*/cases.json']
+  tightenings = execFileSync('git', args, { cwd: ROOT }).toString().split('\n').filter(Boolean).length
+  // CONVENTION: a tightening that fired without a human asking carries "[auto-tighten]" in its
+  // commit subject. Zero is an honest reading, not an unmeasurable one.
+  autoTightenings = execFileSync('git', ['log', `--since=${since}`, '--oneline', '--grep=\\[auto-tighten\\]'], { cwd: ROOT })
+    .toString()
+    .split('\n')
+    .filter(Boolean).length
 } catch {
   /* not a git checkout */
 }
@@ -112,7 +115,7 @@ const snap: Snapshot = {
     orchestrationShare: orchestrationShare !== null ? Number(orchestrationShare.toFixed(4)) : null,
     stamps: stamps.length,
   },
-  papers: { repeats: repeats.length, lessons: lessons.length, origins: Object.keys(byOrigin).length, tighteningCommits: tightenings },
+  papers: { repeats: repeats.length, lessons: lessons.length, origins: Object.keys(byOrigin).length, tighteningCommits: tightenings, autoTightenings },
 }
 history.push(snap)
 if (!existsSync(dirname(HISTORY))) mkdirSync(dirname(HISTORY), { recursive: true })
@@ -136,5 +139,5 @@ console.log('\nLENS 2 — PAPERS (one promise: never pay twice)')
 console.log(`  REPEATS — already-solved problems that bit again: ${snap.papers.repeats}${delta(snap.papers.repeats, prev?.papers.repeats, true)}`)
 console.log(`    record one: node tools/lens.ts repeat "<what>"`)
 console.log(`  federated lessons: ${snap.papers.lessons} from ${snap.papers.origins} origin(s) [${Object.entries(byOrigin).map(([o, n]) => `${o}:${n}`).join(', ')}]`)
-console.log(`  tightening commits since last snapshot: ${snap.papers.tighteningCommits ?? 'unavailable'} (unprompted-vs-asked: not yet measurable)`)
+console.log(`  tightening commits since last snapshot: ${snap.papers.tighteningCommits ?? 'unavailable'} (of which [auto-tighten]: ${snap.papers.autoTightenings ?? 0})`)
 console.log(`\nsnapshot ${history.length} appended to outputs/lens-history.json\n`)

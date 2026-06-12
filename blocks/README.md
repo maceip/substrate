@@ -173,3 +173,11 @@ A block links three ways, and only three:
    C events→reproducible-verdict · D canonical-formula) its gates instantiate. The classes
    ARE the gate library.
 3. **evidence** — the repos it recurs in. No evidence, no entry.
+
+## Port-invariance testing (decision, Jun 12 2026)
+
+`_fingerprint.ts` (identical observable output across adapters) exists only where adapters
+promise identical behavior (persistence, cache, files, ...). Capability-graded blocks
+(input-validation, logging, transport, env, request-guard) legitimately differ by grade —
+that difference IS the grade — so they carry explicit per-adapter tests instead. The absence
+of a fingerprint there is a decision, not drift.
