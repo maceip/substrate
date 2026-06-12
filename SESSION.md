@@ -682,7 +682,3 @@ block/
     Do not run new mining passes once usage signal flows; retire IDENTIFY as a separate mode.
 
 ---
-
-## Credentials to Rotate (written Jun 9 — UNCONFIRMED as of Jun 10; delete this section once done)
-- GitHub PAT pasted in chat: github.com/settings/tokens
-- GitHub session cookie pasted in chat: github.com/settings/sessions
