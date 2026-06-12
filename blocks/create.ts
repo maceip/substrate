@@ -24,9 +24,21 @@ import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const [, , targetArg, nameArg] = process.argv
+const argv = process.argv.slice(2)
+function flag(name: string): string | undefined {
+  const eq = argv.find((a) => a.startsWith(`--${name}=`))
+  if (eq) return eq.split('=').slice(1).join('=')
+  const i = argv.indexOf(`--${name}`)
+  return i >= 0 ? argv[i + 1] : undefined
+}
+const tierArg = flag('tier')
+const blocksFlag = flag('blocks')
+// positionals: args not starting with -- and not the value of a flag
+const flagValues = new Set([tierArg, blocksFlag].filter(Boolean))
+const positionals = argv.filter((a) => !a.startsWith('--') && !flagValues.has(a))
+const [targetArg, nameArg] = positionals
 if (!targetArg) {
-  console.error('usage: node blocks/create.ts <target-dir> [project-name]')
+  console.error('usage: node blocks/create.ts <target-dir> [project-name] [--tier base|service|nursery] [--blocks a,b,c]')
   process.exit(1)
 }
 const target = resolve(targetArg)
@@ -38,11 +50,55 @@ if (existsSync(target) && readdirSync(target).length > 0) {
 }
 
 // Every block = every directory that isn't kernel/composition/proof plumbing.
-const blocks = readdirSync(here, { withFileTypes: true })
+const allBlocks = readdirSync(here, { withFileTypes: true })
   .filter((e) => e.isDirectory() && !e.name.startsWith('.') && !e.name.startsWith('_'))
   .map((e) => e.name)
   .filter((n) => !['nursery-app', 'fot-proof', 'agent-ops', 'node_modules'].includes(n))
   .sort()
+
+// STAMP TIERS — the default is SMALL. A baby project does not get 19 blocks. Grounded in what
+// the real test projects actually imported (harvest): base = the 3 every project used; service
+// = + the CRUD trio workdesk/weather used; nursery = the whole catalog for exploration.
+const TIERS: Record<string, string[]> = {
+  base: ['env', 'logging', 'transport'],
+  service: ['env', 'logging', 'transport', 'persistence', 'input-validation', 'request-guard'],
+  nursery: allBlocks,
+}
+// buildsOn (composition deps) so a selection can never miss a block it imports.
+const catalog = JSON.parse(readFileSync(join(here, 'CATALOG.json'), 'utf8')) as { blocks: { name: string; buildsOn: string[] }[] }
+const depsOf = new Map(catalog.blocks.map((b) => [b.name, b.buildsOn ?? []]))
+function withDeps(names: string[]): string[] {
+  const out = new Set<string>()
+  const visit = (n: string) => {
+    if (out.has(n) || !allBlocks.includes(n)) return
+    out.add(n)
+    for (const d of depsOf.get(n) ?? []) visit(d)
+  }
+  names.forEach(visit)
+  return [...out].sort()
+}
+
+let tier = tierArg ?? 'base'
+let requested: string[]
+if (blocksFlag) {
+  requested = blocksFlag.split(',').map((s) => s.trim()).filter(Boolean)
+  const unknown = requested.filter((b) => !allBlocks.includes(b))
+  if (unknown.length) {
+    console.error(`unknown block(s): ${unknown.join(', ')}\nadoptable: ${allBlocks.join(', ')}`)
+    process.exit(1)
+  }
+  tier = 'custom'
+} else {
+  if (!TIERS[tier]) {
+    console.error(`unknown tier "${tier}" — choose base | service | nursery, or use --blocks a,b,c`)
+    process.exit(1)
+  }
+  requested = TIERS[tier]
+}
+const blocks = withDeps(requested)
+const hasPersist = blocks.includes('persistence')
+const hasValidate = blocks.includes('input-validation')
+const hasGuard = blocks.includes('request-guard')
 
 const keep = (src: string) => !src.includes('/.data') && !src.endsWith('.DS_Store')
 mkdirSync(join(target, 'app'), { recursive: true })
@@ -77,57 +133,60 @@ writeFileSync(
   ) + '\n',
 )
 
-writeFileSync(
-  join(target, 'app/main.ts'),
-  `// app/main.ts — ${name}, grown from the substrate nursery.
+// The starter app is TIER-AWARE: it imports only the blocks that were stamped. base gets a
+// minimal /health service; service+ adds the /items CRUD with validation and a rate guard.
+function buildMainTs(): string {
+  const imports = [
+    `import { load } from '../substrate/env/index.ts'`,
+    `import { getLogger } from '../substrate/logging/index.ts'`,
+    `import { createRouter } from '../substrate/transport/index.ts'`,
+    `import { totalInsights } from '../substrate/_kernel/fot.ts' // shared FoT infrastructure (read-only)`,
+  ]
+  if (hasPersist) imports.splice(2, 0, `import { open, type BaseRecord } from '../substrate/persistence/index.ts'`)
+  if (hasValidate) imports.push(`import { validate, type Schema } from '../substrate/input-validation/index.ts'`)
+  if (hasGuard) imports.push(`import { guard } from '../substrate/request-guard/index.ts'`)
+
+  const head = `// app/main.ts — ${name}, grown from the substrate nursery (tier: ${tier}).
 //
-// Build on the ports; never import an adapter. Swapping a grade is an env var
-// (PERSIST_ADAPTER, LOG_ADAPTER, ...), zero changes here. Delete the demo routes
-// and start writing your app.
+// Build on the ports; never import an adapter. Swapping a grade is an env var, zero changes
+// here. Need a capability this tier didn't include? Add it without leaving the nursery:
+//   node substrate/_kernel/.. (or re-run create) — or for an existing repo, blocks/adopt.ts.
 
 process.env.PROJECT ??= '${name}' // FoT origin tag for lessons this project deposits
 
-import { load } from '../substrate/env/index.ts'
-import { getLogger } from '../substrate/logging/index.ts'
-import { open, type BaseRecord } from '../substrate/persistence/index.ts'
-import { createRouter } from '../substrate/transport/index.ts'
-import { validate, type Schema } from '../substrate/input-validation/index.ts'
-import { guard } from '../substrate/request-guard/index.ts'
-import { totalInsights } from '../substrate/_kernel/fot.ts' // shared FoT infrastructure (read-only)
+${imports.join('\n')}
+`
 
-interface Item extends BaseRecord {
-  name: string
-}
-
-const ITEM_SCHEMA: Schema = { name: { type: 'string', required: true, min: 1, max: 200 } }
-
+  const setup = `
 const cfg = await load({ PORT: { default: '3000', parse: Number, describe: 'http listen port' } })
 const log = await getLogger({ service: '${name}' })
-const store = await open<Item>('items')
+${hasPersist ? `\ninterface Item extends BaseRecord {\n  name: string\n}\nconst store = await open<Item>('items')` : ''}
 
 // FoT: lessons other projects already deposited into the federation (~/.substrate) — this
-// project inherited every one of them the moment it started, across all blocks.
+// project inherited every one of them the moment it started.
 log.info('federated lessons inherited', { total: totalInsights() })
 
 const router = await createRouter()
-const limiter = await guard({ limit: 1000, windowMs: 60_000 })
-const validateItem = validate(ITEM_SCHEMA)
+router.use((req) => (log.info('request', { method: req.method, path: req.path }), null))`
 
-router.use((req) => (log.info('request', { method: req.method, path: req.path }), null))
-router.use((req) => limiter(req))
-router.use((req) => (req.method === 'POST' || req.method === 'PUT' ? validateItem(req) : null))
+  const guardSetup = hasGuard ? `\nconst limiter = await guard({ limit: 1000, windowMs: 60_000 })\nrouter.use((req) => limiter(req))` : ''
+  const validateSetup = hasValidate
+    ? `\nconst ITEM_SCHEMA: Schema = { name: { type: 'string', required: true, min: 1, max: 200 } }\nconst validateItem = validate(ITEM_SCHEMA)\nrouter.use((req) => (req.method === 'POST' || req.method === 'PUT' ? validateItem(req) : null))`
+    : ''
 
-router.route('GET', '/health', () => ({ status: 200, body: { ok: true } }))
+  const routes = hasPersist
+    ? `\nrouter.route('GET', '/health', () => ({ status: 200, body: { ok: true } }))
 router.route('GET', '/items', async () => ({ status: 200, body: await store.list() }))
 router.route('POST', '/items', async (req) => {
   const b = req.body as { name: string }
   return { status: 201, body: await store.create({ name: b.name }) }
-})
+})`
+    : `\nrouter.route('GET', '/health', () => ({ status: 200, body: { ok: true, app: '${name}' } }))`
 
-const listening = await router.listen(Number(cfg.PORT))
-log.info('listening', { url: listening.url })
-`,
-)
+  const tail = `\nconst listening = await router.listen(Number(cfg.PORT))\nlog.info('listening', { url: listening.url })\n`
+  return head + setup + guardSetup + validateSetup + routes + tail
+}
+writeFileSync(join(target, 'app/main.ts'), buildMainTs())
 
 writeFileSync(
   join(target, 'README.md'),
@@ -230,7 +289,8 @@ try {
 }
 
 console.log(`\n${name} created at ${target}`)
-console.log(`  blocks: ${blocks.join(', ')}`)
+console.log(`  tier: ${tier} — ${blocks.length} block(s): ${blocks.join(', ')}`)
+console.log(`  grow it: re-run with --tier service|nursery, --blocks a,b,c, or adopt more into an existing repo`)
 console.log(`  deps: ${depsInstalled ? 'installed' : 'NOT installed (npm unavailable) — dependency-free grades still run, e.g. VALIDATE_IMPL=detailed'}`)
 console.log(`  AEvo protection: ${armed ? 'armed (initial commit made)' : 'arms on your first git commit'}`)
 console.log(`\n  cd ${target}\n  npm test\n  npm start\n`)
