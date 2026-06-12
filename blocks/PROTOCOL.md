@@ -27,6 +27,31 @@ The four bases (every gate everywhere instantiates one or more):
 | S7 | DECLARATIVE CONTRACT | the port's promises as DATA (schema + assertions + forbidden patterns), readable by construction-time verification AND mechanical attribution (Meta-Agent) | `_kernel/contract.ts` — adoption progressive, required for every block touched from now on |
 | S8 | REGISTRATION | a block exists iff it is one validated entry in CATALOG.json with resolving links | `_kernel/check-catalog.ts` (first in npm test) |
 
+## The strata distinction — leaf vs structural (what an adapter may wrap)
+
+The strata rule ("where a battle-tested library exists, wrap it") has a boundary that the
+transport audit (Jun 12) made law:
+
+- **LEAF libraries** solve a contained problem and own no architecture — validation (zod),
+  hashing, date math, crypto primitives, uuid, retry/backoff, LRU. A nursery adapter MAY
+  wrap a leaf library as its default; it constrains nobody. Hand-rolling a leaf-solvable
+  problem is a strata violation — wrap the library.
+- **STRUCTURAL frameworks** own the server, the routing model, the request lifecycle, the
+  data model — HTTP frameworks (Hono/Fastify/Express), full ORMs, DI containers. A block
+  NEVER vendors one. The PORT is the neutral seam; the user's framework (or the host repo's
+  existing one) plugs in behind it. Vendoring a structural framework re-imposes exactly the
+  architecture lock the port exists to prevent.
+
+## The altitude law — grade-marker vocabulary
+
+The nursery is the thinnest real thing. Certain concepts are inherently GRADUATED — if one
+appears in a *nursery* adapter, the adapter is at the wrong altitude: simplify the nursery
+(remove the concern) and let it surface only at a graduated grade (typically by delegating
+to a structural framework or heavy engine the user opts into). Grade-marker words that must
+not appear in a nursery adapter: backpressure, connection-pool, MVCC, quorum, circuit-breaker,
+sharding, replication, leader-election, WAL, vector-clock, consensus, eventual-consistency.
+Their presence is a checkable violation, not a style note.
+
 ## Free regions (mutate at will, the protocol does not care)
 
 Adapter internals · demo.ts · insights.md prose above the markers · extra block-private files
