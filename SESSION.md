@@ -627,6 +627,22 @@ block/
     outside it the predicates do not look. substrate.json IS that boundary. Smallest
     on-ramp: adopt one block, zero blast radius.
 
+24. THE HONEST PRODUCT CLAIM (user, Jun 12). What substrate IS today: "ratcheted reusable
+    infrastructure blocks with early compounding machinery." What it is NOT yet: "a Copilot
+    that knows what app you want and pulls/wires the right prior blocks automatically." The
+    gap is INTELLIGENT SELECTION + WIRING — and it is not a missing brain, it is missing
+    AFFORDANCES that let the agent (the intelligence) select well:
+      - create.ts stamps ALL 19 blocks (dumb) -> needs SELECTIVE stamping (intent/flag-driven).
+      - no adopt.ts (the brownfield selection act) -> designed in brownfield-probes, unbuilt.
+      - no intent->block-set MATCHING (the catalog's 246 cards w/ domain-free ports + invariants
+        + evidence ARE the recognition corpus; the harvest precedent index IS the 'have we built
+        this' lookup; neither is wired into selection yet).
+      - no WIRING generation (the starter app is a fixed demo, not intent-shaped).
+    The blind test proved the AGENT selects+wires well GIVEN the blocks (workdesk: 8 blocks,
+    75% domain effort). So the copilot = agent + these affordances, not a new ML system.
+    PRIORITY REORIENT: the selection/wiring layer (selective stamp -> adopt.ts -> intent match)
+    is the road to the product claim; strata cleanup (cache/i18n/ai-model) is POLISH, deferred.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
