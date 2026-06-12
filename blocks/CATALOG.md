@@ -1,6 +1,6 @@
 # Block Catalog — GENERATED from CATALOG.json (do not edit; run _kernel/render-catalog.ts)
 
-**245 blocks: 19 built, 226 defined.**
+**246 blocks: 19 built, 227 defined.**
 A block is one entry in CATALOG.json. Built blocks also have a folder (port.ts, adapters/, gates.ts,
 insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition), **classes**
 (invariant-class gate library), **evidence** (repos proving recurrence).
@@ -14,7 +14,7 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | C | events-to-reproducible-verdict-in-bounded-window | `verdict == f(events within window), reproducible — never a stored flag, never a bare delta` |
 | D | derived-total-from-one-canonical-formula | `total == formula(parts), recomputed — one formula the whole system trusts` |
 
-## Infrastructure (19 — all built)
+## Infrastructure (20 — all built)
 
 | block | summary |
 |---|---|
@@ -37,6 +37,7 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **agent-gates** | executable contracts over agent output; fail-closed artifact gating |
 | **remote-exec** | run-to-completion remote command + file sync behind a port |
 | **edge-model** | on-device model runtime behind a port |
+| **ci-pipeline** | provider-agnostic CI: tests/typecheck/gates run on every change, fail-closed; GitHub Actions is an ADAPTER behind the port, never the definition |
 
 ## Operations (226 — verb grain)
 

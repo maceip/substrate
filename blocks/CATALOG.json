@@ -5331,6 +5331,24 @@
         "cursor-anchor:plugins/anchor/sidecar/anchor_drift_quotient/pipeline.py:_trigger_quarantine"
       ],
       "dir": null
+    },
+    {
+      "name": "ci-pipeline",
+      "grain": "infrastructure",
+      "status": "defined",
+      "cluster": "infra",
+      "classes": [
+        "B"
+      ],
+      "summary": "provider-agnostic CI: tests/typecheck/gates run on every change, fail-closed; GitHub Actions is an ADAPTER behind the port, never the definition",
+      "invariant": "the runnable truth lives in npm test; a CI provider only invokes it \u2014 no forge-specific logic in the project core; a red suite blocks merge",
+      "port": null,
+      "buildsOn": [],
+      "evidence": [
+        "port-catalog-v1 (release-ci-quality: 17 own-repo families, top unbuilt)",
+        "user requirement Jun 12 (all projects carry CI; must not be GitHub-only)"
+      ],
+      "dir": null
     }
   ]
 }
