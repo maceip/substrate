@@ -617,6 +617,16 @@ block/
     (the ambitious version — not v1). (c) User test 3 (clone OpenClaw + add feature, running
     now) is the first empirical probe; adopt.ts gets built FROM its findings, not before.
 
+    23b. THE ADOPTION BOUNDARY RESOLVED (user + discussion, Jun 12): for anything a repo
+    already has (e.g. a database with schema), three relationships exist — REPLACE (never),
+    WRAP (their infra as a custom adapter behind our port; opt-in, economical only when
+    swap-pressure appears, e.g. an actual DB migration), COEXIST (default: their stuff stays
+    native and invisible; substrate supplies only what the repo LACKS). No rectification
+    required, ever. "You must use substrate if you're doing substrate" holds PER-CAPABILITY,
+    not per-repo: inside an adopted block the protocol is total (ports, ratchet, contracts);
+    outside it the predicates do not look. substrate.json IS that boundary. Smallest
+    on-ramp: adopt one block, zero blast radius.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
