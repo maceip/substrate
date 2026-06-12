@@ -590,6 +590,17 @@ block/
     Android/iOS nurseries: honest no for now (code does not cross languages; only protocol
     shape + FoT lessons travel).
 
+22. GENESIS LICENSE (user, Jun 12): we are the creators — during the bootstrap era the
+    operating agent may modify blocks, ports, and low-level architecture DIRECTLY, without
+    waiting for the loop's own ceremony (sealed batches, crispr cycles, demand thresholds).
+    The Bitcoin parallel, kept precisely: the genesis block was hand-mined but still a valid
+    block in the chain's own format. So hand-mined changes still land IN PROTOCOL FORMAT —
+    committed, evidence-linked, lesson-deposited, ratchet-checked — because the steady-state
+    machinery inherits this history and must be able to verify it. Genesis is a license to
+    skip the queue, never a license to go off-chain. This license RETIRES when the loop
+    demonstrates it can carry repairs end-to-end without hand-mining (measure: a few
+    consecutive CONVERGED crispr cycles merged with no manual rework).
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
