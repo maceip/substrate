@@ -31,14 +31,14 @@ function flag(name: string): string | undefined {
   const i = argv.indexOf(`--${name}`)
   return i >= 0 ? argv[i + 1] : undefined
 }
-const tierArg = flag('tier')
 const blocksFlag = flag('blocks')
+const wantsAll = argv.includes('--all')
 // positionals: args not starting with -- and not the value of a flag
-const flagValues = new Set([tierArg, blocksFlag].filter(Boolean))
+const flagValues = new Set([blocksFlag].filter(Boolean))
 const positionals = argv.filter((a) => !a.startsWith('--') && !flagValues.has(a))
 const [targetArg, nameArg] = positionals
 if (!targetArg) {
-  console.error('usage: node blocks/create.ts <target-dir> [project-name] [--tier base|service|nursery] [--blocks a,b,c]')
+  console.error('usage: node blocks/create.ts <target-dir> [project-name] [--blocks a,b,c | --all]')
   process.exit(1)
 }
 const target = resolve(targetArg)
@@ -56,14 +56,12 @@ const allBlocks = readdirSync(here, { withFileTypes: true })
   .filter((n) => !['nursery-app', 'fot-proof', 'agent-ops', 'node_modules'].includes(n))
   .sort()
 
-// STAMP TIERS — the default is SMALL. A baby project does not get 19 blocks. Grounded in what
-// the real test projects actually imported (harvest): base = the 3 every project used; service
-// = + the CRUD trio workdesk/weather used; nursery = the whole catalog for exploration.
-const TIERS: Record<string, string[]> = {
-  base: ['env', 'logging', 'transport'],
-  service: ['env', 'logging', 'transport', 'persistence', 'input-validation', 'request-guard'],
-  nursery: allBlocks,
-}
+// The DEFAULT stamp is SMALL — a baby project does not get 19 blocks. The default is the bones
+// every real test project used (harvest: env, logging, transport). Add what you need with
+// --blocks (deps auto-resolve), or --all for the whole catalog. No "tier" taxonomy: the only
+// thing the friction asked for was a small default plus selection, so that is all this is.
+const DEFAULT_BLOCKS = ['env', 'logging', 'transport']
+
 // buildsOn (composition deps) so a selection can never miss a block it imports.
 const catalog = JSON.parse(readFileSync(join(here, 'CATALOG.json'), 'utf8')) as { blocks: { name: string; buildsOn: string[] }[] }
 const depsOf = new Map(catalog.blocks.map((b) => [b.name, b.buildsOn ?? []]))
@@ -78,22 +76,22 @@ function withDeps(names: string[]): string[] {
   return [...out].sort()
 }
 
-let tier = tierArg ?? 'base'
+let selection: string
 let requested: string[]
-if (blocksFlag) {
+if (wantsAll) {
+  requested = allBlocks
+  selection = 'all'
+} else if (blocksFlag) {
   requested = blocksFlag.split(',').map((s) => s.trim()).filter(Boolean)
   const unknown = requested.filter((b) => !allBlocks.includes(b))
   if (unknown.length) {
-    console.error(`unknown block(s): ${unknown.join(', ')}\nadoptable: ${allBlocks.join(', ')}`)
+    console.error(`unknown block(s): ${unknown.join(', ')}\navailable: ${allBlocks.join(', ')}`)
     process.exit(1)
   }
-  tier = 'custom'
+  selection = 'blocks'
 } else {
-  if (!TIERS[tier]) {
-    console.error(`unknown tier "${tier}" — choose base | service | nursery, or use --blocks a,b,c`)
-    process.exit(1)
-  }
-  requested = TIERS[tier]
+  requested = DEFAULT_BLOCKS
+  selection = 'default'
 }
 const blocks = withDeps(requested)
 const hasPersist = blocks.includes('persistence')
@@ -146,11 +144,11 @@ function buildMainTs(): string {
   if (hasValidate) imports.push(`import { validate, type Schema } from '../substrate/input-validation/index.ts'`)
   if (hasGuard) imports.push(`import { guard } from '../substrate/request-guard/index.ts'`)
 
-  const head = `// app/main.ts — ${name}, grown from the substrate nursery (tier: ${tier}).
+  const head = `// app/main.ts — ${name}, grown from the substrate nursery (${blocks.length} block(s)).
 //
 // Build on the ports; never import an adapter. Swapping a grade is an env var, zero changes
-// here. Need a capability this tier didn't include? Add it without leaving the nursery:
-//   node substrate/_kernel/.. (or re-run create) — or for an existing repo, blocks/adopt.ts.
+// here. Need a capability this stamp didn't include? Add one with --blocks on a re-stamp, or
+// for an existing repo use blocks/adopt.ts.
 
 process.env.PROJECT ??= '${name}' // FoT origin tag for lessons this project deposits
 
@@ -289,8 +287,8 @@ try {
 }
 
 console.log(`\n${name} created at ${target}`)
-console.log(`  tier: ${tier} — ${blocks.length} block(s): ${blocks.join(', ')}`)
-console.log(`  grow it: re-run with --tier service|nursery, --blocks a,b,c, or adopt more into an existing repo`)
+console.log(`  blocks (${selection}): ${blocks.join(', ')}`)
+console.log(`  grow it: re-stamp with --blocks a,b,c or --all, or adopt more into an existing repo`)
 console.log(`  deps: ${depsInstalled ? 'installed' : 'NOT installed (npm unavailable) — dependency-free grades still run, e.g. VALIDATE_IMPL=detailed'}`)
 console.log(`  AEvo protection: ${armed ? 'armed (initial commit made)' : 'arms on your first git commit'}`)
 console.log(`\n  cd ${target}\n  npm test\n  npm start\n`)
