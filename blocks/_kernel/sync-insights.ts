@@ -16,12 +16,12 @@ const blocksDir = dirname(dirname(fileURLToPath(import.meta.url)))
 const BEGIN = '<!-- fot:federated:begin -->'
 const END = '<!-- fot:federated:end -->'
 
-// The FoT paper's finding: past ~50-70 insights the library stops helping (context dilution).
-// The read unit is one block's insights.md (agent contract rule 4), so the render is capped
-// per block; the federation-wide total is watched below — past SATURATION, consolidation
-// (merging near-duplicate lessons into stronger ones) is due, which is judgment work, not sync.
+// CORRECTED Jun 12 (paper actually read, arXiv:2604.16778): the sweet spot is ~20 insights
+// PER LIBRARY (one block = one library here), and libraries shrink by LLM consolidation,
+// never truncation. The render shows the newest few; consolidation-due warnings are
+// per-block, against the store's SWEET_SPOT.
+import { SWEET_SPOT, consolidationDue } from './fot.ts'
 const RENDER_CAP = 8
-const SATURATION = 60
 
 let total = 0
 for (const entry of readdirSync(blocksDir, { withFileTypes: true })) {
@@ -51,10 +51,11 @@ for (const entry of readdirSync(blocksDir, { withFileTypes: true })) {
   }
 }
 
-if (total > SATURATION) {
+const due = consolidationDue()
+if (due.length) {
   console.log(
-    `\nWARNING: ${total} lessons federation-wide — past the ~${SATURATION} mark where the FoT paper ` +
-      `finds insight libraries stop helping. Consolidation is due: merge near-duplicates into ` +
-      `stronger lessons in the store (judgment work — the librarian's job, not sync's).`,
+    `\nCONSOLIDATION DUE (past the paper's ~${SWEET_SPOT}/library sweet spot): ` +
+      due.map((d) => `${d.block}:${d.count}`).join(', ') +
+      ` — merge via LLM consolidation (cluster -> synthesize), never delete. Total federation-wide: ${total}.`,
   )
 }

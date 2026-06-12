@@ -5,8 +5,12 @@
 // anyone hand-copying a file. That automatic crossing is the whole test of FoT (a file you edit
 // by hand is not FoT; a lesson that travels on its own is).
 //
-// The store is MERGED and CAPPED (dedup by normalized text, keep the most recent CAP), not an
-// append-only log — exactly as the paper specifies. Location is the federation boundary: the
+// CORRECTED Jun 12 after actually reading the paper (arXiv:2604.16778): FoT libraries shrink by
+// LLM CONSOLIDATION (cluster -> connect -> synthesize), never by truncation — discarding the
+// oldest was their worst baseline. So deposit() no longer truncates: it dedups exact text and
+// ACCUMULATES; consolidationDue() flags a block past the paper's ~20-insight sweet spot, and
+// the consolidation pass (an LLM merge, the librarian's mechanized half) is what shrinks.
+// Location is the federation boundary: the
 // default lives OUTSIDE any repo (~/.substrate/) so independent projects on this machine share
 // one library by default — a store inside a repo can never carry a lesson across repos. Set
 // FOT_STORE to widen the boundary further (shared volume) or to isolate it in a test.
@@ -16,7 +20,7 @@ import { dirname, join } from 'node:path'
 import { homedir } from 'node:os'
 
 const DEFAULT_STORE = join(homedir(), '.substrate', 'fot-store.json')
-const CAP = 20
+export const SWEET_SPOT = 20 // the paper's per-library equilibrium; past it, consolidation is due
 
 function storePath(): string {
   return process.env.FOT_STORE ?? DEFAULT_STORE
@@ -48,16 +52,24 @@ function norm(t: string): string {
   return t.trim().toLowerCase().replace(/\s+/g, ' ')
 }
 
-// deposit: add a distilled lesson for a block. Dedups against existing (merge, not append) and
-// caps the list. Returns true if it was newly added.
+// deposit: add a distilled lesson for a block. Dedups exact text and ACCUMULATES — shrinking
+// is consolidation's job, never truncation's (see header). Returns true if newly added.
 export function deposit(block: string, text: string, origin: string): boolean {
   const s = read()
   const list = s[block] ?? []
   if (list.some((i) => norm(i.text) === norm(text))) return false
   list.unshift({ text: text.trim(), origin, ts: new Date().toISOString() })
-  s[block] = list.slice(0, CAP)
+  s[block] = list
   write(s)
   return true
+}
+
+// consolidationDue: blocks whose library has grown past the paper's sweet spot — the
+// librarian's queue. Consolidation MERGES (cluster -> synthesize); it does not delete.
+export function consolidationDue(): { block: string; count: number }[] {
+  return Object.entries(read())
+    .filter(([, list]) => list.length > SWEET_SPOT)
+    .map(([block, list]) => ({ block, count: list.length }))
 }
 
 // recall: the federated lessons a block has accumulated across all projects.

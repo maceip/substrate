@@ -18,6 +18,8 @@
 //   - red updates: a project whose tests went red under update needs eyes, not retries.
 
 import { execFileSync } from 'node:child_process'
+import { consolidationDue } from '../blocks/_kernel/fot.ts'
+import { recordEvidence, sealedBatches } from '../blocks/_kernel/evidence.ts'
 import { existsSync, readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -82,7 +84,17 @@ for (const s of stamps) {
     const tail = (e as { stderr?: Buffer }).stderr?.toString().trim().split('\n').slice(-2).join(' | ') ?? String(e)
     console.log(`  ${s.name}: update did NOT land (${tail})`)
     judgment.push(`${s.name}: update failed or was refused — needs eyes, not retries (${s.dir})`)
+    recordEvidence('update-channel', 'update-red', `${s.name}: ${tail}`, 'steward')
   }
+}
+
+// S6 + S5 queues: sealed evidence batches justify a rewrite cycle; over-sweet-spot
+// libraries are the librarian's consolidation queue.
+for (const [unit, batches] of Object.entries(sealedBatches())) {
+  judgment.push(`${unit}: ${batches.length} SEALED evidence batch(es) — a rewrite cycle is justified (MOSS S6)`) 
+}
+for (const d of consolidationDue()) {
+  judgment.push(`${d.block}: ${d.count} lessons (> sweet spot) — LLM consolidation due (FoT S5)`)
 }
 
 // judgment report — the only part that wants an intelligent reader

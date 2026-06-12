@@ -67,4 +67,4 @@ one per paper — and two of them have committed code mis-tuned to the wrong num
    enum + DAG-walk classifier on red tests.
 4. **AEvo meta-loop — IMPLEMENT NATIVE later (no code exists):** Φ over lens history, gate
    violations, repeat ledger; one meta-action per steward cycle. Builds on 1-3.
-5. **HyperAgents — read for design, never vendor (NC license).**
+5. **HyperAgents — USABLE (user, Jun 12: this is strictly a research endeavor, so NC permits use).** Caveat recorded: BY-NC-SA is share-alike — verbatim-vendored files carry the license forward and constrain any future relicensing; pattern-porting from reading (the Python->TS path we would take anyway) carries no such obligation. Prefer the port.

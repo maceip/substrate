@@ -5,6 +5,7 @@
 
 process.env.PERSIST_ADAPTER = 'memory' // isolate the test store; no .data on disk
 process.env.FOT_STORE = join(tmpdir(), `agent-ops-fot-${process.pid}.json`) // isolate FoT; no pollution
+process.env.EVIDENCE_STORE = join(tmpdir(), `agent-ops-evidence-${process.pid}.json`) // isolate S6 evidence too
 
 import assert from 'node:assert/strict'
 import { writeFileSync, rmSync } from 'node:fs'

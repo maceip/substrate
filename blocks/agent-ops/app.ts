@@ -11,6 +11,7 @@
 //   persistence (record) · logging (observe) · env (config).
 
 import { gateSet, learn } from '../agent-gates/index.ts'
+import { recordEvidence } from '../_kernel/evidence.ts'
 import type { Artifact, Report } from '../agent-gates/index.ts'
 import type { RemoteHost } from '../remote-exec/index.ts'
 import type { ModelRuntime } from '../edge-model/index.ts'
@@ -87,6 +88,9 @@ export async function runTask(task: string, artifact: Artifact, deps: Deps): Pro
     // inherits it without anyone hand-copying. This is the flywheel turning on real work.
     for (const f of report.failures.filter((x) => x.severity === 'block')) {
       learn(`contract '${f.id}' is load-bearing: it blocked a ship (${f.detail}). keep it — tighten, never loosen.`, 'agent-ops')
+      // S6: the same failure is also EVIDENCE (MOSS front half) — chunks accumulate toward a
+      // sealed batch, which is the artifact that justifies a rewrite cycle.
+      recordEvidence('agent-gates', 'gate-block', `${f.id}: ${f.detail}`, 'agent-ops')
     }
   }
 

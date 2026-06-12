@@ -533,6 +533,25 @@ block/
     system a starting point, not a cage. Rigidity stays only where it is the product
     (PROTECTED/gates INSIDE a block you keep); everything else must be leavable.
 
+19. THE BLOCK PROTOCOL — THE DNA (Jun 12, rubber-meets-road). blocks/PROTOCOL.md is the
+    core protocol: 8 conserved segments (S1 seam, S2 graded adapters, S3 executable gates
+    on the four bases A-D, S4 the ratchet, S5 federated lessons, S6 evidence-on-failure,
+    S7 declarative contracts, S8 registration), EACH paired with its enforcing predicate —
+    a segment without a predicate is wishful prose. Everything unnamed is a free region.
+    New organs, all tested (kernel.test.ts, wired into the chain after check-catalog +
+    check-anatomy): _kernel/evidence.ts (MOSS front half — failure chunks seal at 8 into
+    rewrite-queue batches; producers: agent-ops gate-blocks, steward red-updates);
+    _kernel/contract.ts (Meta-Agent corrected — declarative PortContract: zod output schema
+    + assertions + forbidden patterns + the mechanical attribute() walk: one violated edge
+    = upstream, several = structural, none = local); first S7 adoption: input-validation/
+    contract.ts. FoT corrected in code: deposit() no longer truncates (accumulate + dedup);
+    consolidationDue() flags libraries past the paper's ~20 sweet spot; sync warnings are
+    per-block. protect.ts mis-attribution fixed (the ratchet is OURS, beyond AEvo's frozen
+    evaluator). Steward now reports both queues (sealed batches = rewrite justified;
+    over-sweet-spot = consolidation due). HyperAgents license: research use is fine (user);
+    SA caveat recorded — pattern-port, don't vendor verbatim. S7 adoption rule: required
+    for every block touched from now on; anatomy check enforces S1-S4 on all 19 today.
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a

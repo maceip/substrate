@@ -1,4 +1,7 @@
-// _kernel/protect.ts — the missing half of AEvo: WHERE the committed baseline lives.
+// _kernel/protect.ts — the RATCHET (protocol S4). Attribution corrected Jun 12: the
+// tighten-freely / loosen-via-human-commit asymmetry is OURS, not AEvo's — the actual paper
+// (arXiv:2605.13821) freezes its evaluator symmetrically. Ours can improve; theirs cannot.
+// What follows is WHERE the committed baseline lives.
 //
 // assertNoLoosening compares two gate lists, but protection is only real if the "committed"
 // side comes from somewhere the agent editing gates.ts cannot change in the same motion.
