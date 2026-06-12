@@ -26,6 +26,7 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
+- A mining/working agent's product must write through to durable storage before its session ends, fail-closed — transcript-only output was nearly lost twice (hole-fill and enterprise waves, Jun 2026). Gate the session on artifacts-on-disk, not on a final chat message. *(substrate-nursery, 2026-06-12)*
 - contract 'claims-have-evidence' is load-bearing: it blocked a ship (unsupported claims: signature-verified). keep it — tighten, never loosen. *(agent-ops, 2026-06-10)*
 - contract 'no-todo' is load-bearing: it blocked a ship (hook.ts still contains TODO/FIXME). keep it — tighten, never loosen. *(agent-ops, 2026-06-10)*
 <!-- fot:federated:end -->
