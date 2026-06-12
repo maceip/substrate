@@ -24,5 +24,5 @@ repo boundary without being hand-copied.
 <!-- fot:federated:begin -->
 ## Federated lessons (auto-synced from the FoT store — do not edit by hand)
 
-_None yet — lessons deposited via the federation store appear here._
+- Stale-if-error for an upstream proxy needs no contract change: two keys in one namespace — fresh report at the protection-window TTL via getOrFill, plus a last-good copy set inside the fill at a long TTL. A failed fill rethrows (lru does not cache failures), so catch and serve last-good marked stale. *(weather-display, 2026-06-12)*
 <!-- fot:federated:end -->

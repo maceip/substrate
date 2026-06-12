@@ -21,6 +21,7 @@ import { execFileSync } from 'node:child_process'
 import { consolidationDue } from '../blocks/_kernel/fot.ts'
 import { recordEvidence, sealedBatches } from '../blocks/_kernel/evidence.ts'
 import { phi } from '../blocks/_kernel/phi.ts'
+import { harvestAll } from '../blocks/_kernel/harvest.ts'
 import { existsSync, readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -87,6 +88,16 @@ for (const s of stamps) {
     judgment.push(`${s.name}: update failed or was refused — needs eyes, not retries (${s.dir})`)
     recordEvidence('update-channel', 'update-red', `${s.name}: ${tail}`, 'steward')
   }
+}
+
+// 4. harvest: scan every stamped project for imported blocks + HANDROLLED markers — the
+// precedent index updates and NEW gap markers become evidence automatically.
+try {
+  const h = harvestAll()
+  console.log(`\nharvest: ${h.projects.length} project(s) indexed${h.newGaps ? `, ${h.newGaps} NEW gap marker(s) recorded as evidence` : ''}`)
+  for (const pr of h.projects) console.log(`  ${pr.name}: blocks [${pr.blocksUsed.join(', ')}]${pr.handrolled.length ? `; handrolled: ${pr.handrolled.length}` : ''}`)
+} catch (e) {
+  console.log(`harvest FAILED (non-fatal): ${(e as Error).message.slice(0, 100)}`)
 }
 
 // S6 + S5 queues: sealed evidence batches justify a rewrite cycle; over-sweet-spot

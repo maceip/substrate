@@ -175,6 +175,14 @@ is the app in \`app/\`. Five rules:
 5. **\`npm test\` must be green before you call anything done.** It runs every block's
    invariants — including protection checks that FAIL if gates were loosened. Gates report;
    they do not block — except invariants this project explicitly armed.
+6. **Check precedent before building something new.** \`~/.substrate/projects.json\` is the
+   index of every project grown from this nursery — what it is, which blocks it uses, what
+   it hand-rolled. If an existing project already does most of what you need, extend or
+   copy from it instead of starting bare. Reuse of whole compositions beats reuse of blocks.
+7. **Your exit is a report.** Before finishing: deposit at least one distilled lesson if
+   anything surprised you (rule 4), and write your HANDROLLED markers carefully — they are
+   harvested mechanically and become the demand signal for the next blocks. A vague marker
+   is a wasted vote.
 `,
 )
 writeFileSync(join(target, 'CLAUDE.md'), '@AGENTS.md\n')
