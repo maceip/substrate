@@ -1,6 +1,6 @@
 # Block Catalog — GENERATED from CATALOG.json (do not edit; run _kernel/render-catalog.ts)
 
-**137 blocks: 19 built, 118 defined.**
+**198 blocks: 19 built, 179 defined.**
 A block is one entry in CATALOG.json. Built blocks also have a folder (port.ts, adapters/, gates.ts,
 insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition), **classes**
 (invariant-class gate library), **evidence** (repos proving recurrence).
@@ -38,7 +38,7 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **remote-exec** | run-to-completion remote command + file sync behind a port |
 | **edge-model** | on-device model runtime behind a port |
 
-## Operations (118 — verb grain)
+## Operations (179 — verb grain)
 
 ### verifiable-claims (6)
 
@@ -257,3 +257,89 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **surface-failed-publish** | B | terminal failure → durable record + notification | durable error + user notification |
 | **expand-post-to-multiple-channels** | A | post + channels → per-channel posts | one action fans out to N isolated per-channel posts |
 | **slot-post-into-next-free-time** | A | calendar + post → assigned slot | collision-free, future-only calendar slotting |
+
+### account-org-invite (13)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **provision-user-via-verified-email** | A,B | signup request + verification flow → user record | rejection | signup creates the user row only after OTP verification |
+| **complete-account-and-bootstrap-org** | A,B | verified signup + invite context → account + optional tenant | first self-signup gets a tenant; invited users don't |
+| **create-organization-with-founder-admin** | A | founder + org details → organization | org never exists without exactly one admin |
+| **invite-member-to-organization** | A | org + email + role → invite token | single-use expiring invite token |
+| **accept-invitation** | A,B | invite token + identity → membership | identity-bound acceptance yielding exactly one membership |
+| **verify-email-token** | A,B | token + identity → verified | rejection | single-use, identity-bound email verification |
+| **change-member-role-guarded** | B | membership + new role → updated membership | rejection | role changes with self-edit and last-admin guards |
+| **offboard-member-guarded** | A,B | membership → offboarded | rejection | removal under last-admin + empty-tenant guards |
+| **issue-machine-identity-token** | A,B | identity config + scope → machine token | scoped, bounded, revocable M2M credentials |
+| **revoke-machine-token-config** | A | token config → revoked | config delete revokes its live tokens atomically |
+| **provision-user-from-idp-directory** | A,B | IdP directory event → user + membership | SCIM just-in-time provisioning, domain-gated |
+| **enroll-sso-and-jit-provision** | B | SSO assertion → session + membership | SAML/OIDC login provisioning with takeover guards |
+| **enroll-and-verify-totp-mfa** | A,B | enrollment + code → verified method | rejection | one MFA method per user-workspace, verified by code |
+
+### entitlement (12)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **refuse-action-over-plan-limit** | A,B | action + plan limits + usage → allow | refusal | hard refusal before commit, not reconciled after |
+| **gate-feature-by-tier** | C | plan + feature key → enabled | disabled | feature gate as a pure function of plan |
+| **check-feature-entitled** | B | feature key + entitlement context → entitled | denied | layered entitlement check, deny unknown keys |
+| **resolve-entitlement-context** | D | billing source records → normalized entitlements | one normalized entitlement shape regardless of source |
+| **sync-entitlements-from-billing-idempotently** | A | billing events → reconciled entitlements | webhook replays and reorders cannot corrupt entitlements |
+| **handle-subscription-webhook** | B | webhook payload + signature → reconciliation | rejection | verify signature, resolve org, reconcile |
+| **change-plan-and-reconcile-provisioned-state** | B,C | plan change + provisioned state → reconciled state | downgrade tears down already-provisioned state |
+| **map-subscription-status-to-limits** | D | subscription status + plan → limits | status-aware limit mapping |
+| **track-usage-against-entitlement** | A | usage event + cycle anchor → updated counter | per-billing-cycle usage counter, tenant-scoped |
+| **reset-usage-on-billing-cycle** | A,C | cycle boundary + counters → reset counters + alerts | cycle reset with overage grace and deduped alerts |
+| **derive-usage-limit-from-key** | D | entitlement key → limit value | limits decoded in exactly one place |
+| **scope-usage-to-tenant** | B | usage query + tenant → tenant-scoped usage | billing reads always rooted at the org boundary |
+
+### transactional-email (11)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **send-transactional-email-on-event** | A | event + recipients + template → queued messages | event triggers one rendered email per recipient |
+| **deliver-queued-email-and-record-status** | A,B | queued message → delivery status | idempotent delivery that always records a terminal status |
+| **render-templated-message-typed** | B | template + typed data → rendered message | rejection | typed template rendering, fail-closed |
+| **track-event-and-trigger-workflows** | C | event + listeners → triggered workflows | system events fan out to listening message workflows |
+| **handle-bounce-and-suppress** | B,C | bounce/complaint webhook → suppression record | bounces and complaints feed the suppression list |
+| **throttle-and-prioritize-sends** | A,C | send queue + rate policy → ordered dispatches | rate-limited sending with priority lanes |
+| **meter-email-usage-idempotently** | A | delivery events → metered usage | volume metering charged exactly once across retries |
+| **enforce-monthly-send-limit-warn-once** | A,C | send request + monthly counter → allow | warn | block | block at 100%, warn at 80%, never double-notice |
+| **send-email-for-document-lifecycle** | C | document event → queued email | document lifecycle events trigger the right email |
+| **send-reminder-with-atomic-claim** | A | due reminders → claimed sends | concurrent sweeps cannot double-send a reminder |
+| **send-completion-email-with-artifact** | C | completed artifact + recipients → sent email | completion email carries the finished artifact |
+
+### workspace-tenancy (9)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **create-workspace-with-owner-and-plan** | A | owner + plan → workspace | workspace never created without exactly one admin |
+| **scope-session-to-workspace** | C | session + workspace → scoped permissions | permissions recomputed from membership per fetch |
+| **authorize-action-in-the-query** | B | action + membership → authorized query | role authorization re-asserted in the DB where-clause |
+| **invite-member-clamped-to-seats** | A | invite + seat state → invite | rejection | invites cannot overshoot the seat cap |
+| **gate-feature-at-write-time** | B | write + plan → clamped write | plan gates clamp on write, not just display |
+| **compute-usage-against-quota-window** | C,D | usage events + window → usage vs quota | usage computed in the correct billing window |
+| **quarantine-over-quota-workspace** | A,C | usage verdict → quarantine state | over-quota flag set by a job, enforced before sessions |
+| **apply-subscription-change-idempotently** | A | subscription event → applied change | no-op | webhook redelivery is a no-op |
+| **refuse-stranding-downgrade** | B | downgrade request + usage → allow | refusal | a downgrade that would strand unbillable usage is refused |
+
+### chat (16)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **post-message-idempotent-on-token** | A | message + client token → post | retries return the same post |
+| **reply-in-thread-and-auto-follow** | A,C | reply + thread → post + follow | thread reply that subscribes the replier |
+| **send-room-event-idempotently** | A | event + txn id → room event | dedup | txn-id dedup; identical state events collapse |
+| **open-or-create-dm-channel** | A | two actors → DM channel | at most one DM channel per pair |
+| **open-group-dm-bounded** | A | actor set → group channel | rejection | group DM with bounded membership |
+| **add-user-to-channel-idempotently** | A | user + channel → membership | idempotent join plus system message |
+| **change-membership-via-state-machine** | B | membership + transition → new state | rejection | join/leave/invite/kick/ban with legal-transition guards |
+| **advance-read-marker-forward-only** | A,C | marker + position → advanced marker | no-op | read marker only moves forward |
+| **record-read-receipt** | B,C | receipt + room state → recorded receipt | drop | stale receipts dropped; private receipts never federated |
+| **mark-viewed-and-recompute-unread** | C | view event + history → unread counts | unread counts derive from view events |
+| **mark-unread-from-post** | C | post + marker → rewound marker | the deliberate inverse of mark-viewed |
+| **edit-message-preserving-identity** | B | post + new content → edited post | edits keep id/createAt; editAt only on real change |
+| **delete-message-leaving-tombstone** | B | post → tombstoned post | soft delete; thread chains survive |
+| **add-reaction-unique-capped** | A | post + user + emoji → reaction | no-op | reactions unique per (post, user, emoji), capped |
+| **detect-and-link-mentions-strongest-wins** | C | text + members → linked mentions | mention type resolution that never downgrades |
+| **set-typing-presence-ephemeral** | C | actor + channel → presence signal | membership-gated, auto-expiring typing indicator |
