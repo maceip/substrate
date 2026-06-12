@@ -20,8 +20,33 @@ async function check(name: string, fn: () => Promise<void>) {
   } catch (e) {
     failures++
     console.log(`  ✗ ${name}\n      ${(e as Error).message}`)
+    // S7: a composition failure gets machine-attributed — validate every composed block's
+    // last-known output contract; one violated edge = upstream (culprit named), several =
+    // structural, none = local. Contracts are progressive: blocks without one are skipped.
+    try {
+      const { attribute, checkContract } = await import('../_kernel/contract.ts')
+      const verdicts: { producer: string; verdict: ReturnType<typeof checkContract> }[] = []
+      for (const [producer, value] of Object.entries(lastOutputs)) {
+        try {
+          const mod = (await import(`../${producer}/contract.ts`)) as { CONTRACT: Parameters<typeof checkContract>[0] }
+          verdicts.push({ producer, verdict: checkContract(mod.CONTRACT, value) })
+        } catch {
+          /* no contract yet — progressive adoption */
+        }
+      }
+      if (verdicts.length) {
+        const a = attribute(verdicts)
+        console.log(`      attribution: ${a.level.toUpperCase()}${a.culprit ? ` (culprit: ${a.culprit})` : ''} over ${verdicts.length} contracted edge(s)`)
+      }
+    } catch {
+      /* attribution is best-effort; the failure above is the signal that matters */
+    }
   }
 }
+
+// lastOutputs: each contracted block's most recent boundary-crossing value, recorded by the
+// tests below so the attribution walk has edges to validate when something goes red.
+const lastOutputs: Record<string, unknown> = {}
 
 function captureLogger(): { log: Logger; lines: string[] } {
   const lines: string[] = []
@@ -75,6 +100,9 @@ await check('boundary validation (input-validation block): POST without title ->
   const { log } = captureLogger()
   const router = await buildNotesRouter({ store, log })
   const res = await router.handle('POST', '/notes', { body: { body: 'no title' } })
+  // record the boundary-crossing values for the attribution walk (S7 edges)
+  lastOutputs['input-validation'] = await (await import('../input-validation/index.ts')).parse({ title: { type: 'string', required: true } }, { body: 'no title' })
+  lastOutputs['transport'] = res
   assert.equal(res.status, 400)
   assert.deepEqual((res.body as { error: string }).error, 'validation failed')
   assert.equal(await store.count(), 0)

@@ -36,3 +36,6 @@ export const CONTRACT: PortContract = {
     },
   ],
 }
+
+// Known-good sample — the construction-time predicate verifies CONTRACT accepts it.
+export const SAMPLE: unknown = { ok: true, value: { title: 'ok', priority: 3 } }
