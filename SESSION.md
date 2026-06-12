@@ -573,6 +573,23 @@ block/
     steward propagates germline -> lessons consolidate -> Φ names the next move.
     Remaining human gates (by design): crispr promotion, loosening, Φ action execution.
 
+21. S7 COMPLETE — 19/19 CONTRACT COVERAGE (Jun 12). Every built block now carries a
+    declarative contract (CONTRACT + SAMPLE in <block>/contract.ts): typed output schema +
+    real semantic assertions mined from each port's own promises (persistence version>=1;
+    network-privacy's no-dialable-address as a deep-scan forbidden; attestation fail-closed
+    valid-iff-claim; payment refund-conservation + no-PAN; agent-gates pass-iff-no-block).
+    check-contracts (construction-time, the paper's +7.1 component) runs in the chain after
+    anatomy: every contract must load and accept its own SAMPLE. Composition failures in
+    nursery-app now machine-attribute via the contract walk (LOCAL/UPSTREAM/STRUCTURAL,
+    culprit named). Meta-Agent integration is no longer the weakest — coverage went 1/19 ->
+    19/19 in one pass. Only schema-only contract: cache (generic by design; temporal
+    guarantees live in its tests). REMAINING WORK ORDERS (mine, no decisions in them): the
+    one-log unification (5 stores -> event log + projections), then the web-service starter
+    TEMPLATE (the user's on-ramp: negative startup cost, schema invisible until it saves
+    you), then full-stack template (pinback pattern: service + thin mobile shells). Native
+    Android/iOS nurseries: honest no for now (code does not cross languages; only protocol
+    shape + FoT lessons travel).
+
     TWO MODES, NOW SEPARATED (the conflation that confused things): IDENTIFY (mine repos + shell
     history → the map of cards the user actually uses; catalog v1 + shell-signal) vs BUILD (agents
     write runnable block code into blocks/; "waves"). The bug was BUILD running ahead of a
