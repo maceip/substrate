@@ -1,6 +1,6 @@
 # Block Catalog — GENERATED from CATALOG.json (do not edit; run _kernel/render-catalog.ts)
 
-**198 blocks: 19 built, 179 defined.**
+**215 blocks: 19 built, 196 defined.**
 A block is one entry in CATALOG.json. Built blocks also have a folder (port.ts, adapters/, gates.ts,
 insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition), **classes**
 (invariant-class gate library), **evidence** (repos proving recurrence).
@@ -38,7 +38,7 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **remote-exec** | run-to-completion remote command + file sync behind a port |
 | **edge-model** | on-device model runtime behind a port |
 
-## Operations (179 — verb grain)
+## Operations (196 — verb grain)
 
 ### verifiable-claims (6)
 
@@ -343,3 +343,30 @@ insights.md, PROTECTED, tests). Links are three kinds: **buildsOn** (composition
 | **add-reaction-unique-capped** | A | post + user + emoji → reaction | no-op | reactions unique per (post, user, emoji), capped |
 | **detect-and-link-mentions-strongest-wins** | C | text + members → linked mentions | mention type resolution that never downgrades |
 | **set-typing-presence-ephemeral** | C | actor + channel → presence signal | membership-gated, auto-expiring typing indicator |
+
+### audit-log (8)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **record-audit-event** | B | actor + action + resource scope + metadata → audit entry | rejection | one normalized audit entry, tenant-required |
+| **write-audit-entry-atomically-with-change** | A,B | mutation + audit entry → committed pair | rolled back pair | audit row persists in the same tx as the mutation |
+| **enqueue-audit-event-at-most-once** | A | audit event → queued entry | dedup no-op | out-of-request-path audit queue, idempotent insert |
+| **query-audit-log-tenant-scoped** | B | filters + tenant + permission → audit page | filtered audit pages, always tenant-rooted |
+| **enforce-audit-retention** | C | retention policy + log → pruned rows | plan-derived expiry, bounded oldest-first pruning |
+| **guarantee-append-only-audit-row** | B | audit schema → immutability guarantee | write-once audit rows; no mutation path exists |
+| **diff-entity-into-change-entries** | D | old entity + new entity → typed change entries | typed {type, from, to} per changed field |
+| **render-activity-timeline** | C | entity + log → timeline view | an entity's history read exclusively from the immutable log |
+
+### moderation (9)
+
+| op | classes | port | summary |
+|---|---|---|---|
+| **flag-report-content** | A | actor + target + category → report | dedup no-op | user reports with no double-flagging |
+| **enqueue-into-review-queue** | A | flagged target → reviewable item | exactly one reviewable per target |
+| **auto-hide-past-flag-threshold** | C | flag events + threshold → hidden | visible | threshold-crossing hides content before a human acts |
+| **claim-review-item** | A | moderator + reviewable → claim | rejection | at most one moderator works an item |
+| **act-on-review-item** | A,B | reviewable + action → transition | no-op | optimistic-locked, transactional review transitions |
+| **resolve-report-with-siblings** | C | report + sibling state → resolved | partially resolved | full resolution only when no unresolved sibling reports remain |
+| **apply-account-action** | A | account + sanction + report → applied action | no-op | sanction + strike + mod-log + resolution in one transaction |
+| **record-moderator-action-modlog** | B | moderator action → mod-log entry | append-only moderator action log |
+| **handle-appeal** | A | strike + appeal → appeal outcome | one appeal per strike; approval reverses the sanction |

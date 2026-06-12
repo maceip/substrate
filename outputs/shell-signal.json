@@ -2,10 +2,10 @@
   "history_lines": 1067,
   "capability_invocations": {
     "agent-orchestration": 199,
-    "remote-exec-filesync": 131,
-    "python-runtime": 41,
-    "edge-model-runtime": 40,
-    "release-ci-quality": 37,
+    "remote-exec-filesync": 143,
+    "python-runtime": 38,
+    "release-ci-quality": 36,
+    "edge-model-runtime": 34,
     "build-package": 3,
     "attestation-crypto-boundary": 2
   },
@@ -17,26 +17,25 @@
       "agy": 6
     },
     "remote-exec-filesync": {
-      "ssh": 68,
+      "ssh": 80,
       "scp": 63
     },
     "python-runtime": {
-      "pip": 1,
-      "uv": 19,
+      "uv": 17,
       "python3": 4,
       "python": 17
     },
+    "release-ci-quality": {
+      "gh": 12,
+      "git": 24
+    },
     "edge-model-runtime": {
-      "omlx": 13,
+      "omlx": 7,
       "huggingface-cli": 1,
       "hf": 8,
       "download_model.sh": 6,
       "yt-dlp_macos": 11,
       "yt-dlp": 1
-    },
-    "release-ci-quality": {
-      "git": 25,
-      "gh": 12
     },
     "build-package": {
       "brew": 3

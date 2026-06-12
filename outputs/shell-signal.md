@@ -9,10 +9,10 @@ argument values or raw lines are stored. Pairs with `port-catalog-v1` (repo cont
 | Capability | Invocations | Top commands | Block status |
 | --- | ---: | --- | --- |
 | `agent-orchestration` | 199 | `agent`×71, `codex`×65, `claude`×57, `agy`×6 | building (wave 5) |
-| `remote-exec-filesync` | 131 | `ssh`×68, `scp`×63 | building (wave 5) |
-| `python-runtime` | 41 | `uv`×19, `python`×17, `python3`×4, `pip`×1 | — |
-| `edge-model-runtime` | 40 | `omlx`×13, `yt-dlp_macos`×11, `hf`×8, `download_model.sh`×6 | building (wave 5) |
-| `release-ci-quality` | 37 | `git`×25, `gh`×12 | — |
+| `remote-exec-filesync` | 143 | `ssh`×80, `scp`×63 | building (wave 5) |
+| `python-runtime` | 38 | `uv`×17, `python`×17, `python3`×4 | — |
+| `release-ci-quality` | 36 | `git`×24, `gh`×12 | — |
+| `edge-model-runtime` | 34 | `yt-dlp_macos`×11, `hf`×8, `omlx`×7, `download_model.sh`×6 | building (wave 5) |
 | `build-package` | 3 | `brew`×3 | — |
 | `attestation-crypto-boundary` | 2 | `ssh-keygen`×2 | built |
 
