@@ -88,6 +88,12 @@ for (const e of readdirSync(blocksDir, { withFileTypes: true })) {
 }
 
 if (errors.length) {
+  try {
+    const { recordEvidence } = await import('./evidence.ts')
+    recordEvidence('catalog', 'check-red', `${errors.length} violations: ${errors.slice(0, 2).join(' | ')}`)
+  } catch {
+    /* best-effort */
+  }
   console.error(`CATALOG INVALID — ${errors.length} violation(s):`)
   for (const err of errors) console.error(`  - ${err}`)
   process.exit(1)

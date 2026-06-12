@@ -120,6 +120,14 @@ try {
       /* nothing uncommitted */
     }
     consumeBatch(unit)
+    // Distill-at-solve (FoT, corrected): a completed repair IS a lesson — deposit it so every
+    // project inherits the fix's existence, not just its code.
+    try {
+      const { deposit } = await import('../blocks/_kernel/fot.ts')
+      deposit(unit, `crispr repair landed for failure class: ${batch[0].detail.slice(0, 160)} (branch ${branch})`, 'crispr')
+    } catch {
+      /* best-effort */
+    }
     git('worktree', 'remove', '--force', worktree)
     console.log(`\nVERDICT: CONVERGED — candidate ready on branch ${branch}`)
     console.log(`  promotion is human-gated (MOSS): review with  git diff main...${branch}  then merge.`)

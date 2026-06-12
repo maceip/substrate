@@ -42,6 +42,12 @@ try {
 }
 
 if (violations.length) {
+  try {
+    const { recordEvidence } = await import('./evidence.ts')
+    recordEvidence('port-rule', 'check-red', `app imports adapters: ${violations.slice(0, 3).join(' | ')}`)
+  } catch {
+    /* evidence is best-effort; the failure itself must still fail */
+  }
   console.error('PORT RULE VIOLATION — app code imports an adapter directly (the seam is the contract):')
   for (const v of violations) console.error(`  ${v}`)
   console.error('Import the block’s index.ts instead; adapters swap by env var.')

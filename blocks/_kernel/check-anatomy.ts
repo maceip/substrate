@@ -46,6 +46,12 @@ for (const b of cat.blocks.filter((x) => x.status === 'built')) {
 }
 
 if (errors.length) {
+  try {
+    const { recordEvidence } = await import('./evidence.ts')
+    recordEvidence('anatomy', 'check-red', `${errors.length} violations: ${errors.slice(0, 2).join(' | ')}`)
+  } catch {
+    /* best-effort */
+  }
   console.error(`ANATOMY VIOLATIONS — the conserved reading frame is broken (${errors.length}):`)
   for (const e of errors) console.error(`  - ${e}`)
   process.exit(1)
