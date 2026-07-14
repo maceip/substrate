@@ -173,7 +173,21 @@ try {
       wt('git', ['commit', '-m', `[auto-tighten] crispr(${unit}): repair from sealed evidence batch`])
     }
     const commit = wt('git', ['rev-parse', 'HEAD']).trim()
-    recordValidatedProposal(unit, branch, commit, batch[0].detail, batchTs(batch))
+    try {
+      recordValidatedProposal(unit, branch, commit, batch[0].detail, batchTs(batch))
+    } catch (error) {
+      try {
+        git('worktree', 'remove', '--force', worktree)
+      } catch {
+        /* best-effort cleanup keeps the original store failure */
+      }
+      try {
+        git('branch', '-D', branch)
+      } catch {
+        /* branch may already be gone */
+      }
+      throw error
+    }
     git('worktree', 'remove', '--force', worktree)
     console.log(`\nVERDICT: VALIDATED PROPOSAL — candidate ready on branch ${branch}`)
     console.log(`  promotion is human-gated: review with  git diff main...${branch}  then merge into main.`)

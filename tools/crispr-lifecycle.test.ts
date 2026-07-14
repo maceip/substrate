@@ -146,6 +146,68 @@ try {
     'landing skips unreachable newer candidates and consumes the matching older batch',
   )
 
+  const reachableMissingEvidenceFallbackUnit = 'test-unit-reachable-missing-evidence-fallback'
+  const reachableMissingOlderBatch = seedEvidence(reachableMissingEvidenceFallbackUnit, 'reachable missing older')
+  const reachableMissingNewerBatch = seedEvidence(reachableMissingEvidenceFallbackUnit, 'reachable missing newer')
+  const reachableMissingEvidenceRepo = makeRepo()
+  const reachableMissingOlderCommit = createCandidate(
+    reachableMissingEvidenceRepo,
+    'crispr/reachable-missing-older',
+    'reachable missing older repair',
+  )
+  git(reachableMissingEvidenceRepo, ['merge', '--ff-only', 'crispr/reachable-missing-older'])
+  const reachableMissingNewerCommit = createCandidate(
+    reachableMissingEvidenceRepo,
+    'crispr/reachable-missing-newer',
+    'reachable missing newer repair',
+  )
+  recordValidatedProposal(
+    reachableMissingEvidenceFallbackUnit,
+    'crispr/reachable-missing-older',
+    reachableMissingOlderCommit,
+    reachableMissingOlderBatch.detail,
+    reachableMissingOlderBatch.ts,
+  )
+  recordValidatedProposal(
+    reachableMissingEvidenceFallbackUnit,
+    'crispr/reachable-missing-newer',
+    reachableMissingNewerCommit,
+    reachableMissingNewerBatch.detail,
+    reachableMissingNewerBatch.ts,
+  )
+  git(reachableMissingEvidenceRepo, ['merge', '--ff-only', 'crispr/reachable-missing-newer'])
+  assert.ok(
+    consumeBatch(
+      reachableMissingEvidenceFallbackUnit,
+      reachableMissingNewerBatch.detail,
+      reachableMissingNewerBatch.ts,
+    ),
+    'test removes the newest reachable candidate evidence before landing',
+  )
+  assert.equal(
+    landValidatedProposal(reachableMissingEvidenceFallbackUnit, reachableMissingEvidenceRepo),
+    'landed',
+    'landing skips reachable candidates whose evidence is missing and falls back to another reachable candidate',
+  )
+  const reachableMissingEvidenceStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: { unit: string; branch: string; state: string }[]
+  }
+  assert.equal(
+    reachableMissingEvidenceStore.candidates.find((candidate) => candidate.branch === 'crispr/reachable-missing-older')?.state,
+    'human-landed',
+    'landing records the older reachable candidate after newer reachable evidence goes missing',
+  )
+  assert.equal(
+    reachableMissingEvidenceStore.candidates.find((candidate) => candidate.branch === 'crispr/reachable-missing-newer')?.state,
+    'candidate',
+    'landing leaves the newer reachable candidate pending when its evidence is absent',
+  )
+  assert.equal(
+    sealedBatches()[reachableMissingEvidenceFallbackUnit],
+    undefined,
+    'landing consumes the remaining reachable candidate evidence after skipping the missing batch',
+  )
+
   const squashUnit = 'test-unit-squash'
   const squashBatch = seedEvidence(squashUnit, 'squash failure')
   const squashRepo = makeRepo()
@@ -193,6 +255,57 @@ try {
     'discarded',
     'recovery discard retires the blocked candidate',
   )
+
+  const resumedLandingUnit = 'test-unit-resumed-landing'
+  const resumedLandingBatch = seedEvidence(resumedLandingUnit, 'resumed landing')
+  const resumedLandingRepo = makeRepo()
+  const resumedLandingCommit = createCandidate(resumedLandingRepo, 'crispr/resumed-landing', 'resumed landing repair')
+  recordValidatedProposal(
+    resumedLandingUnit,
+    'crispr/resumed-landing',
+    resumedLandingCommit,
+    resumedLandingBatch.detail,
+    resumedLandingBatch.ts,
+  )
+  git(resumedLandingRepo, ['merge', '--ff-only', 'crispr/resumed-landing'])
+  const resumedLandingStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: {
+      unit: string
+      state: string
+      lessonPublished?: boolean
+      landedAt?: string
+    }[]
+  }
+  const resumedLandingCandidate = resumedLandingStore.candidates.find((candidate) => candidate.unit === resumedLandingUnit)
+  assert.ok(resumedLandingCandidate, 'expected a recorded candidate to resume')
+  resumedLandingCandidate.state = 'human-landed'
+  resumedLandingCandidate.lessonPublished = false
+  resumedLandingCandidate.landedAt = resumedLandingCandidate.landedAt ?? new Date().toISOString()
+  writeFileSync(process.env.CRISPR_STORE!, JSON.stringify(resumedLandingStore, null, 2))
+  assert.ok(
+    consumeBatch(resumedLandingUnit, resumedLandingBatch.detail, resumedLandingBatch.ts),
+    'test removes the evidence after the landed audit trail was persisted',
+  )
+  assert.equal(
+    landValidatedProposal(resumedLandingUnit, resumedLandingRepo),
+    'landed',
+    'landing resumes from a persisted landed state even when evidence was already consumed',
+  )
+  assert.equal(recall(resumedLandingUnit).length, 1, 'resumed landing still publishes the lesson exactly once')
+  const finalizedResumedLandingStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: { unit: string; state: string; lessonPublished?: boolean }[]
+  }
+  assert.equal(
+    finalizedResumedLandingStore.candidates.find((candidate) => candidate.unit === resumedLandingUnit)?.state,
+    'human-landed',
+    'resumed landing keeps the candidate in the landed state after retry',
+  )
+  assert.equal(
+    finalizedResumedLandingStore.candidates.find((candidate) => candidate.unit === resumedLandingUnit)?.lessonPublished,
+    true,
+    'resumed landing finishes the candidate record after retry',
+  )
+  assert.equal(landValidatedProposal(resumedLandingUnit, resumedLandingRepo), 'already-landed', 'resumed landing remains idempotent once finalized')
 
   const mergedDiscardUnit = 'test-unit-merged-discard'
   const mergedDiscardBatch = seedEvidence(mergedDiscardUnit, 'merged discard')

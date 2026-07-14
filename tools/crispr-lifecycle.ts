@@ -113,6 +113,17 @@ function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean 
   }
 }
 
+function finalizeLandedCandidate(store: CandidateStore, candidate: CrisprCandidate): 'landed' {
+  consumeBatch(candidate.unit, candidate.evidenceDetail, candidate.evidenceTs)
+  if (!candidate.lessonPublished) {
+    deposit(candidate.unit, `crispr repair landed for failure class: ${candidate.evidenceDetail.slice(0, 160)} (branch ${candidate.branch})`, 'crispr')
+  }
+  candidate.state = 'human-landed'
+  candidate.lessonPublished = true
+  writeStore(store)
+  return 'landed'
+}
+
 export function landValidatedProposal(
   unit: string,
   repoRoot: string,
@@ -120,23 +131,21 @@ export function landValidatedProposal(
 ): 'landed' | 'already-landed' | 'not-reachable' | 'missing-evidence' | 'no-candidate' {
   const store = readStore()
   const candidates = store.candidates.filter((c) => c.unit === unit)
+  const resumedCandidate = candidates.find((c) => c.state === 'human-landed' && !c.lessonPublished)
+  if (resumedCandidate) return finalizeLandedCandidate(store, resumedCandidate)
+
   // v1 supports only merges that preserve the validated commit. Patch-equivalence cannot
   // prove that a multi-commit proposal landed intact, so squash and rebase merges stay out.
-  const candidate = candidates.find((c) => c.state === 'candidate' && isAncestor(repoRoot, c.commit, mainRef))
-  if (!candidate) {
-    if (candidates.some((c) => c.state === 'candidate')) return 'not-reachable'
-    if (candidates.some((c) => c.state === 'human-landed')) return 'already-landed'
-    return 'no-candidate'
+  const reachableCandidates = candidates.filter((c) => c.state === 'candidate' && isAncestor(repoRoot, c.commit, mainRef))
+  for (const candidate of reachableCandidates) {
+    if (!hasSealedBatch(unit, candidate.evidenceDetail, candidate.evidenceTs)) continue
+    candidate.state = 'human-landed'
+    candidate.landedAt = new Date().toISOString()
+    writeStore(store)
+    return finalizeLandedCandidate(store, candidate)
   }
-
-  const batch = consumeBatch(unit, candidate.evidenceDetail, candidate.evidenceTs)
-  if (!batch) return 'missing-evidence'
-  if (!candidate.lessonPublished) {
-    deposit(unit, `crispr repair landed for failure class: ${candidate.evidenceDetail.slice(0, 160)} (branch ${candidate.branch})`, 'crispr')
-  }
-  candidate.state = 'human-landed'
-  candidate.landedAt = new Date().toISOString()
-  candidate.lessonPublished = true
-  writeStore(store)
-  return 'landed'
+  if (reachableCandidates.length) return 'missing-evidence'
+  if (candidates.some((c) => c.state === 'candidate')) return 'not-reachable'
+  if (candidates.some((c) => c.state === 'human-landed')) return 'already-landed'
+  return 'no-candidate'
 }
