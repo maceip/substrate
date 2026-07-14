@@ -27,7 +27,7 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { sealedBatches } from '../blocks/_kernel/evidence.ts'
-import { landValidatedProposal, recordValidatedProposal } from './crispr-lifecycle.ts'
+import { landValidatedProposal, pendingCandidate, recordValidatedProposal } from './crispr-lifecycle.ts'
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 const command = process.argv[2]
@@ -71,6 +71,10 @@ const queue = sealedBatches()
 const batch = queue[unit]?.[0]
 if (!batch) {
   console.error(`crispr: no sealed batch for "${unit}" — nothing justifies a rewrite`)
+  process.exit(1)
+}
+if (pendingCandidate(unit, batch[0].detail)) {
+  console.error(`crispr: sealed batch for "${unit}" already has a pending candidate; land or discard it before rerunning`)
   process.exit(1)
 }
 

@@ -60,8 +60,10 @@ export function recordValidatedProposal(unit: string, branch: string, commit: st
   return candidate
 }
 
-export function pendingCandidate(unit: string): CrisprCandidate | null {
-  return readStore().candidates.find((c) => c.unit === unit && c.state === 'candidate') ?? null
+export function pendingCandidate(unit: string, evidenceDetail?: string): CrisprCandidate | null {
+  return (
+    readStore().candidates.find((c) => c.unit === unit && c.state === 'candidate' && (!evidenceDetail || c.evidenceDetail === evidenceDetail)) ?? null
+  )
 }
 
 function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean {
@@ -73,15 +75,31 @@ function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean 
   }
 }
 
+function isEquivalentPatchOnMain(repoRoot: string, commit: string, mainRef: string): boolean {
+  try {
+    const out = execFileSync('git', ['cherry', mainRef, commit], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim()
+    return out.split('\n').some((line) => line === `- ${commit}`)
+  } catch {
+    return false
+  }
+}
+
+function isMergedToMain(repoRoot: string, commit: string, mainRef: string): boolean {
+  return isAncestor(repoRoot, commit, mainRef) || isEquivalentPatchOnMain(repoRoot, commit, mainRef)
+}
+
 export function landValidatedProposal(unit: string, repoRoot: string, mainRef = 'main'): 'landed' | 'already-landed' | 'not-reachable' | 'no-candidate' {
   const store = readStore()
-  const candidate = store.candidates.find((c) => c.unit === unit && (c.state === 'candidate' || c.state === 'human-landed'))
-  if (!candidate) return 'no-candidate'
-  if (candidate.state === 'human-landed') return 'already-landed'
-  if (!isAncestor(repoRoot, candidate.commit, mainRef)) return 'not-reachable'
+  const candidates = store.candidates.filter((c) => c.unit === unit)
+  const candidate = candidates.find((c) => c.state === 'candidate' && isMergedToMain(repoRoot, c.commit, mainRef))
+  if (!candidate) {
+    if (candidates.some((c) => c.state === 'candidate')) return 'not-reachable'
+    if (candidates.some((c) => c.state === 'human-landed')) return 'already-landed'
+    return 'no-candidate'
+  }
 
-  const batch = sealedBatches()[unit]?.[0]
-  if (batch) consumeBatch(unit)
+  const batch = sealedBatches()[unit]?.find((sealed) => sealed[0]?.detail === candidate.evidenceDetail)
+  if (batch) consumeBatch(unit, candidate.evidenceDetail)
   if (!candidate.lessonPublished) {
     deposit(unit, `crispr repair landed for failure class: ${candidate.evidenceDetail.slice(0, 160)} (branch ${candidate.branch})`, 'crispr')
   }
