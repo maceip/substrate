@@ -122,6 +122,15 @@ try {
   }
   assert.match(rerunStderr, /already has a pending candidate/, 'crispr rejects reruns for a sealed batch that already has a pending candidate')
 
+  const discardStdout = execFileSync('node', ['--experimental-strip-types', 'tools/crispr.ts', 'discard', rerunUnit], {
+    cwd: join(tmp, '..', '..', 'workspace'),
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: process.env,
+  }).toString()
+  assert.match(discardStdout, /discarded pending candidate/, 'crispr exposes a discard path for blocked sealed batches')
+  assert.equal(readFileSync(process.env.CRISPR_STORE!, 'utf8').includes('deadbeef'), false, 'discard removes the pending candidate from the store')
+  assert.equal(sealedBatches()[rerunUnit]?.length, 1, 'discard keeps the sealed evidence queued')
+
   console.log('crispr-lifecycle.test.ts: ok')
 } finally {
   rmSync(tmp, { recursive: true, force: true })

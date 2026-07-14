@@ -3,9 +3,10 @@
 // deployment behind explicit consent (arXiv:2605.22794: a CONVERGED candidate waits for
 // `moss evo apply`; ours waits for a human merge).
 //
-//   node tools/crispr.ts <unit>          run one rewrite cycle on the oldest sealed batch
-//   node tools/crispr.ts land <unit>     publish a merged candidate after it is reachable from main
-//   node tools/crispr.ts                 list the rewrite queue (sealed batches per unit)
+//   node tools/crispr.ts <unit>             run one rewrite cycle on the oldest sealed batch
+//   node tools/crispr.ts land <unit>        publish a merged candidate after it is reachable from main
+//   node tools/crispr.ts discard <unit>     clear the pending candidate for the current sealed batch
+//   node tools/crispr.ts                    list the rewrite queue (sealed batches per unit)
 //
 // The cycle (MOSS's stages, collapsed for v1):
 //   1. TARGET  — the oldest sealed evidence batch for <unit> (the guide RNA)
@@ -27,11 +28,11 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { sealedBatches } from '../blocks/_kernel/evidence.ts'
-import { landValidatedProposal, pendingCandidate, recordValidatedProposal } from './crispr-lifecycle.ts'
+import { discardPendingCandidate, landValidatedProposal, pendingCandidate, recordValidatedProposal } from './crispr-lifecycle.ts'
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 const command = process.argv[2]
-const unit = command === 'land' ? process.argv[3] : command
+const unit = command === 'land' || command === 'discard' ? process.argv[3] : command
 
 if (command === 'land') {
   if (!unit) {
@@ -52,6 +53,21 @@ if (command === 'land') {
     process.exit(1)
   }
   console.error(`crispr: no pending candidate for ${unit}`)
+  process.exit(1)
+}
+
+if (command === 'discard') {
+  if (!unit) {
+    console.error('crispr: usage: node tools/crispr.ts discard <unit>')
+    process.exit(1)
+  }
+  const evidenceDetail = sealedBatches()[unit]?.[0]?.[0]?.detail
+  const discarded = discardPendingCandidate(unit, evidenceDetail)
+  if (discarded) {
+    console.log(`crispr: discarded pending candidate for ${unit} (branch ${discarded.branch}); sealed evidence remains queued`)
+    process.exit(0)
+  }
+  console.error(`crispr: no pending candidate for ${unit}${evidenceDetail ? ' matches the oldest sealed batch' : ''}`)
   process.exit(1)
 }
 

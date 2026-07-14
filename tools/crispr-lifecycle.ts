@@ -66,6 +66,17 @@ export function pendingCandidate(unit: string, evidenceDetail?: string): CrisprC
   )
 }
 
+export function discardPendingCandidate(unit: string, evidenceDetail?: string): CrisprCandidate | null {
+  const store = readStore()
+  const index = store.candidates.findIndex(
+    (c) => c.unit === unit && c.state === 'candidate' && (!evidenceDetail || c.evidenceDetail === evidenceDetail),
+  )
+  if (index === -1) return null
+  const [candidate] = store.candidates.splice(index, 1)
+  writeStore(store)
+  return candidate
+}
+
 function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean {
   try {
     execFileSync('git', ['merge-base', '--is-ancestor', commit, mainRef], { cwd: repoRoot, stdio: 'ignore' })
