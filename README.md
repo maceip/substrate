@@ -1,29 +1,38 @@
 # substrate
 
-**Infrastructure that compounds.**
+**Research thesis: infrastructure that compounds. Current product outcome: failed adoption.**
 
 Most starter kits are frozen at the moment you clone them — every project begins at zero and
 learns nothing from the last one. substrate is a nursery of working capability **blocks**
 (persistence, transport, validation, cache, jobs, gates, ...) behind stable **ports**, wired
-to a loop that makes every project improve the system that built it:
+to a manually invoked prototype loop intended to make projects improve the system that built
+them:
 
-- **Lessons travel.** Anything learned in one project is deposited into a federated store and
-  is already there when the next project starts — across repos, automatically.
-- **Fixes propagate.** Blocks are repaired upstream once; every project inherits the repair
-  through the update channel.
+- **Lessons can travel.** Instrumented project code can deposit a lesson into the federated
+  store; a later project on the same store can recall it without hand-copying.
+- **Fixes can propagate.** After a human merges an upstream repair, an explicitly invoked
+  steward run can update compatible stamped projects.
 - **Guarantees can't rot.** Every block's promises are executable predicates under a ratchet:
   agents can tighten them freely, and can never loosen them without a human commit.
-- **Failures become repairs.** Real failures accumulate as evidence; enough evidence seals a
-  batch; a repair cycle runs in an isolated worktree, trial-gated, and queues a candidate for
-  human merge.
+- **Failures can become repairs.** Instrumented failures accumulate as evidence; enough
+  evidence seals a batch; an explicitly invoked repair cycle runs in an isolated worktree,
+  trial-gated, and queues a candidate for human merge.
+
+**Automation status:** no scheduler or autonomous heartbeat is installed. The full
+candidate-to-merge lifecycle and adopted-repo propagation are not correct yet. See
+[`LIFECYCLE.md`](LIFECYCLE.md) for the exact triggers, actors, binary status, and the
+requirements that must be met before this repository may claim to be self-updating.
 
 ## Quickstart
 
 ```sh
-# new project (greenfield): all blocks, armed protection, agent contract included
+# new project (greenfield): small runnable base, armed protection, agent contract included
 node blocks/create.ts ~/my-app my-app
 
-# keep every project current with the nursery (and harvest what they learned)
+# add capabilities when the app actually needs them
+node blocks/create.ts ~/my-service my-service --blocks persistence,input-validation,request-guard
+
+# inspect maintenance work; propagation is not safe for selective adopted repos yet
 node tools/steward.ts
 
 # the registry: 19 built blocks + 227 evidence-backed capability cards
@@ -52,9 +61,14 @@ request) is the intended entry — see `SESSION.md` items 23–23b for the desig
 
 ## Honest status
 
-This is a research system in its genesis era. 19 blocks are built, tested, and protected;
-227 catalog entries are evidence-backed cards, not code. The full loop (failure → evidence →
-repair → candidate → propagation) has completed exactly one real revolution. Independent
-review verdict: the ratcheted block scaffold is real today; the self-improvement machinery
-is correct-but-young. Agents working in this repo: read `AGENTS.md` first — the altitude
-rule is there because real tests showed it was needed.
+This is a research prototype with **failed adoption**. Its intended user created roughly
+twenty later repositories without choosing it; no real external repository formally adopted
+it; and the forced pattern-adoption experiment did not establish a reusable path into the
+next project. Marketing does not explain non-adoption by the tool's own creator.
+
+Nineteen blocks are built and their isolated tests pass; 227 catalog entries are cards, not
+code. That proves some primitives, not the product or the full evolution lifecycle. The only
+recorded CRISPR candidate was never merged into `main`, even though its evidence was consumed
+and a lesson called the repair "landed." No scheduler is installed, the committed repository
+and lifecycle stores went dormant after June 12, and adopted-repo propagation is not correct.
+The exact binary status is in [`LIFECYCLE.md`](LIFECYCLE.md).

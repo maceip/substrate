@@ -3,7 +3,7 @@
 //   node blocks/create.ts <target-dir> [project-name]
 //
 // What the new project gets:
-//   <target>/substrate/   ← the kernel + every block, copied verbatim (ports, adapters,
+//   <target>/substrate/   ← the kernel + selected blocks, copied verbatim (ports, adapters,
 //                           gates, tests — relative imports survive because siblings move
 //                           together). nursery-app and fot-proof stay behind; they are this
 //                           repo's reference composition and proof, not scaffolding.
@@ -56,11 +56,11 @@ const allBlocks = readdirSync(here, { withFileTypes: true })
   .filter((n) => !['nursery-app', 'fot-proof', 'agent-ops', 'node_modules'].includes(n))
   .sort()
 
-// The DEFAULT stamp is SMALL — a baby project does not get 19 blocks. The default is the bones
-// every real test project used (harvest: env, logging, transport). Add what you need with
-// --blocks (deps auto-resolve), or --all for the whole catalog. No "tier" taxonomy: the only
-// thing the friction asked for was a small default plus selection, so that is all this is.
-const DEFAULT_BLOCKS = ['env', 'logging', 'transport']
+// The DEFAULT stamp is SMALL — a baby project does not get 19 blocks. The base runtime is the
+// bones every real test project used (harvest: env, logging, transport). --blocks adds
+// capabilities to that base (deps auto-resolve), or --all stamps the whole catalog.
+const BASE_BLOCKS = ['env', 'logging', 'transport']
+const DEFAULT_BLOCKS = BASE_BLOCKS
 
 // buildsOn (composition deps) so a selection can never miss a block it imports.
 const catalog = JSON.parse(readFileSync(join(here, 'CATALOG.json'), 'utf8')) as { blocks: { name: string; buildsOn: string[] }[] }
@@ -82,7 +82,7 @@ if (wantsAll) {
   requested = allBlocks
   selection = 'all'
 } else if (blocksFlag) {
-  requested = blocksFlag.split(',').map((s) => s.trim()).filter(Boolean)
+  requested = [...BASE_BLOCKS, ...blocksFlag.split(',').map((s) => s.trim()).filter(Boolean)]
   const unknown = requested.filter((b) => !allBlocks.includes(b))
   if (unknown.length) {
     console.error(`unknown block(s): ${unknown.join(', ')}\navailable: ${allBlocks.join(', ')}`)
@@ -119,7 +119,8 @@ writeFileSync(
       description: `${name} — grown from the substrate nursery. App code imports each block's index.ts only.`,
       scripts: {
         start: 'node app/main.ts',
-        test: ['node substrate/_kernel/check-ports.ts', ...blocks.map((b) => `node substrate/${b}/block.test.ts`)].join(' && '),
+        smoke: 'node app/smoke.test.ts',
+        test: ['node substrate/_kernel/check-ports.ts', 'node app/smoke.test.ts', ...blocks.map((b) => `node substrate/${b}/block.test.ts`)].join(' && '),
         'insights:sync': 'node substrate/_kernel/sync-insights.ts',
         typecheck: 'tsc --noEmit',
       },
@@ -187,6 +188,45 @@ router.route('POST', '/items', async (req) => {
 writeFileSync(join(target, 'app/main.ts'), buildMainTs())
 
 writeFileSync(
+  join(target, 'app/smoke.test.ts'),
+  `// app/smoke.test.ts — generated app must actually start, not just pass block tests.
+
+import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
+const child = spawn(process.execPath, ['app/main.ts'], {
+  cwd: fileURLToPath(new URL('..', import.meta.url)),
+  env: { ...process.env, PORT: '0', PERSIST_ADAPTER: process.env.PERSIST_ADAPTER ?? 'memory' },
+  stdio: ['ignore', 'pipe', 'pipe'],
+})
+
+let out = ''
+let settled = false
+const finish = (code: number, msg: string) => {
+  if (settled) return
+  settled = true
+  clearTimeout(timer)
+  if (!child.killed) child.kill()
+  if (code !== 0) {
+    console.error(msg)
+    process.exit(code)
+  }
+}
+child.stdout.on('data', (d) => {
+  out += d.toString()
+  if (out.includes('listening')) finish(0, '')
+})
+child.stderr.on('data', (d) => {
+  out += d.toString()
+})
+child.on('exit', (code) => {
+  if (!settled) finish(1, \`app exited before listening (code \${code})\\n\${out}\`)
+})
+const timer = setTimeout(() => finish(1, \`app did not start within 5000ms\\n\${out}\`), 5000)
+`,
+)
+
+writeFileSync(
   join(target, 'README.md'),
   `# ${name}
 
@@ -199,10 +239,10 @@ npm test             # every block's invariants (gates, port invariance, AEvo pr
 npm run insights:sync # render federated FoT lessons into each block's insights.md
 \`\`\`
 
-No build step, no dependencies — Node 24 runs the TypeScript directly. Grades swap by env
-var (e.g. \`PERSIST_ADAPTER=memory|file|graduated\`); gates in each block's \`gates.ts\` tell
-you when a grade-up is required (\`checkGrade\`). Lessons deposited by other projects arrive
-through \`~/.substrate/fot-store.json\` automatically.
+No build step — Node 24 runs the TypeScript directly. Grades swap by env var (e.g.
+\`PERSIST_ADAPTER=memory|file|graduated\`); gates in each block's \`gates.ts\` tell you when a
+grade-up is required (\`checkGrade\`). Lessons deposited by other projects arrive through
+\`~/.substrate/fot-store.json\` automatically.
 `,
 )
 
