@@ -27,7 +27,7 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { batchTs, sealedBatches } from '../blocks/_kernel/evidence.ts'
 import { discardPendingCandidate, landValidatedProposal, pendingCandidate, recordValidatedProposal } from './crispr-lifecycle.ts'
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -65,10 +65,12 @@ if (command === 'discard') {
     console.error('crispr: usage: node tools/crispr.ts discard <unit>')
     process.exit(1)
   }
-  const evidenceDetail = sealedBatches()[unit]?.[0]?.[0]?.detail
-  const result = discardPendingCandidate(unit, ROOT, evidenceDetail)
+  const batch = sealedBatches()[unit]?.[0]
+  const evidenceDetail = batch?.[0]?.detail
+  const evidenceTs = batch ? batchTs(batch) : undefined
+  const result = discardPendingCandidate(unit, ROOT, evidenceDetail, evidenceTs)
   if (result.status === 'discarded') {
-    console.log(`crispr: discarded pending candidate for ${unit} (branch ${result.candidate.branch}); sealed evidence remains queued`)
+    console.log(`crispr: discarded pending candidate for ${unit} (branch ${result.candidate.branch}); sealed evidence remains queued when present`)
     process.exit(0)
   }
   if (result.status === 'already-reachable') {
@@ -97,7 +99,7 @@ if (!batch) {
   console.error(`crispr: no sealed batch for "${unit}" — nothing justifies a rewrite`)
   process.exit(1)
 }
-if (pendingCandidate(unit, batch[0].detail)) {
+if (pendingCandidate(unit, batch[0].detail, batchTs(batch))) {
   console.error(`crispr: sealed batch for "${unit}" already has a pending candidate; land or discard it before rerunning`)
   process.exit(1)
 }
@@ -171,7 +173,7 @@ try {
       wt('git', ['commit', '-m', `[auto-tighten] crispr(${unit}): repair from sealed evidence batch`])
     }
     const commit = wt('git', ['rev-parse', 'HEAD']).trim()
-    recordValidatedProposal(unit, branch, commit, batch[0].detail)
+    recordValidatedProposal(unit, branch, commit, batch[0].detail, batchTs(batch))
     git('worktree', 'remove', '--force', worktree)
     console.log(`\nVERDICT: VALIDATED PROPOSAL — candidate ready on branch ${branch}`)
     console.log(`  promotion is human-gated: review with  git diff main...${branch}  then merge into main.`)

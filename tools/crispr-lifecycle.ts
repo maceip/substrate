@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { homedir } from 'node:os'
-import { consumeBatch } from '../blocks/_kernel/evidence.ts'
+import { consumeBatch, hasSealedBatch } from '../blocks/_kernel/evidence.ts'
 import { deposit } from '../blocks/_kernel/fot.ts'
 
 const DEFAULT_STORE = join(homedir(), '.substrate', 'crispr-candidates.json')
@@ -14,6 +14,7 @@ export interface CrisprCandidate {
   branch: string
   commit: string
   evidenceDetail: string
+  evidenceTs?: string
   state: CandidateState
   createdAt: string
   landedAt?: string
@@ -43,15 +44,34 @@ function writeStore(store: CandidateStore): void {
   writeFileSync(p, JSON.stringify(store, null, 2))
 }
 
-export function recordValidatedProposal(unit: string, branch: string, commit: string, evidenceDetail: string): CrisprCandidate {
+function matchesEvidence(candidate: CrisprCandidate, evidenceDetail?: string, evidenceTs?: string): boolean {
+  if (evidenceTs) return candidate.evidenceTs === evidenceTs || (!candidate.evidenceTs && candidate.evidenceDetail === evidenceDetail)
+  if (evidenceDetail) return candidate.evidenceDetail === evidenceDetail
+  return true
+}
+
+export function recordValidatedProposal(
+  unit: string,
+  branch: string,
+  commit: string,
+  evidenceDetail: string,
+  evidenceTs?: string,
+): CrisprCandidate {
   const store = readStore()
   const existing = store.candidates.find((c) => c.unit === unit && c.commit === commit)
-  if (existing) return existing
+  if (existing) {
+    if (evidenceTs && !existing.evidenceTs) {
+      existing.evidenceTs = evidenceTs
+      writeStore(store)
+    }
+    return existing
+  }
   const candidate: CrisprCandidate = {
     unit,
     branch,
     commit,
     evidenceDetail,
+    evidenceTs,
     state: 'candidate',
     createdAt: new Date().toISOString(),
     lessonPublished: false,
@@ -61,24 +81,23 @@ export function recordValidatedProposal(unit: string, branch: string, commit: st
   return candidate
 }
 
-export function pendingCandidate(unit: string, evidenceDetail?: string): CrisprCandidate | null {
-  return (
-    readStore().candidates.find((c) => c.unit === unit && c.state === 'candidate' && (!evidenceDetail || c.evidenceDetail === evidenceDetail)) ?? null
-  )
+export function pendingCandidate(unit: string, evidenceDetail?: string, evidenceTs?: string): CrisprCandidate | null {
+  return readStore().candidates.find((c) => c.unit === unit && c.state === 'candidate' && matchesEvidence(c, evidenceDetail, evidenceTs)) ?? null
 }
 
 export function discardPendingCandidate(
   unit: string,
   repoRoot: string,
   evidenceDetail?: string,
+  evidenceTs?: string,
   mainRef = 'main',
 ): { status: 'discarded' | 'already-reachable'; candidate: CrisprCandidate } | { status: 'no-candidate' } {
   const store = readStore()
-  const candidate = store.candidates.find(
-    (c) => c.unit === unit && c.state === 'candidate' && (!evidenceDetail || c.evidenceDetail === evidenceDetail),
-  )
+  const candidate = store.candidates.find((c) => c.unit === unit && c.state === 'candidate' && matchesEvidence(c, evidenceDetail, evidenceTs))
   if (!candidate) return { status: 'no-candidate' }
-  if (isAncestor(repoRoot, candidate.commit, mainRef)) return { status: 'already-reachable', candidate }
+  if (isAncestor(repoRoot, candidate.commit, mainRef) && hasSealedBatch(unit, candidate.evidenceDetail, candidate.evidenceTs)) {
+    return { status: 'already-reachable', candidate }
+  }
   candidate.state = 'discarded'
   candidate.discardedAt = new Date().toISOString()
   writeStore(store)
@@ -110,7 +129,7 @@ export function landValidatedProposal(
     return 'no-candidate'
   }
 
-  const batch = consumeBatch(unit, candidate.evidenceDetail)
+  const batch = consumeBatch(unit, candidate.evidenceDetail, candidate.evidenceTs)
   if (!batch) return 'missing-evidence'
   if (!candidate.lessonPublished) {
     deposit(unit, `crispr repair landed for failure class: ${candidate.evidenceDetail.slice(0, 160)} (branch ${candidate.branch})`, 'crispr')

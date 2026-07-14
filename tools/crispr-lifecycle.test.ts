@@ -17,9 +17,14 @@ process.env.CRISPR_STORE = join(tmp, 'candidates.json')
 const git = (repo: string, args: string[]) => execFileSync('git', args, { cwd: repo, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim()
 let repoSeq = 0
 
-function seedEvidence(unit: string, prefix = 'failure'): string {
-  for (let i = 0; i < SEAL_AT; i++) recordEvidence(unit, 'test-red', `${prefix} ${i}`, 'crispr-lifecycle-test')
-  return `${prefix} 0`
+function seedEvidence(unit: string, prefix = 'failure', repeated = false): { detail: string; ts: string } {
+  for (let i = 0; i < SEAL_AT; i++) {
+    const detail = repeated ? prefix : `${prefix} ${i}`
+    recordEvidence(unit, 'test-red', detail, 'crispr-lifecycle-test')
+  }
+  const batch = sealedBatches()[unit]?.at(-1)
+  assert.ok(batch?.[0], `expected a sealed batch for ${unit}`)
+  return { detail: batch[0].detail, ts: batch[0].ts }
 }
 
 function makeRepo(): string {
@@ -44,10 +49,10 @@ function createCandidate(repo: string, branch: string, repair: string): string {
 
 try {
   const unit = 'test-unit'
-  const evidenceDetail = seedEvidence(unit, 'shared failure')
+  const evidence = seedEvidence(unit, 'shared failure')
   const repo = makeRepo()
   const candidateCommit = createCandidate(repo, 'crispr/test-unit', 'repair')
-  recordValidatedProposal(unit, 'crispr/test-unit', candidateCommit, evidenceDetail)
+  recordValidatedProposal(unit, 'crispr/test-unit', candidateCommit, evidence.detail, evidence.ts)
 
   assert.equal(landValidatedProposal(unit, repo), 'not-reachable', 'candidate cannot land before human merge')
   assert.equal(sealedBatches()[unit]?.length, 1, 'premature landing preserves evidence')
@@ -63,44 +68,89 @@ try {
   assert.equal(readFileSync(process.env.CRISPR_STORE!, 'utf8').includes('human-landed'), true, 'candidate records final state')
 
   const batchMatchUnit = 'test-unit-batch-match'
-  const olderDetail = seedEvidence(batchMatchUnit, 'older')
-  const newerDetail = seedEvidence(batchMatchUnit, 'newer')
+  const olderBatch = seedEvidence(batchMatchUnit, 'older')
+  const newerBatch = seedEvidence(batchMatchUnit, 'newer')
   const batchMatchRepo = makeRepo()
   const olderBatchCommit = createCandidate(batchMatchRepo, 'crispr/older-batch', 'older batch repair')
   const newerBatchCommit = createCandidate(batchMatchRepo, 'crispr/newer-batch', 'newer batch repair')
-  recordValidatedProposal(batchMatchUnit, 'crispr/older-batch', olderBatchCommit, olderDetail)
-  recordValidatedProposal(batchMatchUnit, 'crispr/newer-batch', newerBatchCommit, newerDetail)
+  recordValidatedProposal(batchMatchUnit, 'crispr/older-batch', olderBatchCommit, olderBatch.detail, olderBatch.ts)
+  recordValidatedProposal(batchMatchUnit, 'crispr/newer-batch', newerBatchCommit, newerBatch.detail, newerBatch.ts)
 
   git(batchMatchRepo, ['merge', '--ff-only', 'crispr/newer-batch'])
   assert.equal(landValidatedProposal(batchMatchUnit, batchMatchRepo), 'landed', 'landing consumes the sealed batch that matches the merged candidate')
   assert.deepEqual(
     sealedBatches()[batchMatchUnit]?.map((batch) => batch[0].detail),
-    [olderDetail],
+    [olderBatch.detail],
     'landing leaves unrelated sealed evidence queued',
   )
 
+  const duplicateDetailUnit = 'test-unit-duplicate-detail'
+  const olderDuplicateBatch = seedEvidence(duplicateDetailUnit, 'duplicate detail', true)
+  const newerDuplicateBatch = seedEvidence(duplicateDetailUnit, 'duplicate detail', true)
+  const duplicateDetailRepo = makeRepo()
+  const olderDuplicateCommit = createCandidate(duplicateDetailRepo, 'crispr/older-duplicate', 'older duplicate repair')
+  const newerDuplicateCommit = createCandidate(duplicateDetailRepo, 'crispr/newer-duplicate', 'newer duplicate repair')
+  recordValidatedProposal(
+    duplicateDetailUnit,
+    'crispr/older-duplicate',
+    olderDuplicateCommit,
+    olderDuplicateBatch.detail,
+    olderDuplicateBatch.ts,
+  )
+  recordValidatedProposal(
+    duplicateDetailUnit,
+    'crispr/newer-duplicate',
+    newerDuplicateCommit,
+    newerDuplicateBatch.detail,
+    newerDuplicateBatch.ts,
+  )
+
+  git(duplicateDetailRepo, ['merge', '--ff-only', 'crispr/newer-duplicate'])
+  assert.equal(
+    landValidatedProposal(duplicateDetailUnit, duplicateDetailRepo),
+    'landed',
+    'landing consumes the merged candidate batch even when several sealed batches share a detail string',
+  )
+  assert.deepEqual(
+    sealedBatches()[duplicateDetailUnit]?.map((batch) => batch[0].ts),
+    [olderDuplicateBatch.ts],
+    'landing keeps the older duplicate-detail batch queued',
+  )
+
   const reachableFallbackUnit = 'test-unit-reachable-fallback'
-  const reachableOlderDetail = seedEvidence(reachableFallbackUnit, 'reachable older')
-  const reachableNewerDetail = seedEvidence(reachableFallbackUnit, 'reachable newer')
+  const reachableOlderBatch = seedEvidence(reachableFallbackUnit, 'reachable older')
+  const reachableNewerBatch = seedEvidence(reachableFallbackUnit, 'reachable newer')
   const reachableFallbackRepo = makeRepo()
   const reachableOlderCommit = createCandidate(reachableFallbackRepo, 'crispr/reachable-older', 'reachable older repair')
   const reachableNewerCommit = createCandidate(reachableFallbackRepo, 'crispr/reachable-newer', 'reachable newer repair')
-  recordValidatedProposal(reachableFallbackUnit, 'crispr/reachable-older', reachableOlderCommit, reachableOlderDetail)
-  recordValidatedProposal(reachableFallbackUnit, 'crispr/reachable-newer', reachableNewerCommit, reachableNewerDetail)
+  recordValidatedProposal(
+    reachableFallbackUnit,
+    'crispr/reachable-older',
+    reachableOlderCommit,
+    reachableOlderBatch.detail,
+    reachableOlderBatch.ts,
+  )
+  recordValidatedProposal(
+    reachableFallbackUnit,
+    'crispr/reachable-newer',
+    reachableNewerCommit,
+    reachableNewerBatch.detail,
+    reachableNewerBatch.ts,
+  )
 
   git(reachableFallbackRepo, ['merge', '--ff-only', 'crispr/reachable-older'])
   assert.equal(landValidatedProposal(reachableFallbackUnit, reachableFallbackRepo), 'landed', 'landing falls back to an older merged candidate')
   assert.deepEqual(
     sealedBatches()[reachableFallbackUnit]?.map((batch) => batch[0].detail),
-    [reachableNewerDetail],
+    [reachableNewerBatch.detail],
     'landing skips unreachable newer candidates and consumes the matching older batch',
   )
 
   const squashUnit = 'test-unit-squash'
-  const squashDetail = seedEvidence(squashUnit, 'squash failure')
+  const squashBatch = seedEvidence(squashUnit, 'squash failure')
   const squashRepo = makeRepo()
   const squashCommit = createCandidate(squashRepo, 'crispr/squash', 'squash repair')
-  recordValidatedProposal(squashUnit, 'crispr/squash', squashCommit, squashDetail)
+  recordValidatedProposal(squashUnit, 'crispr/squash', squashCommit, squashBatch.detail, squashBatch.ts)
 
   git(squashRepo, ['merge', '--squash', 'crispr/squash'])
   git(squashRepo, ['commit', '-m', 'squash merge'])
@@ -108,12 +158,18 @@ try {
   assert.equal(sealedBatches()[squashUnit]?.length, 1, 'rejected squash landing preserves evidence')
 
   const missingEvidenceUnit = 'test-unit-missing-evidence'
-  const missingEvidenceDetail = seedEvidence(missingEvidenceUnit, 'missing evidence')
+  const missingEvidenceBatch = seedEvidence(missingEvidenceUnit, 'missing evidence')
   const missingEvidenceRepo = makeRepo()
   const missingEvidenceCommit = createCandidate(missingEvidenceRepo, 'crispr/missing-evidence', 'missing evidence repair')
-  recordValidatedProposal(missingEvidenceUnit, 'crispr/missing-evidence', missingEvidenceCommit, missingEvidenceDetail)
+  recordValidatedProposal(
+    missingEvidenceUnit,
+    'crispr/missing-evidence',
+    missingEvidenceCommit,
+    missingEvidenceBatch.detail,
+    missingEvidenceBatch.ts,
+  )
   git(missingEvidenceRepo, ['merge', '--ff-only', 'crispr/missing-evidence'])
-  assert.ok(consumeBatch(missingEvidenceUnit, missingEvidenceDetail), 'test removes the candidate evidence before landing')
+  assert.ok(consumeBatch(missingEvidenceUnit, missingEvidenceBatch.detail, missingEvidenceBatch.ts), 'test removes the candidate evidence before landing')
   assert.equal(landValidatedProposal(missingEvidenceUnit, missingEvidenceRepo), 'missing-evidence', 'landing fails closed when candidate evidence is absent')
   assert.equal(recall(missingEvidenceUnit).length, 0, 'missing evidence publishes no lesson')
   const missingEvidenceStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
@@ -124,23 +180,42 @@ try {
     'candidate',
     'missing evidence leaves the candidate pending',
   )
+  assert.equal(
+    discardPendingCandidate(missingEvidenceUnit, missingEvidenceRepo).status,
+    'discarded',
+    'discard recovers a reachable candidate whose sealed evidence is already gone',
+  )
+  const recoveredMissingEvidenceStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: { unit: string; state: string }[]
+  }
+  assert.equal(
+    recoveredMissingEvidenceStore.candidates.find((candidate) => candidate.unit === missingEvidenceUnit)?.state,
+    'discarded',
+    'recovery discard retires the blocked candidate',
+  )
 
   const mergedDiscardUnit = 'test-unit-merged-discard'
-  const mergedDiscardDetail = seedEvidence(mergedDiscardUnit, 'merged discard')
+  const mergedDiscardBatch = seedEvidence(mergedDiscardUnit, 'merged discard')
   const mergedDiscardRepo = makeRepo()
   const mergedDiscardCommit = createCandidate(mergedDiscardRepo, 'crispr/merged-discard', 'merged discard repair')
-  recordValidatedProposal(mergedDiscardUnit, 'crispr/merged-discard', mergedDiscardCommit, mergedDiscardDetail)
+  recordValidatedProposal(
+    mergedDiscardUnit,
+    'crispr/merged-discard',
+    mergedDiscardCommit,
+    mergedDiscardBatch.detail,
+    mergedDiscardBatch.ts,
+  )
   git(mergedDiscardRepo, ['merge', '--ff-only', 'crispr/merged-discard'])
   assert.equal(
-    discardPendingCandidate(mergedDiscardUnit, mergedDiscardRepo, mergedDiscardDetail).status,
+    discardPendingCandidate(mergedDiscardUnit, mergedDiscardRepo, mergedDiscardBatch.detail, mergedDiscardBatch.ts).status,
     'already-reachable',
     'discard refuses a candidate that has already reached main',
   )
   assert.equal(landValidatedProposal(mergedDiscardUnit, mergedDiscardRepo), 'landed', 'refused discard leaves the merged candidate landable')
 
   const rerunUnit = 'test-unit-rerun-guard'
-  const rerunDetail = seedEvidence(rerunUnit, 'rerun failure')
-  recordValidatedProposal(rerunUnit, 'crispr/rerun-guard', 'deadbeef', rerunDetail)
+  const rerunBatch = seedEvidence(rerunUnit, 'rerun failure')
+  recordValidatedProposal(rerunUnit, 'crispr/rerun-guard', 'deadbeef', rerunBatch.detail, rerunBatch.ts)
 
   let rerunStderr = ''
   try {
