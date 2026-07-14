@@ -34,8 +34,8 @@ the word "automatic" without one of the qualifiers below.
 | Notice due work | A person or agent runs `node tools/steward.ts`; it prints one recommended action. | `tools/steward.ts`, `blocks/_kernel/phi.ts` | **Callable, not scheduled.** |
 | Prepare a repair | A person or agent runs `node tools/crispr.ts <unit>`; it creates a worktree and invokes an external coding-agent CLI. | `tools/crispr.ts` | **Callable, not autonomous.** |
 | Validate a candidate | The invoked CRISPR run executes the block test suite and ratchet in the worktree. | `tools/crispr.ts`, `blocks/_kernel/protect.ts` | **Automatic inside that run; not independent validation.** |
-| Publish pending state | A green trial should remain pending until merge. Current code instead consumes the evidence batch and deposits a `crispr repair landed` lesson before the human merge. | `tools/crispr.ts` | **No: lifecycle truth is incorrect.** |
-| Approve and land | A human reviews and merges the candidate branch. Substrate does not detect or record that merge as a lifecycle transition. | Git plus printed instructions from `tools/crispr.ts` | **Manual and untracked.** |
+| Publish pending state | A green trial records the candidate commit and leaves its evidence and lesson pending. | `tools/crispr.ts`, `tools/crispr-lifecycle.ts` | **Automatic inside an invoked repair run.** |
+| Approve and land | A human reviews and merges the candidate without squash or rebase, then explicitly runs `node tools/crispr.ts land <unit>`. The command verifies ancestry before consuming evidence, publishing the lesson, and recording `human-landed`. This v1 path assumes one writer and one uniquely matched evidence batch. | Git, `tools/crispr.ts`, `tools/crispr-lifecycle.ts` | **Human-gated and tracked when explicitly invoked; merge detection is not automatic.** |
 | Propagate a landed repair | A person, cron, or agent runs `node tools/steward.ts`, which invokes `blocks/update.ts` for registered projects. No cron or service is installed. | `tools/steward.ts`, `blocks/update.ts` | **Callable, not scheduled.** |
 | Respect adoption boundaries | Updates should preserve selective adoption and ejection. Current `update.ts` requires the greenfield `app/` layout and copies every nursery block, so it does not correctly steward adopted or selective repositories. There is no ejection marker. | `blocks/adopt.ts`, `blocks/update.ts` | **No.** |
 | Consolidate lessons | A person or agent runs the consolidation CLI after the steward reports saturation. | `blocks/_kernel/consolidate-cli.ts` | **Callable, not scheduled.** |
@@ -47,7 +47,7 @@ the word "automatic" without one of the qualifiers below.
 |---|---|
 | Do the block tests, declarative contracts, evidence batch sealing, and FoT store work when invoked? | **Yes.** |
 | Can the current tools manually produce and test a candidate repair? | **Yes.** |
-| Is the promotion lifecycle truthful from candidate through human merge? | **No.** |
+| Is the supported single-writer promotion path truthful for one uniquely matched evidence batch and an ancestry-preserving merge? | **Yes.** |
 | Can the current updater correctly propagate only selected capabilities to adopted repos? | **No.** |
 | Is any steward/repair heartbeat installed and running unattended? | **No.** |
 | Is Substrate self-updating under the definition above? | **No.** |
@@ -114,7 +114,7 @@ Use these levels instead of the undifferentiated phrase "the mechanism works":
 
 1. **Primitives proven:** isolated data structures and predicates pass tests. **Current: yes.**
 2. **Callable loop proven:** an explicitly invoked run can produce and trial a candidate.
-   **Current: yes, once, with the promotion-boundary defect above.**
+   **Current: yes.**
 3. **Lifecycle-correct:** pending, merged, landed, propagated, and rolled back are distinct,
    truthful states. **Current: no.**
 4. **Unattended human-gated evolution:** an installed heartbeat advances every stage except

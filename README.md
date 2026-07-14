@@ -18,8 +18,9 @@ them:
   evidence seals a batch; an explicitly invoked repair cycle runs in an isolated worktree,
   trial-gated, and queues a candidate for human merge.
 
-**Automation status:** no scheduler or autonomous heartbeat is installed. The full
-candidate-to-merge lifecycle and adopted-repo propagation are not correct yet. See
+**Automation status:** no scheduler or autonomous heartbeat is installed. The supported
+candidate landing path is single-writer and requires an ancestry-preserving human merge plus
+an explicit landing command; adopted-repo propagation is not correct yet. See
 [`LIFECYCLE.md`](LIFECYCLE.md) for the exact triggers, actors, binary status, and the
 requirements that must be met before this repository may claim to be self-updating.
 
@@ -71,4 +72,6 @@ code. That proves some primitives, not the product or the full evolution lifecyc
 recorded CRISPR candidate was never merged into `main`, even though its evidence was consumed
 and a lesson called the repair "landed." No scheduler is installed, the committed repository
 and lifecycle stores went dormant after June 12, and adopted-repo propagation is not correct.
-The exact binary status is in [`LIFECYCLE.md`](LIFECYCLE.md).
+That historical false landing is the defect corrected by the explicit candidate/landing
+lifecycle; it is not evidence that the larger evolution loop works. The exact binary status
+is in [`LIFECYCLE.md`](LIFECYCLE.md).

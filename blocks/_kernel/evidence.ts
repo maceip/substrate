@@ -68,16 +68,34 @@ export function sealedBatches(): Record<string, EvidenceChunk[][]> {
   return read().sealed
 }
 
-// consumeBatch: a rewrite cycle took the oldest sealed batch for a unit (call after the
-// rewrite lands, so an aborted cycle leaves the evidence in the queue).
-export function consumeBatch(unit: string): EvidenceChunk[] | null {
+export function batchTs(batch: EvidenceChunk[]): string | undefined {
+  return batch[0]?.ts
+}
+
+function matchesBatch(batch: EvidenceChunk[], evidenceDetail?: string, evidenceTs?: string): boolean {
+  if (evidenceTs) return batchTs(batch) === evidenceTs
+  if (evidenceDetail) return batch[0]?.detail === evidenceDetail
+  return true
+}
+
+export function hasSealedBatch(unit: string, evidenceDetail?: string, evidenceTs?: string): boolean {
+  const batches = read().sealed[unit]
+  if (!batches?.length) return false
+  return batches.some((batch) => matchesBatch(batch, evidenceDetail, evidenceTs))
+}
+
+// consumeBatch: a rewrite cycle took a sealed batch for a unit (call after the rewrite
+// lands, so an aborted cycle leaves the evidence in the queue).
+export function consumeBatch(unit: string, evidenceDetail?: string, evidenceTs?: string): EvidenceChunk[] | null {
   const s = read()
   const batches = s.sealed[unit]
   if (!batches?.length) return null
-  const batch = batches.shift()!
+  const index = batches.findIndex((batch) => matchesBatch(batch, evidenceDetail, evidenceTs))
+  if (index < 0) return null
+  const [batch] = batches.splice(index, 1)
   if (!batches.length) delete s.sealed[unit]
   write(s)
-  return batch
+  return batch ?? null
 }
 
 export function evidenceCounts(): Record<string, { open: number; sealedBatches: number }> {

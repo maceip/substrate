@@ -3,8 +3,10 @@
 // deployment behind explicit consent (arXiv:2605.22794: a CONVERGED candidate waits for
 // `moss evo apply`; ours waits for a human merge).
 //
-//   node tools/crispr.ts <unit>          run one rewrite cycle on the oldest sealed batch
-//   node tools/crispr.ts                 list the rewrite queue (sealed batches per unit)
+//   node tools/crispr.ts <unit>             run one rewrite cycle on the oldest sealed batch
+//   node tools/crispr.ts land <unit>        publish a normally merged candidate after it is reachable from main
+//   node tools/crispr.ts discard <unit>     mark an unmerged candidate discarded; keep its evidence queued
+//   node tools/crispr.ts                    list the rewrite queue (sealed batches per unit)
 //
 // The cycle (MOSS's stages, collapsed for v1):
 //   1. TARGET  — the oldest sealed evidence batch for <unit> (the guide RNA)
@@ -15,8 +17,8 @@
 //   4. TRIAL   — the full suite runs in the worktree; the ratchet (protect.ts) runs inside
 //                it, so a candidate that loosens any gate is RED by construction
 //   5. VERDICT — CONVERGED (real diff + green) | NEED_MORE_WORK (no diff, or red)
-//                CONVERGED leaves the branch for the human to merge; the evidence batch is
-//                consumed only on CONVERGED (an aborted cycle keeps its evidence).
+//                CONVERGED records a pending candidate for human merge; the evidence batch is
+//                consumed only by the separate landing command after the commit reaches main.
 //
 // Germline note: a merged candidate propagates to every project on the next steward run via
 // the update channel. Somatic edits (app/ in projects) never pass through here.
@@ -25,10 +27,59 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { consumeBatch, sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { batchTs, sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { discardPendingCandidate, landValidatedProposal, pendingCandidate, recordValidatedProposal } from './crispr-lifecycle.ts'
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
-const unit = process.argv[2]
+const command = process.argv[2]
+const unit = command === 'land' || command === 'discard' ? process.argv[3] : command
+
+if (command === 'land') {
+  if (!unit) {
+    console.error('crispr: usage: node tools/crispr.ts land <unit>')
+    process.exit(1)
+  }
+  const result = landValidatedProposal(unit, ROOT)
+  if (result === 'landed') {
+    console.log(`crispr: human-landed — ${unit} candidate is reachable from main; evidence consumed and lesson published`)
+    process.exit(0)
+  }
+  if (result === 'already-landed') {
+    console.log(`crispr: human-landed already recorded for ${unit}; no evidence or lesson was changed`)
+    process.exit(0)
+  }
+  if (result === 'not-reachable') {
+    console.error(`crispr: candidate for ${unit} is not reachable from main; merge without squash or rebase before landing`)
+    process.exit(1)
+  }
+  if (result === 'missing-evidence') {
+    console.error(`crispr: candidate for ${unit} reached main, but its sealed evidence batch is missing; no lesson or landed state was published`)
+    process.exit(1)
+  }
+  console.error(`crispr: no pending candidate for ${unit}`)
+  process.exit(1)
+}
+
+if (command === 'discard') {
+  if (!unit) {
+    console.error('crispr: usage: node tools/crispr.ts discard <unit>')
+    process.exit(1)
+  }
+  const batch = sealedBatches()[unit]?.[0]
+  const evidenceDetail = batch?.[0]?.detail
+  const evidenceTs = batch ? batchTs(batch) : undefined
+  const result = discardPendingCandidate(unit, ROOT, evidenceDetail, evidenceTs)
+  if (result.status === 'discarded') {
+    console.log(`crispr: discarded pending candidate for ${unit} (branch ${result.candidate.branch}); sealed evidence remains queued when present`)
+    process.exit(0)
+  }
+  if (result.status === 'already-reachable') {
+    console.error(`crispr: candidate for ${unit} is already reachable from main; land it instead of discarding it`)
+    process.exit(1)
+  }
+  console.error(`crispr: no pending candidate for ${unit}${evidenceDetail ? ' matches the oldest sealed batch' : ''}`)
+  process.exit(1)
+}
 
 if (!unit) {
   const queue = sealedBatches()
@@ -46,6 +97,10 @@ const queue = sealedBatches()
 const batch = queue[unit]?.[0]
 if (!batch) {
   console.error(`crispr: no sealed batch for "${unit}" — nothing justifies a rewrite`)
+  process.exit(1)
+}
+if (pendingCandidate(unit, batch[0].detail, batchTs(batch))) {
+  console.error(`crispr: sealed batch for "${unit}" already has a pending candidate; land or discard it before rerunning`)
   process.exit(1)
 }
 
@@ -113,25 +168,30 @@ try {
 } finally {
   if (verdict === 'CONVERGED') {
     // commit any uncommitted agent work so the branch is complete
-    try {
+    if (wt('git', ['status', '--porcelain']).trim()) {
       wt('git', ['add', '-A'])
       wt('git', ['commit', '-m', `[auto-tighten] crispr(${unit}): repair from sealed evidence batch`])
-    } catch {
-      /* nothing uncommitted */
     }
-    consumeBatch(unit)
-    // Distill-at-solve (FoT, corrected): a completed repair IS a lesson — deposit it so every
-    // project inherits the fix's existence, not just its code.
+    const commit = wt('git', ['rev-parse', 'HEAD']).trim()
     try {
-      const { deposit } = await import('../blocks/_kernel/fot.ts')
-      deposit(unit, `crispr repair landed for failure class: ${batch[0].detail.slice(0, 160)} (branch ${branch})`, 'crispr')
-    } catch {
-      /* best-effort */
+      recordValidatedProposal(unit, branch, commit, batch[0].detail, batchTs(batch))
+    } catch (error) {
+      try {
+        git('worktree', 'remove', '--force', worktree)
+      } catch {
+        /* best-effort cleanup keeps the original store failure */
+      }
+      try {
+        git('branch', '-D', branch)
+      } catch {
+        /* branch may already be gone */
+      }
+      throw error
     }
     git('worktree', 'remove', '--force', worktree)
-    console.log(`\nVERDICT: CONVERGED — candidate ready on branch ${branch}`)
-    console.log(`  promotion is human-gated (MOSS): review with  git diff main...${branch}  then merge.`)
-    console.log(`  after merging, the steward propagates it to every project (germline).`)
+    console.log(`\nVERDICT: VALIDATED PROPOSAL — candidate ready on branch ${branch}`)
+    console.log(`  promotion is human-gated: review with  git diff main...${branch}  then merge into main.`)
+    console.log(`  after merging, run: node tools/crispr.ts land ${unit}  (publishes the lesson and consumes evidence exactly once).`)
   } else {
     // keep the worktree only if it holds work worth inspecting; otherwise clean up
     const dirty =
