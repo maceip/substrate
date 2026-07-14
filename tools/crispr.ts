@@ -4,8 +4,8 @@
 // `moss evo apply`; ours waits for a human merge).
 //
 //   node tools/crispr.ts <unit>             run one rewrite cycle on the oldest sealed batch
-//   node tools/crispr.ts land <unit>        publish a merged candidate after it is reachable from main
-//   node tools/crispr.ts discard <unit>     clear the pending candidate for the current sealed batch
+//   node tools/crispr.ts land <unit>        publish a normally merged candidate after it is reachable from main
+//   node tools/crispr.ts discard <unit>     mark an unmerged candidate discarded; keep its evidence queued
 //   node tools/crispr.ts                    list the rewrite queue (sealed batches per unit)
 //
 // The cycle (MOSS's stages, collapsed for v1):
@@ -49,7 +49,11 @@ if (command === 'land') {
     process.exit(0)
   }
   if (result === 'not-reachable') {
-    console.error(`crispr: candidate for ${unit} is not reachable from main; review and merge before landing`)
+    console.error(`crispr: candidate for ${unit} is not reachable from main; merge without squash or rebase before landing`)
+    process.exit(1)
+  }
+  if (result === 'missing-evidence') {
+    console.error(`crispr: candidate for ${unit} reached main, but its sealed evidence batch is missing; no lesson or landed state was published`)
     process.exit(1)
   }
   console.error(`crispr: no pending candidate for ${unit}`)
@@ -62,10 +66,14 @@ if (command === 'discard') {
     process.exit(1)
   }
   const evidenceDetail = sealedBatches()[unit]?.[0]?.[0]?.detail
-  const discarded = discardPendingCandidate(unit, evidenceDetail)
-  if (discarded) {
-    console.log(`crispr: discarded pending candidate for ${unit} (branch ${discarded.branch}); sealed evidence remains queued`)
+  const result = discardPendingCandidate(unit, ROOT, evidenceDetail)
+  if (result.status === 'discarded') {
+    console.log(`crispr: discarded pending candidate for ${unit} (branch ${result.candidate.branch}); sealed evidence remains queued`)
     process.exit(0)
+  }
+  if (result.status === 'already-reachable') {
+    console.error(`crispr: candidate for ${unit} is already reachable from main; land it instead of discarding it`)
+    process.exit(1)
   }
   console.error(`crispr: no pending candidate for ${unit}${evidenceDetail ? ' matches the oldest sealed batch' : ''}`)
   process.exit(1)
@@ -158,11 +166,9 @@ try {
 } finally {
   if (verdict === 'CONVERGED') {
     // commit any uncommitted agent work so the branch is complete
-    try {
+    if (wt('git', ['status', '--porcelain']).trim()) {
       wt('git', ['add', '-A'])
       wt('git', ['commit', '-m', `[auto-tighten] crispr(${unit}): repair from sealed evidence batch`])
-    } catch {
-      /* nothing uncommitted */
     }
     const commit = wt('git', ['rev-parse', 'HEAD']).trim()
     recordValidatedProposal(unit, branch, commit, batch[0].detail)

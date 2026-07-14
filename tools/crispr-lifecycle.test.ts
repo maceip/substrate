@@ -1,13 +1,15 @@
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { tmpdir } from 'node:os'
-import { SEAL_AT, recordEvidence, sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { fileURLToPath } from 'node:url'
+import { consumeBatch, SEAL_AT, recordEvidence, sealedBatches } from '../blocks/_kernel/evidence.ts'
 import { recall } from '../blocks/_kernel/fot.ts'
-import { landValidatedProposal, recordValidatedProposal } from './crispr-lifecycle.ts'
+import { discardPendingCandidate, landValidatedProposal, recordValidatedProposal } from './crispr-lifecycle.ts'
 
 const tmp = mkdtempSync(join(tmpdir(), 'crispr-lifecycle-'))
+const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 process.env.EVIDENCE_STORE = join(tmp, 'evidence.json')
 process.env.FOT_STORE = join(tmp, 'fot.json')
 process.env.CRISPR_STORE = join(tmp, 'candidates.json')
@@ -102,8 +104,39 @@ try {
 
   git(squashRepo, ['merge', '--squash', 'crispr/squash'])
   git(squashRepo, ['commit', '-m', 'squash merge'])
-  assert.equal(landValidatedProposal(squashUnit, squashRepo), 'landed', 'squash-merged candidates can land')
-  assert.equal(sealedBatches()[squashUnit], undefined, 'squash-merged landing still consumes evidence')
+  assert.equal(landValidatedProposal(squashUnit, squashRepo), 'not-reachable', 'squash merges are not treated as proof that the proposal landed intact')
+  assert.equal(sealedBatches()[squashUnit]?.length, 1, 'rejected squash landing preserves evidence')
+
+  const missingEvidenceUnit = 'test-unit-missing-evidence'
+  const missingEvidenceDetail = seedEvidence(missingEvidenceUnit, 'missing evidence')
+  const missingEvidenceRepo = makeRepo()
+  const missingEvidenceCommit = createCandidate(missingEvidenceRepo, 'crispr/missing-evidence', 'missing evidence repair')
+  recordValidatedProposal(missingEvidenceUnit, 'crispr/missing-evidence', missingEvidenceCommit, missingEvidenceDetail)
+  git(missingEvidenceRepo, ['merge', '--ff-only', 'crispr/missing-evidence'])
+  assert.ok(consumeBatch(missingEvidenceUnit, missingEvidenceDetail), 'test removes the candidate evidence before landing')
+  assert.equal(landValidatedProposal(missingEvidenceUnit, missingEvidenceRepo), 'missing-evidence', 'landing fails closed when candidate evidence is absent')
+  assert.equal(recall(missingEvidenceUnit).length, 0, 'missing evidence publishes no lesson')
+  const missingEvidenceStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: { unit: string; state: string }[]
+  }
+  assert.equal(
+    missingEvidenceStore.candidates.find((candidate) => candidate.unit === missingEvidenceUnit)?.state,
+    'candidate',
+    'missing evidence leaves the candidate pending',
+  )
+
+  const mergedDiscardUnit = 'test-unit-merged-discard'
+  const mergedDiscardDetail = seedEvidence(mergedDiscardUnit, 'merged discard')
+  const mergedDiscardRepo = makeRepo()
+  const mergedDiscardCommit = createCandidate(mergedDiscardRepo, 'crispr/merged-discard', 'merged discard repair')
+  recordValidatedProposal(mergedDiscardUnit, 'crispr/merged-discard', mergedDiscardCommit, mergedDiscardDetail)
+  git(mergedDiscardRepo, ['merge', '--ff-only', 'crispr/merged-discard'])
+  assert.equal(
+    discardPendingCandidate(mergedDiscardUnit, mergedDiscardRepo, mergedDiscardDetail).status,
+    'already-reachable',
+    'discard refuses a candidate that has already reached main',
+  )
+  assert.equal(landValidatedProposal(mergedDiscardUnit, mergedDiscardRepo), 'landed', 'refused discard leaves the merged candidate landable')
 
   const rerunUnit = 'test-unit-rerun-guard'
   const rerunDetail = seedEvidence(rerunUnit, 'rerun failure')
@@ -112,7 +145,7 @@ try {
   let rerunStderr = ''
   try {
     execFileSync('node', ['--experimental-strip-types', 'tools/crispr.ts', rerunUnit], {
-      cwd: join(tmp, '..', '..', 'workspace'),
+      cwd: ROOT,
       stdio: ['ignore', 'pipe', 'pipe'],
       env: process.env,
     })
@@ -123,12 +156,19 @@ try {
   assert.match(rerunStderr, /already has a pending candidate/, 'crispr rejects reruns for a sealed batch that already has a pending candidate')
 
   const discardStdout = execFileSync('node', ['--experimental-strip-types', 'tools/crispr.ts', 'discard', rerunUnit], {
-    cwd: join(tmp, '..', '..', 'workspace'),
+    cwd: ROOT,
     stdio: ['ignore', 'pipe', 'pipe'],
     env: process.env,
   }).toString()
   assert.match(discardStdout, /discarded pending candidate/, 'crispr exposes a discard path for blocked sealed batches')
-  assert.equal(readFileSync(process.env.CRISPR_STORE!, 'utf8').includes('deadbeef'), false, 'discard removes the pending candidate from the store')
+  const discardedStore = JSON.parse(readFileSync(process.env.CRISPR_STORE!, 'utf8')) as {
+    candidates: { commit: string; state: string }[]
+  }
+  assert.equal(
+    discardedStore.candidates.find((candidate) => candidate.commit === 'deadbeef')?.state,
+    'discarded',
+    'discard preserves the candidate audit record in an explicit terminal state',
+  )
   assert.equal(sealedBatches()[rerunUnit]?.length, 1, 'discard keeps the sealed evidence queued')
 
   console.log('crispr-lifecycle.test.ts: ok')

@@ -2,12 +2,12 @@ import { execFileSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { homedir } from 'node:os'
-import { consumeBatch, sealedBatches } from '../blocks/_kernel/evidence.ts'
+import { consumeBatch } from '../blocks/_kernel/evidence.ts'
 import { deposit } from '../blocks/_kernel/fot.ts'
 
 const DEFAULT_STORE = join(homedir(), '.substrate', 'crispr-candidates.json')
 
-type CandidateState = 'candidate' | 'human-landed'
+type CandidateState = 'candidate' | 'human-landed' | 'discarded'
 
 export interface CrisprCandidate {
   unit: string
@@ -17,6 +17,7 @@ export interface CrisprCandidate {
   state: CandidateState
   createdAt: string
   landedAt?: string
+  discardedAt?: string
   lessonPublished?: boolean
 }
 
@@ -66,15 +67,22 @@ export function pendingCandidate(unit: string, evidenceDetail?: string): CrisprC
   )
 }
 
-export function discardPendingCandidate(unit: string, evidenceDetail?: string): CrisprCandidate | null {
+export function discardPendingCandidate(
+  unit: string,
+  repoRoot: string,
+  evidenceDetail?: string,
+  mainRef = 'main',
+): { status: 'discarded' | 'already-reachable'; candidate: CrisprCandidate } | { status: 'no-candidate' } {
   const store = readStore()
-  const index = store.candidates.findIndex(
+  const candidate = store.candidates.find(
     (c) => c.unit === unit && c.state === 'candidate' && (!evidenceDetail || c.evidenceDetail === evidenceDetail),
   )
-  if (index === -1) return null
-  const [candidate] = store.candidates.splice(index, 1)
+  if (!candidate) return { status: 'no-candidate' }
+  if (isAncestor(repoRoot, candidate.commit, mainRef)) return { status: 'already-reachable', candidate }
+  candidate.state = 'discarded'
+  candidate.discardedAt = new Date().toISOString()
   writeStore(store)
-  return candidate
+  return { status: 'discarded', candidate }
 }
 
 function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean {
@@ -86,31 +94,24 @@ function isAncestor(repoRoot: string, commit: string, mainRef: string): boolean 
   }
 }
 
-function isEquivalentPatchOnMain(repoRoot: string, commit: string, mainRef: string): boolean {
-  try {
-    const out = execFileSync('git', ['cherry', mainRef, commit], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim()
-    return out.split('\n').some((line) => line === `- ${commit}`)
-  } catch {
-    return false
-  }
-}
-
-function isMergedToMain(repoRoot: string, commit: string, mainRef: string): boolean {
-  return isAncestor(repoRoot, commit, mainRef) || isEquivalentPatchOnMain(repoRoot, commit, mainRef)
-}
-
-export function landValidatedProposal(unit: string, repoRoot: string, mainRef = 'main'): 'landed' | 'already-landed' | 'not-reachable' | 'no-candidate' {
+export function landValidatedProposal(
+  unit: string,
+  repoRoot: string,
+  mainRef = 'main',
+): 'landed' | 'already-landed' | 'not-reachable' | 'missing-evidence' | 'no-candidate' {
   const store = readStore()
   const candidates = store.candidates.filter((c) => c.unit === unit)
-  const candidate = candidates.find((c) => c.state === 'candidate' && isMergedToMain(repoRoot, c.commit, mainRef))
+  // v1 supports only merges that preserve the validated commit. Patch-equivalence cannot
+  // prove that a multi-commit proposal landed intact, so squash and rebase merges stay out.
+  const candidate = candidates.find((c) => c.state === 'candidate' && isAncestor(repoRoot, c.commit, mainRef))
   if (!candidate) {
     if (candidates.some((c) => c.state === 'candidate')) return 'not-reachable'
     if (candidates.some((c) => c.state === 'human-landed')) return 'already-landed'
     return 'no-candidate'
   }
 
-  const batch = sealedBatches()[unit]?.find((sealed) => sealed[0]?.detail === candidate.evidenceDetail)
-  if (batch) consumeBatch(unit, candidate.evidenceDetail)
+  const batch = consumeBatch(unit, candidate.evidenceDetail)
+  if (!batch) return 'missing-evidence'
   if (!candidate.lessonPublished) {
     deposit(unit, `crispr repair landed for failure class: ${candidate.evidenceDetail.slice(0, 160)} (branch ${candidate.branch})`, 'crispr')
   }
